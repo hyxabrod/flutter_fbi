@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/src/binder_state.dart';
 import 'package:flutter_fbi/src/feature.dart';
+import 'package:flutter_fbi/src/feature_binder.dart';
 import 'package:flutter_fbi/src/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
-
-typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
 
 abstract interface class MultiBinder<S extends BinderState> {
   S uiStateTransformer(List<FeatureState> featureState);
