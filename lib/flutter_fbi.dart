@@ -1,3 +1,3 @@
 library flutter_fbi;
 
-export '';
+export 'src/feature.dart';
