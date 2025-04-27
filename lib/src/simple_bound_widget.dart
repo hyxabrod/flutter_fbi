@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fbi/src/feature_binder.dart';
+import 'package:flutter_fbi/flutter_fbi.dart';
 
-abstract class BoundWidget extends StatefulWidget {
-  final Binder binder;
-  const BoundWidget({Key? key, required this.binder});
+abstract class SimpleBoundWidget extends StatefulWidget {
+  final SimpleBinder binder;
+  const SimpleBoundWidget({Key? key, required this.binder});
+
   Widget builder(BuildContext context, covariant Binder binder);
 
   @override
@@ -11,7 +12,7 @@ abstract class BoundWidget extends StatefulWidget {
     return BoundWidgetState();
   }
 
-  Binder getBinder() => binder;
+  SimpleBinder getBinder() => binder;
 }
 
 class BoundWidgetState extends State<BoundWidget> {
