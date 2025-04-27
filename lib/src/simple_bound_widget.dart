@@ -9,13 +9,13 @@ abstract class SimpleBoundWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return BoundWidgetState();
+    return SimpleBoundWidgetState();
   }
 
   SimpleBinder getBinder() => binder;
 }
 
-class SimpleBoundWidgetState extends State<BoundWidget> {
+class SimpleBoundWidgetState extends State<SimpleBoundWidget> {
   SimpleBoundWidgetState();
 
   @override
