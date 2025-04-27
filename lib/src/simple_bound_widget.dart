@@ -15,8 +15,8 @@ abstract class SimpleBoundWidget extends StatefulWidget {
   SimpleBinder getBinder() => binder;
 }
 
-class BoundWidgetState extends State<BoundWidget> {
-  BoundWidgetState();
+class SimpleBoundWidgetState extends State<BoundWidget> {
+  SimpleBoundWidgetState();
 
   @override
   Widget build(BuildContext context) {

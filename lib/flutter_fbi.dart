@@ -7,3 +7,4 @@ export './src/multi_feature_binder.dart';
 export './src/bound_widget.dart';
 export './src/binder_state.dart';
 export './src/simple_binder.dart';
+export './src/simple_bound_widget.dart';
