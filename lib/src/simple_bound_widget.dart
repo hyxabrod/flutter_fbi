@@ -5,7 +5,7 @@ abstract class SimpleBoundWidget extends StatefulWidget {
   final SimpleBinder binder;
   const SimpleBoundWidget({Key? key, required this.binder});
 
-  Widget builder(BuildContext context, covariant Binder binder);
+  Widget builder(BuildContext context, covariant SimpleBinder binder);
 
   @override
   State<StatefulWidget> createState() {
