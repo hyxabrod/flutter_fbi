@@ -6,7 +6,7 @@ abstract class BoundWidget<B extends Binder> extends StatefulWidget implements I
   final B binder;
   const BoundWidget({Key? key, required this.binder});
 
-  Widget builder(BuildContext context, covariant B binder);
+  Widget builder(BuildContext context, B binder);
 
   @override
   State<StatefulWidget> createState() {
