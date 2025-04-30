@@ -1,17 +1,19 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fbi/src/feature_binder.dart';
+import 'package:flutter_fbi/src/binder/binder_interface.dart';
+import 'package:flutter_fbi/src/bound_widget/bound_interface.dart';
 
-abstract class BoundWidget extends StatefulWidget {
-  final Binder binder;
+abstract class BoundWidget<B extends Binder> extends StatefulWidget implements IBoundWidget<B> {
+  final B binder;
   const BoundWidget({Key? key, required this.binder});
-  Widget builder(BuildContext context, covariant Binder binder);
+
+  Widget builder(BuildContext context, covariant B binder);
 
   @override
   State<StatefulWidget> createState() {
     return BoundWidgetState();
   }
 
-  Binder getBinder() => binder;
+  B getBinder() => binder;
 }
 
 class BoundWidgetState extends State<BoundWidget> {

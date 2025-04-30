@@ -2,25 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fbi/src/binder_state.dart';
-import 'package:flutter_fbi/src/feature.dart';
-import 'package:flutter_fbi/src/feature_entities.dart';
+import 'package:flutter_fbi/src/binder/binder_interface.dart';
+import 'package:flutter_fbi/src/binder/binder_state.dart';
+import 'package:flutter_fbi/src/feature/feature.dart';
+import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/subjects.dart';
 
-typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(
-    BuildContext context, S state);
+typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
 
-/// Binder
-abstract class Binder<F extends FeatureState, S extends BinderState> {
-  S uiStateTransformer(F featureState);
-
-  Widget bindState(covariant BoundWidgetBuilder<S> builder);
-
-  void dispose();
-}
-
-abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState,
-    S extends BinderState> implements Binder<F, S> {
+abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState>
+    implements Binder<F, S> {
   final BuildContext context;
   final BaseFeature<E, F> feature;
   late BehaviorSubject<S> _uiStatePipe;
@@ -28,11 +19,9 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState,
 
   S get state => _uiStatePipe.value;
 
-  BaseFeatureBinder(
-      {required this.context, required this.feature, required S initialState}) {
+  BaseFeatureBinder({required this.context, required this.feature, required S initialState}) {
     _uiStatePipe = BehaviorSubject.seeded(initialState);
-    _featureStreamSubscription ??=
-        feature.stateStream.transform(stateTransformer()).listen((event) {
+    _featureStreamSubscription ??= feature.stateStream.transform(stateTransformer()).listen((event) {
       _uiStatePipe.add(event);
     });
   }
@@ -69,16 +58,12 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState,
   }
 }
 
-abstract class FeatureBinder<E extends UiEvent, F extends FeatureState,
-        S extends BinderState, SF extends SideEffect>
+abstract class FeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState, SF extends SideEffect>
     extends BaseFeatureBinder<E, F, S> implements Binder<F, S> {
   final Feature<E, F, SF> _binderFeature;
   StreamSubscription<SF>? _sideEffectSubscription;
 
-  FeatureBinder(
-      {required BuildContext context,
-      required Feature<E, F, SF> feature,
-      required S initialState})
+  FeatureBinder({required BuildContext context, required Feature<E, F, SF> feature, required S initialState})
       : _binderFeature = feature,
         super(
           context: context,

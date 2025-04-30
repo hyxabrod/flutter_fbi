@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/flutter_fbi.dart';
+import 'package:flutter_fbi/src/binder/binder_interface.dart';
 import 'package:rxdart/subjects.dart';
-
-/// Binder
-abstract interface class BasicBinder<S extends BinderState> {
-  Widget bindState(covariant BoundWidgetBuilder<S> builder);
-
-  void dispose();
-}
 
 abstract class SimpleBinder<S extends BinderState> implements BasicBinder<S> {
   final BuildContext context;

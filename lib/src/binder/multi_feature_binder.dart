@@ -2,19 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fbi/src/binder_state.dart';
-import 'package:flutter_fbi/src/feature.dart';
-import 'package:flutter_fbi/src/feature_binder.dart';
-import 'package:flutter_fbi/src/feature_entities.dart';
+import 'package:flutter_fbi/src/binder/binder_interface.dart';
+import 'package:flutter_fbi/src/binder/binder_state.dart';
+import 'package:flutter_fbi/src/feature/feature.dart';
+import 'package:flutter_fbi/src/binder/feature_binder.dart';
+import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
-
-abstract interface class MultiBinder<S extends BinderState> {
-  S uiStateTransformer(List<FeatureState> featureState);
-
-  Widget bindState(covariant BoundWidgetBuilder<S> builder);
-
-  void dispose();
-}
 
 abstract class BaseMultiFeatureBinder<S extends BinderState> implements MultiBinder<S> {
   final BuildContext context;

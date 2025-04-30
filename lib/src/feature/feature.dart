@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_fbi/src/feature_entities.dart';
+import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
 
 interface class IFeature {}
