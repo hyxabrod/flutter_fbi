@@ -18,7 +18,7 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
   StreamSubscription<S>? _featureStreamSubscription;
   final Widget? errorWidget;
   final Widget? emptyDataWidget;
-  final S Function()? preprocessor;
+  final S Function()? statePreprocessor;
 
   S get state => _uiStatePipe.value;
 
@@ -28,9 +28,9 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
     required S initialState,
     this.emptyDataWidget,
     this.errorWidget,
-    this.preprocessor,
+    this.statePreprocessor,
   }) {
-    _uiStatePipe = BehaviorSubject.seeded(preprocessor == null ? initialState : preprocessor!());
+    _uiStatePipe = BehaviorSubject.seeded(statePreprocessor == null ? initialState : statePreprocessor!());
     _featureStreamSubscription ??= feature.stateStream.transform(stateTransformer()).listen((event) {
       _uiStatePipe.add(event);
     });
@@ -75,12 +75,17 @@ abstract class FeatureBinder<E extends UiEvent, F extends FeatureState, S extend
   final Feature<E, F, SF> _binderFeature;
   StreamSubscription<SF>? _sideEffectSubscription;
 
-  FeatureBinder({required BuildContext context, required Feature<E, F, SF> feature, required S initialState})
-      : _binderFeature = feature,
+  FeatureBinder({
+    required BuildContext context,
+    required Feature<E, F, SF> feature,
+    required S initialState,
+    S Function()? statePreprocessor,
+  })  : _binderFeature = feature,
         super(
           context: context,
           feature: feature,
           initialState: initialState,
+          statePreprocessor: statePreprocessor,
         );
 
   FeatureBinder<E, F, S, SF> bindSideEffect(final void Function(SF) listener) {
