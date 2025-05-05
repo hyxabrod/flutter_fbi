@@ -16,11 +16,21 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
   final BaseFeature<E, F> feature;
   late BehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
+  final Widget? errorWidget;
+  final Widget? emptyDataWidget;
+  final S Function()? preprocessor;
 
   S get state => _uiStatePipe.value;
 
-  BaseFeatureBinder({required this.context, required this.feature, required S initialState}) {
-    _uiStatePipe = BehaviorSubject.seeded(initialState);
+  BaseFeatureBinder({
+    required this.context,
+    required this.feature,
+    required S initialState,
+    this.emptyDataWidget,
+    this.errorWidget,
+    this.preprocessor,
+  }) {
+    _uiStatePipe = BehaviorSubject.seeded(preprocessor == null ? initialState : preprocessor!());
     _featureStreamSubscription ??= feature.stateStream.transform(stateTransformer()).listen((event) {
       _uiStatePipe.add(event);
     });
@@ -31,10 +41,12 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
     return StreamBuilder<S>(
       stream: _uiStatePipe.stream.distinct(),
       builder: (context, snapshot) {
-        if (snapshot.data == null) {
-          return const SizedBox.shrink();
-        } else {
+        if (snapshot.hasData) {
           return builder(context, snapshot.data!);
+        } else if (snapshot.hasError) {
+          return errorWidget ?? const SizedBox.shrink();
+        } else {
+          return emptyDataWidget ?? const SizedBox.shrink();
         }
       },
     );
