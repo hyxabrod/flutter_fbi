@@ -18,19 +18,18 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
   StreamSubscription<S>? _featureStreamSubscription;
   final Widget? errorWidget;
   final Widget? emptyDataWidget;
-  final S Function()? statePreprocessor;
+  final S Function() statePreprocessor;
 
   S get state => _uiStatePipe.value;
 
   BaseFeatureBinder({
     required this.context,
     required this.feature,
-    required S initialState,
+    required this.statePreprocessor,
     this.emptyDataWidget,
     this.errorWidget,
-    this.statePreprocessor,
   }) {
-    _uiStatePipe = BehaviorSubject.seeded(statePreprocessor == null ? initialState : statePreprocessor!());
+    _uiStatePipe = BehaviorSubject.seeded(statePreprocessor());
     _featureStreamSubscription ??= feature.stateStream.transform(stateTransformer()).listen((event) {
       _uiStatePipe.add(event);
     });
@@ -78,13 +77,11 @@ abstract class FeatureBinder<E extends UiEvent, F extends FeatureState, S extend
   FeatureBinder({
     required BuildContext context,
     required Feature<E, F, SF> feature,
-    required S initialState,
-    S Function()? statePreprocessor,
+    required S Function() statePreprocessor,
   })  : _binderFeature = feature,
         super(
           context: context,
           feature: feature,
-          initialState: initialState,
           statePreprocessor: statePreprocessor,
         );
 

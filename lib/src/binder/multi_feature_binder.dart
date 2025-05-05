@@ -16,20 +16,19 @@ abstract class BaseMultiFeatureBinder<S extends BinderState> implements MultiBin
   StreamSubscription<S>? _featureStreamSubscription;
   final Widget? errorWidget;
   final Widget? emptyDataWidget;
-  final S Function()? statePreprocessor;
+  final S Function() statePreprocessor;
 
   S get state => _uiStatePipe.value;
 
   BaseMultiFeatureBinder({
     required this.context,
     required this.featureList,
-    required S initialState,
+    required this.statePreprocessor,
     this.emptyDataWidget,
     this.errorWidget,
-    this.statePreprocessor,
   }) {
     assert(featureList.isNotEmpty, 'Feature list cannot be empty');
-    _uiStatePipe = BehaviorSubject.seeded(statePreprocessor == null ? initialState : statePreprocessor!());
+    _uiStatePipe = BehaviorSubject.seeded(statePreprocessor());
 
     _featureStreamSubscription = Rx.combineLatest<FeatureState, S>(
       featureList.map((e) => e.stateStream),
@@ -74,16 +73,14 @@ abstract class MultiFeatureBinder<S extends BinderState> extends BaseMultiFeatur
   final List<Feature> _binderFeatures;
   StreamSubscription<SideEffect>? _sideEffectSubscription;
 
-  MultiFeatureBinder(
-      {required BuildContext context,
-      required List<Feature> features,
-      required S initialState,
-      S Function()? statePreprocessor})
-      : _binderFeatures = features,
+  MultiFeatureBinder({
+    required BuildContext context,
+    required List<Feature> features,
+    required S Function() statePreprocessor,
+  })  : _binderFeatures = features,
         super(
           context: context,
           featureList: features,
-          initialState: initialState,
           statePreprocessor: statePreprocessor,
         );
 
