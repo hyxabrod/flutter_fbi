@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/flutter_fbi.dart';
 
+
 /// Binder
-abstract interface class BasicBinder<S extends BinderState> {
+abstract class BasicBinder<S extends BinderState> {
   final BuildContext context;
   final S Function() statePreprocessor;
   final Widget? errorWidget;

@@ -4,15 +4,22 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi/src/binder/binder_interface.dart';
 import 'package:rxdart/subjects.dart';
 
-abstract class SimpleBinder<S extends BinderState> implements BasicBinder<S> {
-  final BuildContext context;
+class SimpleBinder<S extends BinderState> extends BasicBinder<S> {
   late BehaviorSubject<S> _uiStatePipe;
-
   S get state => _uiStatePipe.value;
 
-  SimpleBinder({required this.context, required S initialState}) {
-    _uiStatePipe = BehaviorSubject.seeded(initialState);
-  }
+  SimpleBinder({
+    required super.context,
+    required super.statePreprocessor,
+    Widget? errorWidget,
+    Widget? emptyDataWidget,
+  })  : _uiStatePipe = BehaviorSubject.seeded(
+          statePreprocessor(),
+        ),
+        super(
+          errorWidget: errorWidget,
+          emptyDataWidget: emptyDataWidget,
+        );
 
   @override
   Widget bindState(BoundWidgetBuilder<S> builder) {
@@ -24,10 +31,11 @@ abstract class SimpleBinder<S extends BinderState> implements BasicBinder<S> {
         } else {
           return builder(context, snapshot.data!);
         }
-      },
+      },     
     );
   }
 
+  @override
   void emitUiState(S state) {
     _uiStatePipe.add(state);
   }

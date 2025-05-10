@@ -75,8 +75,14 @@ abstract class FeatureBinder<E extends UiEvent, F extends FeatureState, S extend
     required super.context,
     required Feature<E, F, SF> feature,
     required super.statePreprocessor,
+    Widget? errorWidget,
+    Widget? emptyDataWidget,
   })  : _binderFeature = feature,
-        super(feature: feature);
+        super(
+          feature: feature,
+          errorWidget: errorWidget,
+          emptyDataWidget: emptyDataWidget,
+        );
 
   FeatureBinder<E, F, S, SF> bindSideEffect(final void Function(SF) listener) {
     _sideEffectSubscription ??= _binderFeature.sideEffect.listen((effect) {

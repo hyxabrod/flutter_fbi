@@ -74,8 +74,14 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
     required super.context,
     required List<Feature> features,
     required super.statePreprocessor,
+    Widget? errorWidget,
+    Widget? emptyDataWidget,
   })  : _binderFeatures = features,
-        super(featureList: features);
+        super(
+          featureList: features,
+          errorWidget: errorWidget,
+          emptyDataWidget: emptyDataWidget,
+        );
 
   MultiFeatureBinder<S> bindSideEffect(final void Function(SideEffect) listener) {
     _sideEffectSubscription ??= Rx.merge(_binderFeatures.map((e) => e.sideEffect)).listen(
