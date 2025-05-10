@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
 
-interface class IFeature {}
-
 /// Event/state feature
-abstract class BaseFeature<E extends UiEvent, S extends FeatureState> implements IFeature {
+abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
   final PublishSubject<E> _eventPipe = PublishSubject<E>();
 
   late BehaviorSubject<S> _statePipe;

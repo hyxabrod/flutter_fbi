@@ -11,23 +11,19 @@ import 'package:rxdart/subjects.dart';
 typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
 
 abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState>
-    implements Binder<F, S> {
-  final BuildContext context;
+    extends Binder<F, S> {
   final BaseFeature<E, F> feature;
   late BehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
-  final Widget? errorWidget;
-  final Widget? emptyDataWidget;
-  final S Function() statePreprocessor;
 
   S get state => _uiStatePipe.value;
 
   BaseFeatureBinder({
-    required this.context,
+    required super.context,
     required this.feature,
-    required this.statePreprocessor,
-    this.emptyDataWidget,
-    this.errorWidget,
+    required super.statePreprocessor,
+    super.emptyDataWidget,
+    super.errorWidget,
   }) {
     _uiStatePipe = BehaviorSubject.seeded(statePreprocessor());
     _featureStreamSubscription ??= feature.stateStream.transform(stateTransformer()).listen((event) {
@@ -51,6 +47,7 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
     );
   }
 
+  @override
   void emitUiState(S state) {
     _uiStatePipe.add(state);
   }
@@ -70,20 +67,16 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
 }
 
 abstract class FeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState, SF extends SideEffect>
-    extends BaseFeatureBinder<E, F, S> implements Binder<F, S> {
+    extends BaseFeatureBinder<E, F, S> {
   final Feature<E, F, SF> _binderFeature;
   StreamSubscription<SF>? _sideEffectSubscription;
 
   FeatureBinder({
-    required BuildContext context,
+    required super.context,
     required Feature<E, F, SF> feature,
-    required S Function() statePreprocessor,
+    required super.statePreprocessor,
   })  : _binderFeature = feature,
-        super(
-          context: context,
-          feature: feature,
-          statePreprocessor: statePreprocessor,
-        );
+        super(feature: feature);
 
   FeatureBinder<E, F, S, SF> bindSideEffect(final void Function(SF) listener) {
     _sideEffectSubscription ??= _binderFeature.sideEffect.listen((effect) {

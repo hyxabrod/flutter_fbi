@@ -9,23 +9,19 @@ import 'package:flutter_fbi/src/binder/feature_binder.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class BaseMultiFeatureBinder<S extends BinderState> implements MultiBinder<S> {
-  final BuildContext context;
+abstract class BaseMultiFeatureBinder<S extends BinderState> extends MultiBinder<S> {
   final List<BaseFeature> featureList;
   late BehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
-  final Widget? errorWidget;
-  final Widget? emptyDataWidget;
-  final S Function() statePreprocessor;
 
   S get state => _uiStatePipe.value;
 
   BaseMultiFeatureBinder({
-    required this.context,
+    required super.context,
     required this.featureList,
-    required this.statePreprocessor,
-    this.emptyDataWidget,
-    this.errorWidget,
+    required super.statePreprocessor,
+    super.emptyDataWidget,
+    super.errorWidget,
   }) {
     assert(featureList.isNotEmpty, 'Feature list cannot be empty');
     _uiStatePipe = BehaviorSubject.seeded(statePreprocessor());
@@ -54,7 +50,8 @@ abstract class BaseMultiFeatureBinder<S extends BinderState> implements MultiBin
     );
   }
 
-  void emitState(S state) {
+  @override
+  void emitUiState(S state) {
     _uiStatePipe.add(state);
   }
 
@@ -69,20 +66,16 @@ abstract class BaseMultiFeatureBinder<S extends BinderState> implements MultiBin
 }
 
 /// Binder
-abstract class MultiFeatureBinder<S extends BinderState> extends BaseMultiFeatureBinder<S> implements MultiBinder<S> {
+abstract class MultiFeatureBinder<S extends BinderState> extends BaseMultiFeatureBinder<S> {
   final List<Feature> _binderFeatures;
   StreamSubscription<SideEffect>? _sideEffectSubscription;
 
   MultiFeatureBinder({
-    required BuildContext context,
+    required super.context,
     required List<Feature> features,
-    required S Function() statePreprocessor,
+    required super.statePreprocessor,
   })  : _binderFeatures = features,
-        super(
-          context: context,
-          featureList: features,
-          statePreprocessor: statePreprocessor,
-        );
+        super(featureList: features);
 
   MultiFeatureBinder<S> bindSideEffect(final void Function(SideEffect) listener) {
     _sideEffectSubscription ??= Rx.merge(_binderFeatures.map((e) => e.sideEffect)).listen(
