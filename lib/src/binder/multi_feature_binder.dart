@@ -9,14 +9,14 @@ import 'package:flutter_fbi/src/binder/feature_binder.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class BaseMultiFeatureBinder<S extends BinderState> extends MultiBinder<S> {
+abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinder<S> {
   final List<BaseFeature> featureList;
   late BehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
 
   S get state => _uiStatePipe.value;
 
-  BaseMultiFeatureBinder({
+  _BaseMultiFeatureBinder({
     required super.context,
     required this.featureList,
     required super.statePreprocessor,
@@ -66,7 +66,7 @@ abstract class BaseMultiFeatureBinder<S extends BinderState> extends MultiBinder
 }
 
 /// Binder
-abstract class MultiFeatureBinder<S extends BinderState> extends BaseMultiFeatureBinder<S> {
+abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatureBinder<S> {
   final List<Feature> _binderFeatures;
   StreamSubscription<SideEffect>? _sideEffectSubscription;
 

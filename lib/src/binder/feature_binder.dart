@@ -10,7 +10,7 @@ import 'package:rxdart/subjects.dart';
 
 typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
 
-abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState>
+abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState>
     extends Binder<F, S> {
   final BaseFeature<E, F> feature;
   late BehaviorSubject<S> _uiStatePipe;
@@ -18,7 +18,7 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
 
   S get state => _uiStatePipe.value;
 
-  BaseFeatureBinder({
+  _BaseFeatureBinder({
     required super.context,
     required this.feature,
     required super.statePreprocessor,
@@ -67,7 +67,7 @@ abstract class BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S ex
 }
 
 abstract class FeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState, SF extends SideEffect>
-    extends BaseFeatureBinder<E, F, S> {
+    extends _BaseFeatureBinder<E, F, S> {
   final Feature<E, F, SF> _binderFeature;
   StreamSubscription<SF>? _sideEffectSubscription;
 
