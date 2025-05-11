@@ -1,17 +1,22 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/flutter_fbi.dart';
 
-
 /// Binder
 abstract class BasicBinder<S extends BinderState> {
   final BuildContext context;
-  final S Function() statePreprocessor;
+  final S Function() uiStatePreprocessor;
   final Widget? errorWidget;
   final Widget? emptyDataWidget;
 
   BasicBinder({
     required this.context,
-    required this.statePreprocessor,
+
+    /// Function that preprocesses the state before applying updates.
+    ///
+    /// This function allows transforming or validating the state before
+    /// it gets updated in the binder. It takes the current state and returns
+    /// a processed version of that state.
+    required this.uiStatePreprocessor,
     this.errorWidget,
     this.emptyDataWidget,
   });
@@ -24,7 +29,7 @@ abstract class BasicBinder<S extends BinderState> {
 abstract class Binder<F extends FeatureState, S extends BinderState> extends BasicBinder<S> {
   Binder({
     required super.context,
-    required super.statePreprocessor,
+    required super.uiStatePreprocessor,
     super.errorWidget,
     super.emptyDataWidget,
   });
@@ -35,7 +40,7 @@ abstract class Binder<F extends FeatureState, S extends BinderState> extends Bas
 abstract class MultiBinder<S extends BinderState> extends BasicBinder<S> {
   MultiBinder({
     required super.context,
-    required super.statePreprocessor,
+    required super.uiStatePreprocessor,
     super.errorWidget,
     super.emptyDataWidget,
   });

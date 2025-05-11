@@ -4,17 +4,28 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi/src/binder/binder_interface.dart';
 import 'package:rxdart/subjects.dart';
 
+/// A basic implementation of a Binder that follows a simple binding pattern.
+///
+/// Unlike [FeatureBinder] and [MultiFeatureBinder] which require feature classes
+/// for state management, the [SimpleBinder] operates independently and provides
+/// a straightforward way to manage UI state without feature dependencies.
+///
+/// This binder is ideal for simple scenarios where feature-based architecture
+/// would be overengineering, such as form state management or local UI states.
+///
+/// Type Parameters:
+/// * [S] - The type of state this binder manages, must extend [BinderState]
 class SimpleBinder<S extends BinderState> extends BasicBinder<S> {
   late BehaviorSubject<S> _uiStatePipe;
   S get state => _uiStatePipe.value;
 
   SimpleBinder({
     required super.context,
-    required super.statePreprocessor,
+    required super.uiStatePreprocessor,
     Widget? errorWidget,
     Widget? emptyDataWidget,
   })  : _uiStatePipe = BehaviorSubject.seeded(
-          statePreprocessor(),
+          uiStatePreprocessor(),
         ),
         super(
           errorWidget: errorWidget,
@@ -31,7 +42,7 @@ class SimpleBinder<S extends BinderState> extends BasicBinder<S> {
         } else {
           return builder(context, snapshot.data!);
         }
-      },     
+      },
     );
   }
 

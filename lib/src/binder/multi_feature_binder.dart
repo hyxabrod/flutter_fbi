@@ -9,29 +9,44 @@ import 'package:flutter_fbi/src/binder/feature_binder.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
 
+/// Base class for multi-feature binders.
 abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinder<S> {
   final List<BaseFeature> featureList;
   late BehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
-
   S get state => _uiStatePipe.value;
 
   _BaseMultiFeatureBinder({
     required super.context,
     required this.featureList,
-    required super.statePreprocessor,
+    required super.uiStatePreprocessor,
     super.emptyDataWidget,
     super.errorWidget,
+
+    /// Whether to wait for all features to be ready before proceeding.
+    /// Defaults to `false`.
+    bool shouldWaitForAllFeatures = false,
   }) {
     assert(featureList.isNotEmpty, 'Feature list cannot be empty');
-    _uiStatePipe = BehaviorSubject.seeded(statePreprocessor());
+    _uiStatePipe = BehaviorSubject.seeded(uiStatePreprocessor());
 
-    _featureStreamSubscription = Rx.combineLatest<FeatureState, S>(
+    final instantUpdate = Rx.merge(featureList
+            .map(
+              (feature) => feature.stateStream,
+            )
+            .toList())
+        .map<S>((state) => uiStateTransformer([state]));
+
+    final combinedUpdate = Rx.combineLatest<FeatureState, S>(
       featureList.map((e) => e.stateStream),
       (featureStates) => uiStateTransformer(
         featureStates,
       ),
-    ).listen((binderState) => _uiStatePipe.add(binderState));
+    );
+
+    _featureStreamSubscription = (shouldWaitForAllFeatures ? combinedUpdate : instantUpdate).listen(
+      (binderState) => _uiStatePipe.add(binderState),
+    );
   }
 
   @override
@@ -65,7 +80,9 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
   }
 }
 
-/// Binder
+/// An abstract class for binding multiple features with a shared state.
+///
+/// Type `S` represents the type of the binder's state.
 abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatureBinder<S> {
   final List<Feature> _binderFeatures;
   StreamSubscription<SideEffect>? _sideEffectSubscription;
@@ -73,7 +90,13 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
   MultiFeatureBinder({
     required super.context,
     required List<Feature> features,
-    required super.statePreprocessor,
+
+    /// Function that preprocesses the state before applying updates.
+    ///
+    /// This function allows transforming or validating the state before
+    /// it gets updated in the binder. It takes the current state and returns
+    /// a processed version of that state.
+    required super.uiStatePreprocessor,
     Widget? errorWidget,
     Widget? emptyDataWidget,
   })  : _binderFeatures = features,
@@ -83,6 +106,10 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
           emptyDataWidget: emptyDataWidget,
         );
 
+  /// Binds a listener function to be called when a [SideEffect] is emitted.
+  ///
+  /// The [listener] function will receive the [SideEffect] as an argument.
+  /// Returns this [MultiFeatureBinder] instance for chaining.
   MultiFeatureBinder<S> bindSideEffect(final void Function(SideEffect) listener) {
     _sideEffectSubscription ??= Rx.merge(_binderFeatures.map((e) => e.sideEffect)).listen(
       (effect) {
