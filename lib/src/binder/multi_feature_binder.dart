@@ -24,8 +24,8 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
     super.errorWidget,
 
     /// Whether to wait for all features to be ready before proceeding.
-    /// Defaults to `false`.
-    bool shouldWaitForAllFeatures = false,
+    /// Defaults to `true`.
+    bool shouldWaitForAllFeatures = true,
   }) {
     assert(featureList.isNotEmpty, 'Feature list cannot be empty');
     _uiStatePipe = BehaviorSubject.seeded(uiStatePreprocessor());
@@ -97,11 +97,13 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
     /// it gets updated in the binder. It takes the current state and returns
     /// a processed version of that state.
     required super.uiStatePreprocessor,
+    bool shouldWaitForAllFeatures = true,
     Widget? errorWidget,
     Widget? emptyDataWidget,
   })  : _binderFeatures = features,
         super(
           featureList: features,
+          shouldWaitForAllFeatures: shouldWaitForAllFeatures,
           errorWidget: errorWidget,
           emptyDataWidget: emptyDataWidget,
         );
