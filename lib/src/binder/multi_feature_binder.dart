@@ -121,6 +121,15 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
     return this;
   }
 
+  F getFeature<F extends Feature>() {
+    for (var feature in _binderFeatures) {
+      if (feature is F) {
+        return feature;
+      }
+    }
+    throw Exception('Feature of type $F not found in binder');
+  }
+
   @override
   void dispose() {
     _sideEffectSubscription?.cancel();
