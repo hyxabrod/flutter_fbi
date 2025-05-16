@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/src/binder/binder_interface.dart';
+import 'package:flutter_fbi/src/bound_widget/bound_context_extention.dart';
 import 'package:flutter_fbi/src/bound_widget/bound_interface.dart';
 
 abstract class SimpleBoundWidget<B extends BasicBinder> extends StatefulWidget implements IBoundWidget<B> {
@@ -10,18 +11,21 @@ abstract class SimpleBoundWidget<B extends BasicBinder> extends StatefulWidget i
 
   @override
   State<StatefulWidget> createState() {
-    return SimpleBoundWidgetState();
+    return _SimpleBoundWidgetState<B>();
   }
 
   B getBinder() => binder;
 }
 
-class SimpleBoundWidgetState extends State<SimpleBoundWidget> {
-  SimpleBoundWidgetState();
+class _SimpleBoundWidgetState<B extends BasicBinder> extends State<SimpleBoundWidget> {
+  _SimpleBoundWidgetState();
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, widget.binder);
+    return BinderProvider<B>(
+      binder: widget.binder as B,
+      child: widget.builder(context, widget.binder),
+    );
   }
 
   @override
