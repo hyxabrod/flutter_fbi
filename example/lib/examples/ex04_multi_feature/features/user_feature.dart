@@ -47,6 +47,6 @@ class UserFeature extends Feature<UserEvent, UserState, UserSideEffect> {
       name: name,
     ));
 
-    emitSifeEffect(UserUpdatedEffect('Name updated successfully'));
+    emitSideEffect(UserUpdatedEffect('Name updated successfully'));
   }
 }

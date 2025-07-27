@@ -26,7 +26,7 @@ class AuthFeature extends Feature<AuthEvent, AuthState, AuthSideEffect> {
         isLoading: false,
         error: 'Username and password cannot be empty',
       ));
-      emitSifeEffect(ShowToastEffect('Login failed'));
+      emitSideEffect(ShowToastEffect('Login failed'));
       return;
     }
 
@@ -38,20 +38,20 @@ class AuthFeature extends Feature<AuthEvent, AuthState, AuthSideEffect> {
         username: username,
         error: null,
       ));
-      emitSifeEffect(ShowToastEffect('Welcome, $username!'));
-      emitSifeEffect(NavigateToHomeEffect());
+      emitSideEffect(ShowToastEffect('Welcome, $username!'));
+      emitSideEffect(NavigateToHomeEffect());
     } else {
       emitState(state.copyWith(
         isLoading: false,
         error: 'Invalid credentials',
       ));
-      emitSifeEffect(ShowToastEffect('Invalid username or password'));
+      emitSideEffect(ShowToastEffect('Invalid username or password'));
     }
   }
 
   void _logout() {
     emitState(AuthState());
-    emitSifeEffect(ShowToastEffect('Logged out successfully'));
-    emitSifeEffect(NavigateToLoginEffect());
+    emitSideEffect(ShowToastEffect('Logged out successfully'));
+    emitSideEffect(NavigateToLoginEffect());
   }
 }

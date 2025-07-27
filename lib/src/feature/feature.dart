@@ -52,7 +52,25 @@ abstract class Feature<E extends UiEvent, S extends FeatureState, F extends Side
     sideEffect = BehaviorSubject();
   }
 
-  void emitSifeEffect(covariant F state) {
+  void emitSideEffect(covariant F state) {
+    sideEffect.add(state);
+  }
+
+  @override
+  void dispose() {
+    sideEffect.close();
+    super.dispose();
+  }
+}
+
+abstract class NoStateFeature<E extends UiEvent, F extends SideEffect> extends BaseFeature<UiEvent, EmptyFeatureState> {
+  late BehaviorSubject<F> sideEffect;
+
+  NoStateFeature() : super(initialState: EmptyFeatureState()) {
+    sideEffect = BehaviorSubject();
+  }
+
+  void emitSideEffect(covariant F state) {
     sideEffect.add(state);
   }
 

@@ -35,7 +35,7 @@ class SettingsFeature extends Feature<SettingsEvent, SettingsState, SettingsSide
       darkMode: !state.darkMode,
     ));
 
-    emitSifeEffect(SettingsUpdatedEffect(
+    emitSideEffect(SettingsUpdatedEffect(
       'Dark mode ${state.darkMode ? 'enabled' : 'disabled'}',
     ));
   }
@@ -45,7 +45,7 @@ class SettingsFeature extends Feature<SettingsEvent, SettingsState, SettingsSide
       notificationsEnabled: !state.notificationsEnabled,
     ));
 
-    emitSifeEffect(SettingsUpdatedEffect(
+    emitSideEffect(SettingsUpdatedEffect(
       'Notifications ${state.notificationsEnabled ? 'enabled' : 'disabled'}',
     ));
   }

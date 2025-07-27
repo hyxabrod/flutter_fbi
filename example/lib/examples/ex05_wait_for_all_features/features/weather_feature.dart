@@ -54,7 +54,7 @@ class WeatherFeature extends Feature<WeatherEvent, WeatherState, WeatherSideEffe
         isLoading: false,
         error: errorMsg,
       ));
-      emitSifeEffect(WeatherErrorEffect(errorMsg));
+      emitSideEffect(WeatherErrorEffect(errorMsg));
     }
   }
 }

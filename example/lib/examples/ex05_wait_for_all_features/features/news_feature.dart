@@ -49,7 +49,7 @@ class NewsFeature extends Feature<NewsEvent, NewsState, NewsSideEffect> {
         isLoading: false,
         error: errorMsg,
       ));
-      emitSifeEffect(NewsErrorEffect(errorMsg));
+      emitSideEffect(NewsErrorEffect(errorMsg));
     }
   }
 }
