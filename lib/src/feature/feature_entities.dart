@@ -2,9 +2,13 @@ import 'package:equatable/equatable.dart';
 
 interface class FeatureEntity {}
 
-abstract class FeatureState extends Equatable implements FeatureEntity {}
+abstract class FeatureState extends Equatable implements FeatureEntity {
+  const FeatureState();
+}
 
 class EmptyFeatureState extends FeatureState {
+  const EmptyFeatureState();
+
   @override
   List<Object?> get props => [];
 }
