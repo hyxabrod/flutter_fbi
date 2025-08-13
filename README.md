@@ -23,10 +23,11 @@ dependencies:
 
 ### Feature Layer
 
-Features manage the business logic and state of your application.
+Features manage the business logic and state of your application using queue-based event processing for guaranteed ordering.
 
-- **BaseFeature**: Process events and emit states
+- **BaseFeature**: Process events sequentially and emit states
 - **Feature**: Extends BaseFeature to also handle side effects (one-time events)
+- **Event Processing**: Queue-based sequential processing with optional concurrent dispatch
 
 ```dart
 // Define events, state, and side effects
@@ -52,6 +53,12 @@ class CounterFeature extends BaseFeature<CounterEvent, CounterState> {
       emitState(CounterState(count: state.count + 1));
     }
   }
+  
+  // Add events to be processed sequentially (default)
+  void increment() => add(IncrementEvent());
+  
+  // Or add events concurrently (bypasses queue)
+  void fastIncrement() => add(IncrementEvent(), sync: false);
 }
 ```
 
@@ -144,15 +151,41 @@ Check out the [example](example) directory for complete examples:
 2. **Feature Binder Example** - Single feature with state management
 3. **Side Effects Example** - Feature with side effects like navigation
 4. **Multi-Feature Example** - Combining multiple features in one UI
-5. **Wait For All Features Example** - Using shouldNotWaitForAllFeatures = false in MultiFeatureBinder (UI waits for all features before updating)
+5. **Wait For All Features Example** - Using shouldWaitForAllFeatures = true in MultiFeatureBinder (UI waits for all features before updating)
+6. **Concurrent Events Example** - Demonstrates sequential vs concurrent event processing with sync parameter
+
+## Testing
+
+Flutter FBI includes testing utilities similar to bloc_test for easy Feature testing:
+
+```dart
+import 'package:flutter_fbi/flutter_fbi.dart';
+
+void main() {
+  featureTest<CounterEvent, CounterState, SideEffect>(
+    'counter increments correctly',
+    build: () => CounterFeature(),
+    act: (feature) async {
+      feature.add(IncrementEvent());
+      feature.add(IncrementEvent());
+    },
+    expect: () => [
+      CounterState(count: 1),
+      CounterState(count: 2),
+    ],
+  );
+}
+```
 
 ## Why Flutter FBI?
 
 - **Clean Separation of Concerns**: Each layer has a distinct responsibility
-- **Testable Architecture**: Easy to test business logic in isolation
+- **Testable Architecture**: Easy to test business logic in isolation with provided testing utilities
 - **Reactive by Design**: Built on RxDart for reactive programming
 - **Lifecycle Management**: Automatically handles disposal of resources
 - **Side Effect Handling**: Clean way to handle one-time events like navigation
+- **Event Processing**: Queue-based sequential processing with optional concurrent dispatch for performance
+- **Multi-Feature Support**: Coordinate multiple features with configurable waiting strategies
 
 ## License
 

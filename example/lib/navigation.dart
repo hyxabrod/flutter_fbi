@@ -4,6 +4,7 @@ import 'package:flutter_fbi_example/examples/ex02_feature_binder_basic/counter_s
 import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_screen.dart';
 import 'package:flutter_fbi_example/examples/ex04_multi_feature/dashboard_screen.dart';
 import 'package:flutter_fbi_example/examples/ex05_wait_for_all_features/dashboard_with_wait_screen.dart';
+import 'package:flutter_fbi_example/examples/ex06_concurrent_events/concurrent_screen.dart';
 
 class ExampleNavigator extends StatelessWidget {
   const ExampleNavigator({super.key});
@@ -54,6 +55,14 @@ class ExampleNavigator extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const DashboardWithWaitScreen()),
+            ),
+          ),
+          _ExampleTile(
+            title: 'Example 6: Concurrent events (sync: false)',
+            subtitle: 'Dispatch an event concurrently, bypassing the queue',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ConcurrentScreen()),
             ),
           ),
         ],

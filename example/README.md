@@ -12,7 +12,7 @@ Flutter FBI is an architectural pattern that separates your application into thr
 
 ## Examples
 
-This project includes five examples that progressively demonstrate the capabilities of the Flutter FBI pattern:
+This project includes six examples that progressively demonstrate the capabilities of the Flutter FBI pattern:
 
 ### Example 1: Simple Binder
 A basic counter example that uses `SimpleBinder` for UI state management without the complexity of a separate Feature.
@@ -26,13 +26,16 @@ A login/authentication example that demonstrates how to handle side effects (one
 ### Example 4: Multi-Feature Binder
 A dashboard example that combines multiple features (User Profile and Settings) using `MultiFeatureBinder`.
 
-**This example uses `shouldNotWaitForAllFeatures = true` (the UI does NOT wait for all features before updating).**
+**This example uses `shouldWaitForAllFeatures = false` (the UI does NOT wait for all features before updating).**
 
 - The UI updates as soon as any feature emits a new state, so partial data may be shown if one feature loads before the others.
 - This is useful for fast, responsive dashboards where immediate feedback is preferred over synchronized updates.
 
 ### Example 5: Multi-Feature Binder with Wait
-A dashboard example that demonstrates the use of `shouldNotWaitForAllFeatures = false` (wait for all features before updating UI).` option, which ensures that the UI waits for all features to emit at least one state before transforming the state for UI.
+A dashboard example that demonstrates the use of `shouldWaitForAllFeatures = true` option, which ensures that the UI waits for all features to emit at least one state before transforming the state for UI.
+
+### Example 6: Concurrent Events (sync: false)
+Demonstrates how to dispatch events concurrently using the `sync: false` parameter in `feature.add()`. This example shows how fast events can bypass the sequential queue and be processed immediately, while slow events are processed in order.
 
 ## Getting Started
 
@@ -46,9 +49,11 @@ A dashboard example that demonstrates the use of `shouldNotWaitForAllFeatures = 
 
 ## How It Works
 
-- Features use RxDart streams to process events and emit states.
-- Binders transform feature states into UI-friendly states and handle side effects.
-- Bound widgets automatically connect to binders and handle their lifecycle.
+- Features use queue-based event processing with optional concurrent dispatch (`sync: false`)
+- Events are processed sequentially by default to ensure predictable state transitions
+- Binders transform feature states into UI-friendly states and handle side effects
+- Bound widgets automatically connect to binders and handle their lifecycle
+- Side effects are handled separately from state for clean separation of concerns
 
 ## License
 

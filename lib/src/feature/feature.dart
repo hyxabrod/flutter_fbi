@@ -23,7 +23,7 @@ abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
   BaseFeature({required S initialState}) {
     _statePipe = BehaviorSubject<S>.seeded(initialState);
     // We no longer listen to a Subject; events are dispatched via add() which
-    // feeds either the sequential queue or concurrent path explicitly.
+    // feeds either the sync queue or concurrent path explicitly.
   }
 
   void onEvent(IncomingEventsHandler<E> handler) {
@@ -32,8 +32,8 @@ abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
 
   /// Adds an event to be processed.
   ///
-  /// By default, events are processed sequentially in the order they are added
-  /// (sequential = true). Set [sync] to false to dispatch the event
+  /// By default, events are processed synchronously in the order they are added
+  /// (sync = true). Set [sync] to false to dispatch the event
   /// concurrently (scheduled in a microtask) without waiting for the queue.
   void add(covariant E event, {bool sync = true}) {
     if (sync) {

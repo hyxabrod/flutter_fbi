@@ -13,7 +13,7 @@ class ResetEvent extends CounterEvent {}
 class CounterState extends FeatureState {
   final int count;
 
-  CounterState({this.count = 0});
+  const CounterState({this.count = 0});
 
   CounterState copyWith({int? count}) {
     return CounterState(
@@ -31,7 +31,7 @@ class CounterUiState extends BinderState {
   final String countText;
   final bool canDecrement;
 
-  CounterUiState({
+  const CounterUiState({
     required this.count,
     required this.countText,
     required this.canDecrement,
