@@ -8,7 +8,7 @@ class AuthBinder extends FeatureBinder<AuthEvent, AuthState, AuthUiState, AuthSi
       : super(
           context: context,
           feature: AuthFeature(),
-          uiStatePreprocessor: () => AuthUiState(
+          uiStatePreprocessor: () => const AuthUiState(
             isLoggedIn: false,
             isLoading: false,
           ),
@@ -28,15 +28,23 @@ class AuthBinder extends FeatureBinder<AuthEvent, AuthState, AuthUiState, AuthSi
   /// Configures side effect handling within the binder
   void _setupSideEffectHandling() {
     bindSideEffect((effect) {
-      if (effect is ShowToastEffect) {
-        _showToast(effect.message);
-      } else if (effect is NavigateToHomeEffect || effect is NavigateToLoginEffect) {
-        // In a real application, navigation would happen here
-        // For demo purposes, we just show a dialog
-        _showInfoDialog(
-          effect is NavigateToHomeEffect ? 'Home Screen' : 'Login Screen',
-          'In a real app, we would navigate to the ${effect is NavigateToHomeEffect ? 'Home' : 'Login'} screen.',
-        );
+      switch (effect) {
+        case ShowToastEffect():
+          _showToast(effect.message);
+        case NavigateToHomeEffect():
+          // In a real application, navigation would happen here
+          // For demo purposes, we just show a dialog
+          _showInfoDialog(
+            'Home Screen',
+            'In a real app, we would navigate to the Home screen.',
+          );
+        case NavigateToLoginEffect():
+          // In a real application, navigation would happen here
+          // For demo purposes, we just show a dialog
+          _showInfoDialog(
+            'Login Screen',
+            'In a real app, we would navigate to the Login screen.',
+          );
       }
     });
   }

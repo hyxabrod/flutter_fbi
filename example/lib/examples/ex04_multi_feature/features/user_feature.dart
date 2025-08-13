@@ -2,15 +2,16 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi_example/examples/ex04_multi_feature/entities/user_entities.dart';
 
 class UserFeature extends Feature<UserEvent, UserState, UserSideEffect> {
-  UserFeature() : super(initialState: UserState()) {
+  UserFeature() : super(initialState: const UserState()) {
     onEvent(_handleEvent);
   }
 
   void _handleEvent(UserEvent event) async {
-    if (event is LoadUserEvent) {
-      await _loadUser();
-    } else if (event is UpdateUserNameEvent) {
-      await _updateUserName(event.name);
+    switch (event) {
+      case LoadUserEvent():
+        await _loadUser();
+      case UpdateUserNameEvent():
+        await _updateUserName(event.name);
     }
   }
 

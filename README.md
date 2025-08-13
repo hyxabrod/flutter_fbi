@@ -49,8 +49,9 @@ class CounterFeature extends BaseFeature<CounterEvent, CounterState> {
   }
 
   void _handleEvent(CounterEvent event) {
-    if (event is IncrementEvent) {
-      emitState(CounterState(count: state.count + 1));
+    switch (event) {
+      case IncrementEvent():
+        emitState(CounterState(count: state.count + 1));
     }
   }
   

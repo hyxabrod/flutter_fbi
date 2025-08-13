@@ -2,17 +2,18 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi_example/examples/ex02_feature_binder_basic/counter_entities.dart';
 
 class CounterFeature extends Feature<CounterEvent, CounterState, SideEffect> {
-  CounterFeature() : super(initialState: CounterState()) {
+  CounterFeature() : super(initialState: const CounterState()) {
     onEvent(_handleEvent);
   }
 
   void _handleEvent(CounterEvent event) {
-    if (event is IncrementEvent) {
-      _increment();
-    } else if (event is DecrementEvent) {
-      _decrement();
-    } else if (event is ResetEvent) {
-      _reset();
+    switch (event) {
+      case IncrementEvent():
+        _increment();
+      case DecrementEvent():
+        _decrement();
+      case ResetEvent():
+        _reset();
     }
   }
 
@@ -27,6 +28,6 @@ class CounterFeature extends Feature<CounterEvent, CounterState, SideEffect> {
   }
 
   void _reset() {
-    emitState(CounterState());
+    emitState(const CounterState());
   }
 }

@@ -11,7 +11,7 @@ class NewsState extends FeatureState {
   final List<String> news;
   final String? error;
 
-  NewsState({
+  const NewsState({
     this.isLoading = false,
     this.news = const [],
     this.error,

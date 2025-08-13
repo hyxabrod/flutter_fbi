@@ -19,7 +19,7 @@ class AuthState extends FeatureState {
   final String? username;
   final String? error;
 
-  AuthState({
+  const AuthState({
     this.isLoggedIn = false,
     this.isLoading = false,
     this.username,
@@ -51,7 +51,7 @@ class AuthUiState extends BinderState {
   final String? username;
   final String? error;
 
-  AuthUiState({
+  const AuthUiState({
     required this.isLoggedIn,
     required this.isLoading,
     this.username,

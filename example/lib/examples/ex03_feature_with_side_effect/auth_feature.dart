@@ -2,15 +2,16 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_entities.dart';
 
 class AuthFeature extends Feature<AuthEvent, AuthState, AuthSideEffect> {
-  AuthFeature() : super(initialState: AuthState()) {
+  AuthFeature() : super(initialState: const AuthState()) {
     onEvent(_handleEvent);
   }
 
   void _handleEvent(AuthEvent event) async {
-    if (event is LoginEvent) {
-      await _login(event.username, event.password);
-    } else if (event is LogoutEvent) {
-      _logout();
+    switch (event) {
+      case LoginEvent():
+        await _login(event.username, event.password);
+      case LogoutEvent():
+        _logout();
     }
   }
 
@@ -50,7 +51,7 @@ class AuthFeature extends Feature<AuthEvent, AuthState, AuthSideEffect> {
   }
 
   void _logout() {
-    emitState(AuthState());
+    emitState(const AuthState());
     emitSideEffect(ShowToastEffect('Logged out successfully'));
     emitSideEffect(NavigateToLoginEffect());
   }

@@ -8,7 +8,7 @@ class CounterBinder extends FeatureBinder<CounterEvent, CounterState, CounterUiS
       : super(
           context: context,
           feature: CounterFeature(),
-          uiStatePreprocessor: () => CounterUiState(
+          uiStatePreprocessor: () => const CounterUiState(
             count: 0,
             countText: '0',
             canDecrement: false,

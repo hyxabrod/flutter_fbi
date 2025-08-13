@@ -18,7 +18,7 @@ class DashboardWithWaitState extends BinderState {
   final String? newsLoadTime;
   final String? weatherLoadTime;
 
-  DashboardWithWaitState({
+  const DashboardWithWaitState({
     required this.isLoading,
     required this.isNewsLoading,
     required this.isWeatherLoading,
@@ -55,11 +55,11 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
           context: context,
           features: features,
           shouldWaitForAllFeatures: true, // When true: UI only updates after all features have emitted their states
-          uiStatePreprocessor: () => DashboardWithWaitState(
+          uiStatePreprocessor: () => const DashboardWithWaitState(
             isLoading: true,
             isNewsLoading: true,
             isWeatherLoading: true,
-            news: const [],
+            news: [],
           ),
         ) {
     newsFeature = features.first as NewsFeature;
@@ -76,24 +76,21 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
   void _setupSideEffectHandling() {
     // Side effects are handled immediately, regardless of shouldWaitForAllFeatures
     bindSideEffect((effect) {
-      if (effect is NewsErrorEffect || effect is WeatherErrorEffect) {
-        String message = '';
-        String source = '';
-
-        if (effect is NewsErrorEffect) {
-          message = effect.message;
-          source = 'News';
-        } else if (effect is WeatherErrorEffect) {
-          message = effect.message;
-          source = 'Weather';
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('$source Error: $message'),
-            backgroundColor: Colors.red,
-          ),
-        );
+      switch (effect) {
+        case NewsErrorEffect():
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('News Error: ${effect.message}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        case WeatherErrorEffect():
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Weather Error: ${effect.message}'),
+              backgroundColor: Colors.red,
+            ),
+          );
       }
     });
   }
@@ -121,15 +118,16 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
     WeatherState? weatherState;
 
     for (var state in featureStates) {
-      if (state is NewsState) {
-        newsState = state;
-      } else if (state is WeatherState) {
-        weatherState = state;
+      switch (state) {
+        case NewsState():
+          newsState = state;
+        case WeatherState():
+          weatherState = state;
       }
     }
 
-    final news = newsState ?? NewsState();
-    final weather = weatherState ?? WeatherState();
+    final news = newsState ?? const NewsState();
+    final weather = weatherState ?? const WeatherState();
 
     return DashboardWithWaitState(
       isLoading: news.isLoading || weather.isLoading,

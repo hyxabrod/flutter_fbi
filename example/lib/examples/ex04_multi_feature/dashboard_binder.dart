@@ -14,7 +14,7 @@ class DashboardState extends BinderState {
   final bool notificationsEnabled;
   final String? error;
 
-  DashboardState({
+  const DashboardState({
     required this.isLoading,
     this.userName,
     this.userEmail,
@@ -35,7 +35,7 @@ class DashboardBinder extends MultiFeatureBinder<DashboardState> {
           context: context,
           features: features,
           shouldWaitForAllFeatures: false, // Updates UI immediately when any feature emits state
-          uiStatePreprocessor: () => DashboardState(
+          uiStatePreprocessor: () => const DashboardState(
             isLoading: true,
             darkMode: false,
             notificationsEnabled: true,
@@ -52,18 +52,15 @@ class DashboardBinder extends MultiFeatureBinder<DashboardState> {
 
   void _setupSideEffectHandling() {
     bindSideEffect((effect) {
-      if (effect is UserUpdatedEffect || effect is SettingsUpdatedEffect) {
-        String message = '';
-
-        if (effect is UserUpdatedEffect) {
-          message = effect.message;
-        } else if (effect is SettingsUpdatedEffect) {
-          message = effect.message;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message)),
-        );
+      switch (effect) {
+        case UserUpdatedEffect():
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(effect.message)),
+          );
+        case SettingsUpdatedEffect():
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(effect.message)),
+          );
       }
     });
   }
@@ -86,15 +83,16 @@ class DashboardBinder extends MultiFeatureBinder<DashboardState> {
     SettingsState? settingsState;
 
     for (var state in featureStates) {
-      if (state is UserState) {
-        userState = state;
-      } else if (state is SettingsState) {
-        settingsState = state;
+      switch (state) {
+        case UserState():
+          userState = state;
+        case SettingsState():
+          settingsState = state;
       }
     }
 
-    final user = userState ?? UserState();
-    final settings = settingsState ?? SettingsState();
+    final user = userState ?? const UserState();
+    final settings = settingsState ?? const SettingsState();
 
     return DashboardState(
       isLoading: user.isLoading || settings.isLoading,

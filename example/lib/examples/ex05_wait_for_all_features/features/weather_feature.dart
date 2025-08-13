@@ -16,13 +16,14 @@ class WeatherFeature extends Feature<WeatherEvent, WeatherState, WeatherSideEffe
     {'temp': '20°C', 'condition': 'Light Rain'},
   ];
 
-  WeatherFeature({this.errorRate = 0.2}) : super(initialState: WeatherState()) {
+  WeatherFeature({this.errorRate = 0.2}) : super(initialState: const WeatherState()) {
     onEvent(_handleEvent);
   }
 
   void _handleEvent(WeatherEvent event) async {
-    if (event is LoadWeatherEvent) {
-      await _loadWeather();
+    switch (event) {
+      case LoadWeatherEvent():
+        await _loadWeather();
     }
   }
 

@@ -8,13 +8,14 @@ class NewsFeature extends Feature<NewsEvent, NewsState, NewsSideEffect> {
   final double errorRate;
   final Random _random = Random();
 
-  NewsFeature({this.errorRate = 0.2}) : super(initialState: NewsState()) {
+  NewsFeature({this.errorRate = 0.2}) : super(initialState: const NewsState()) {
     onEvent(_handleEvent);
   }
 
   void _handleEvent(NewsEvent event) async {
-    if (event is LoadNewsEvent) {
-      await _loadNews();
+    switch (event) {
+      case LoadNewsEvent():
+        await _loadNews();
     }
   }
 

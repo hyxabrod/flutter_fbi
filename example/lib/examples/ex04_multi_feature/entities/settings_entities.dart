@@ -16,7 +16,7 @@ class SettingsState extends FeatureState {
   final bool notificationsEnabled;
   final String? error;
 
-  SettingsState({
+  const SettingsState({
     this.isLoading = false,
     this.darkMode = false,
     this.notificationsEnabled = true,

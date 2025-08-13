@@ -12,7 +12,7 @@ class WeatherState extends FeatureState {
   final String? weatherCondition;
   final String? error;
 
-  WeatherState({
+  const WeatherState({
     this.isLoading = false,
     this.currentTemperature,
     this.weatherCondition,

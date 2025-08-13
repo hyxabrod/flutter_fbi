@@ -6,7 +6,7 @@ class SimpleCounterBinder extends SimpleBinder<SimpleCounterState> {
   SimpleCounterBinder({required BuildContext context})
       : super(
           context: context,
-          uiStatePreprocessor: () => SimpleCounterState(),
+          uiStatePreprocessor: () => const SimpleCounterState(),
         );
 
   void increment() {
@@ -18,6 +18,6 @@ class SimpleCounterBinder extends SimpleBinder<SimpleCounterState> {
   }
 
   void reset() {
-    emitUiState(SimpleCounterState());
+    emitUiState(const SimpleCounterState());
   }
 }

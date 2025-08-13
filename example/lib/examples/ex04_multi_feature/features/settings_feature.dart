@@ -2,17 +2,18 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi_example/examples/ex04_multi_feature/entities/settings_entities.dart';
 
 class SettingsFeature extends Feature<SettingsEvent, SettingsState, SettingsSideEffect> {
-  SettingsFeature() : super(initialState: SettingsState()) {
+  SettingsFeature() : super(initialState: const SettingsState()) {
     onEvent(_handleEvent);
   }
 
   void _handleEvent(SettingsEvent event) async {
-    if (event is LoadSettingsEvent) {
-      await _loadSettings();
-    } else if (event is ToggleDarkModeEvent) {
-      _toggleDarkMode();
-    } else if (event is ToggleNotificationsEvent) {
-      _toggleNotifications();
+    switch (event) {
+      case LoadSettingsEvent():
+        await _loadSettings();
+      case ToggleDarkModeEvent():
+        _toggleDarkMode();
+      case ToggleNotificationsEvent():
+        _toggleNotifications();
     }
   }
 

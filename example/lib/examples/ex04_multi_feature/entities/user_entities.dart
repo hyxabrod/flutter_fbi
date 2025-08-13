@@ -17,7 +17,7 @@ class UserState extends FeatureState {
   final String? email;
   final String? error;
 
-  UserState({
+  const UserState({
     this.isLoading = false,
     this.name,
     this.email,
