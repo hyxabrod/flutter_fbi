@@ -24,7 +24,7 @@ Flutter FBI provides a structured approach to Flutter application development by
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.24
+  flutter_fbi: ^1.3.25
 ```
 
 ## Components
@@ -182,6 +182,312 @@ Check out the [example](example) directory for complete examples:
 4. **Multi-Feature Example** - Combining multiple features in one UI
 5. **Wait For All Features Example** - Using shouldWaitForAllFeatures = true in MultiFeatureBinder (UI waits for all features before updating)
 6. **Concurrent Events Example** - Demonstrates sequential vs concurrent event processing with sync parameter
+
+### Feature Binder Example
+
+Here's a complete example of the Feature-Binder-Interface pattern with a counter:
+
+```dart
+// Events
+abstract class CounterEvent extends UiEvent {}
+class IncrementEvent extends CounterEvent {}
+class DecrementEvent extends CounterEvent {}
+class ResetEvent extends CounterEvent {}
+
+// Feature State
+class CounterState extends FeatureState {
+  final int count;
+  const CounterState({this.count = 0});
+  
+  CounterState copyWith({int? count}) {
+    return CounterState(count: count ?? this.count);
+  }
+  
+  @override
+  List<Object?> get props => [count];
+}
+
+// UI State
+class CounterUiState extends BinderState {
+  final int count;
+  final String countText;
+  final bool canDecrement;
+
+  const CounterUiState({
+    required this.count,
+    required this.countText,
+    required this.canDecrement,
+  });
+
+  @override
+  List<Object?> get props => [count, countText, canDecrement];
+}
+
+// Feature
+class CounterFeature extends Feature<CounterEvent, CounterState, SideEffect> {
+  CounterFeature() : super(initialState: const CounterState()) {
+    onEvent(_handleEvent);
+  }
+
+  void _handleEvent(CounterEvent event) {
+    switch (event) {
+      case IncrementEvent():
+        emitState(state.copyWith(count: state.count + 1));
+      case DecrementEvent():
+        if (state.count > 0) {
+          emitState(state.copyWith(count: state.count - 1));
+        }
+      case ResetEvent():
+        emitState(const CounterState(count: 0));
+    }
+  }
+}
+
+// Binder
+class CounterBinder extends FeatureBinder<CounterEvent, CounterState, CounterUiState, SideEffect> {
+  CounterBinder({required BuildContext context})
+      : super(
+          context: context,
+          feature: CounterFeature(),
+          uiStatePreprocessor: () => const CounterUiState(
+            count: 0,
+            countText: '0',
+            canDecrement: false,
+          ),
+        );
+
+  void increment() => feature.add(IncrementEvent());
+  void decrement() => feature.add(DecrementEvent());
+  void reset() => feature.add(ResetEvent());
+
+  @override
+  CounterUiState uiStateTransformer(CounterState featureState) {
+    return CounterUiState(
+      count: featureState.count,
+      countText: '${featureState.count}',
+      canDecrement: featureState.count > 0,
+    );
+  }
+}
+
+// Interface (UI)
+class CounterScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Counter Example')),
+      body: BoundWidget<CounterBinder, CounterUiState>(
+        binderBuilder: () => CounterBinder(context: context),
+        builder: (context, state, binder) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Count: ${state.countText}', style: Theme.of(context).textTheme.headlineMedium),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: state.canDecrement ? binder.decrement : null,
+                      child: const Text('-'),
+                    ),
+                    const SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: binder.increment,
+                      child: const Text('+'),
+                    ),
+                    const SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: binder.reset,
+                      child: const Text('Reset'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+```
+
+### Multi-Feature Example
+
+Here's an example demonstrating how to combine multiple features in a single UI using MultiFeatureBinder:
+
+```dart
+// User Feature Events & State
+abstract class UserEvent extends UiEvent {}
+class LoadUserEvent extends UserEvent {}
+class UpdateUserNameEvent extends UserEvent {
+  final String name;
+  UpdateUserNameEvent(this.name);
+}
+
+class UserState extends FeatureState {
+  final bool isLoading;
+  final String name;
+  final String email;
+  final String? error;
+
+  const UserState({
+    this.isLoading = false,
+    this.name = '',
+    this.email = '',
+    this.error,
+  });
+
+  UserState copyWith({bool? isLoading, String? name, String? email, String? error}) {
+    return UserState(
+      isLoading: isLoading ?? this.isLoading,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      error: error ?? this.error,
+    );
+  }
+
+  @override
+  List<Object?> get props => [isLoading, name, email, error];
+}
+
+// Settings Feature Events & State
+abstract class SettingsEvent extends UiEvent {}
+class LoadSettingsEvent extends SettingsEvent {}
+class ToggleDarkModeEvent extends SettingsEvent {}
+
+class SettingsState extends FeatureState {
+  final bool isLoading;
+  final bool darkMode;
+  final bool notificationsEnabled;
+  final String? error;
+
+  const SettingsState({
+    this.isLoading = false,
+    this.darkMode = false,
+    this.notificationsEnabled = true,
+    this.error,
+  });
+
+  SettingsState copyWith({bool? isLoading, bool? darkMode, bool? notificationsEnabled, String? error}) {
+    return SettingsState(
+      isLoading: isLoading ?? this.isLoading,
+      darkMode: darkMode ?? this.darkMode,
+      notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
+      error: error ?? this.error,
+    );
+  }
+
+  @override
+  List<Object?> get props => [isLoading, darkMode, notificationsEnabled, error];
+}
+
+// Combined UI State
+class DashboardState extends BinderState {
+  final bool isLoading;
+  final String userName;
+  final String userEmail;
+  final bool darkMode;
+  final bool notificationsEnabled;
+  final String? error;
+
+  const DashboardState({
+    required this.isLoading,
+    required this.userName,
+    required this.userEmail,
+    required this.darkMode,
+    required this.notificationsEnabled,
+    this.error,
+  });
+
+  @override
+  List<Object?> get props => [isLoading, userName, userEmail, darkMode, notificationsEnabled, error];
+}
+
+// Multi-Feature Binder
+class DashboardBinder extends MultiFeatureBinder<DashboardState> {
+  DashboardBinder({required BuildContext context})
+      : super(
+          context: context,
+          features: [UserFeature(), SettingsFeature()],
+          shouldWaitForAllFeatures: false, // Updates UI immediately when any feature emits state
+          uiStatePreprocessor: () => const DashboardState(
+            isLoading: true,
+            userName: '',
+            userEmail: '',
+            darkMode: false,
+            notificationsEnabled: true,
+          ),
+        ) {
+    // Initialize features
+    getFeature<UserFeature>().add(LoadUserEvent());
+    getFeature<SettingsFeature>().add(LoadSettingsEvent());
+  }
+
+  void updateUserName(String name) {
+    getFeature<UserFeature>().add(UpdateUserNameEvent(name));
+  }
+
+  void toggleDarkMode() {
+    getFeature<SettingsFeature>().add(ToggleDarkModeEvent());
+  }
+
+  @override
+  DashboardState uiStateTransformer(List<FeatureState> featureStates) {
+    final userState = getStateByType<UserState>(featureStates);
+    final settingsState = getStateByType<SettingsState>(featureStates);
+
+    return DashboardState(
+      isLoading: userState.isLoading || settingsState.isLoading,
+      userName: userState.name,
+      userEmail: userState.email,
+      darkMode: settingsState.darkMode,
+      notificationsEnabled: settingsState.notificationsEnabled,
+      error: userState.error ?? settingsState.error,
+    );
+  }
+}
+
+// Dashboard UI
+class DashboardScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BoundWidget<DashboardBinder, DashboardState>(
+      binderBuilder: () => DashboardBinder(context: context),
+      builder: (context, state, binder) {
+        return Scaffold(
+          appBar: AppBar(title: const Text('Multi-Feature Dashboard')),
+          body: state.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('User: ${state.userName}', style: Theme.of(context).textTheme.headlineSmall),
+                      Text('Email: ${state.userEmail}'),
+                      const SizedBox(height: 20),
+                      SwitchListTile(
+                        title: const Text('Dark Mode'),
+                        value: state.darkMode,
+                        onChanged: (_) => binder.toggleDarkMode(),
+                      ),
+                      SwitchListTile(
+                        title: const Text('Notifications'),
+                        value: state.notificationsEnabled,
+                        onChanged: (_) => binder.toggleNotifications(),
+                      ),
+                    ],
+                  ),
+                ),
+        );
+      },
+    );
+  }
+}
+```
 
 ## Testing
 

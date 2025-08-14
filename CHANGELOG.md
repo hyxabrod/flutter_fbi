@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.25
+
+* Added comprehensive code examples for Feature Binder and Multi-Feature patterns in README
+* Enhanced documentation with complete working examples showing Events, States, Features, Binders, and UI components
+* Improved developer experience with copy-paste ready code examples
+
 ## 1.3.24
 
 * Added Flutter FBI logo and improved README design with badges and centered layout
