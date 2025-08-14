@@ -20,11 +20,21 @@ Flutter FBI provides a structured approach to Flutter application development by
 2. **Binder** - Connects features to UI and transforms state
 3. **Interface** - UI components that display data and capture user input
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/hyxabrod/flutter_fbi/master/flutter_fbi_architecture.svg" alt="Flutter FBI Architecture" width="100%">
+</div>
+
+<br><br><br>
+
+The architecture supports both single feature scenarios (Feature Binder) and complex multi-feature coordination (Multi Feature Binder), with reactive data flow powered by RxDart streams.
+
+<br><br>
+
 ## Installation
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.25
+  flutter_fbi: ^1.3.27
 ```
 
 ## Components

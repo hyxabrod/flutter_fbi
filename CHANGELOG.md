@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.27
+
+* Added comprehensive architecture diagram showing Flutter FBI component interactions
+* Enhanced README with detailed visual representation of Feature-Binder-Interface pattern
+* Improved documentation with architecture flow diagrams and component relationships
+
 ## 1.3.26
 
 * Added official package icon for pub.dev sidebar display
