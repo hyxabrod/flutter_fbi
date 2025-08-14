@@ -1,0 +1,5 @@
+# Exclude macOS build artifacts from package
+example/macos/
+
+# Exclude build artifacts
+build/

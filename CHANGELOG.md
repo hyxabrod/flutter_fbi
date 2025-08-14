@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.20
+
+* Fixed widget creation anti-patterns: replaced widget-building methods with private widget classes
+* Made all FeatureState fields non-nullable except error fields
+* Moved fallback value logic from UI to Binder stateTransformer methods  
+* Replaced direct feature references with getFeature<T>() in MultiFeatureBinder
+* Improved architecture diagrams with proper data flow visualization
+* Enhanced examples with better Flutter best practices
+
 ## 1.3.10
 
 * Added comprehensive example project demonstrating all features of the library

@@ -157,7 +157,7 @@ Check out the [example](example) directory for complete examples:
 
 ## Testing
 
-Flutter FBI includes testing utilities similar to bloc_test for easy Feature testing:
+Flutter FBI includes comprehensive testing utilities similar to bloc_test for easy Feature testing:
 
 ```dart
 import 'package:flutter_fbi/flutter_fbi.dart';
@@ -175,8 +175,32 @@ void main() {
       CounterState(count: 2),
     ],
   );
+
+  featureTest<AuthEvent, AuthState, AuthSideEffect>(
+    'login emits correct states and side effects',
+    build: () => AuthFeature(),
+    act: (feature) => feature.add(LoginEvent(username: 'user', password: 'pass')),
+    expect: () => [
+      AuthState(isLoading: true),
+      AuthState(isLoading: false, isLoggedIn: true, username: 'user'),
+    ],
+    expectSideEffects: () => [
+      ShowToastEffect('Welcome, user!'),
+      NavigateToHomeEffect(),
+    ],
+  );
 }
 ```
+
+### Testing Features
+
+- **State Testing**: Verify Feature state changes with `expect`
+- **Side Effect Testing**: Test side effects with `expectSideEffects`  
+- **Async Support**: Full async/await support for complex scenarios
+- **Setup/Teardown**: Optional setup and verification callbacks
+- **Seed States**: Set initial states before testing with `seed`
+- **Timing Control**: Control timing with `wait` parameter
+- **Skip Options**: Skip initial states with `skip` parameter
 
 ## Why Flutter FBI?
 

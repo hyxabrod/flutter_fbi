@@ -91,19 +91,3 @@ void featureTest<E extends UiEvent, S extends FeatureState, F extends SideEffect
     }
   });
 }
-
-/// Convenience helpers for directly asserting on a Feature without full featureTest.
-Future<void> expectFeatureStates<S extends FeatureState>(
-  Stream<S> stateStream,
-  Iterable<Object?> states, {
-  int skip = 1,
-}) async {
-  await expectLater(stateStream.skip(skip), emitsInOrder(states));
-}
-
-Future<void> expectFeatureSideEffects<F extends SideEffect>(
-  Stream<F> sideEffectStream,
-  Iterable<Object?> effects,
-) async {
-  await expectLater(sideEffectStream, emitsInOrder(effects));
-}
