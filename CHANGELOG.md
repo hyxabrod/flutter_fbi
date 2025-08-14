@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.31
+
+* Updated package configuration to improve pub.dev icon display
+* Added screenshots section and funding information to pubspec.yaml
+* Improved package presentation on pub.dev
+
 ## 1.3.30
 
 * Fixed README examples to match actual API usage
