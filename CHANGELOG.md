@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.26
+
+* Added official package icon for pub.dev sidebar display
+
 ## 1.3.25
 
 * Added comprehensive code examples for Feature Binder and Multi-Feature patterns in README
