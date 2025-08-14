@@ -1,6 +1,14 @@
-# Flutter FBI
+<div align="center">
+  <img src="https://raw.githubusercontent.com/hyxabrod/flutter_fbi/master/flutter_fbi_icon.svg" alt="Flutter FBI Logo" width="120" height="120">
+  
+  # Flutter FBI
 
-**F**eature. **B**inder. **I**nterface.
+  **F**eature. **B**inder. **I**nterface.
+
+  [![pub package](https://img.shields.io/pub/v/flutter_fbi.svg)](https://pub.dev/packages/flutter_fbi)
+  [![Dart 3 compatible](https://img.shields.io/badge/Dart%203-compatible-blue.svg)](https://dart.dev/guides/language/evolution#dart-3)
+  [![Flutter compatible](https://img.shields.io/badge/Flutter-compatible-blue.svg)](https://flutter.dev)
+</div>
 
 A clean architecture pattern for Flutter applications that separates concerns into three distinct layers.
 
@@ -16,7 +24,7 @@ Flutter FBI provides a structured approach to Flutter application development by
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.21
+  flutter_fbi: ^1.3.24
 ```
 
 ## Components

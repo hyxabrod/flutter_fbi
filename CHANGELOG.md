@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.24
+
+* Added Flutter FBI logo and improved README design with badges and centered layout
+* Updated installation instructions to reflect current version
+
 ## 1.3.23
 
 * Added platform support for all Flutter platforms (Android, iOS, Linux, macOS, Web, Windows)
