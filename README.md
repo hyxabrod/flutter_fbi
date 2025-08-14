@@ -26,7 +26,7 @@ Flutter FBI provides a structured approach to Flutter application development by
 
 <br><br><br>
 
-The architecture supports both single feature scenarios (Feature Binder) and complex multi-feature coordination (Multi Feature Binder), with reactive data flow powered by RxDart streams.
+The architecture follows the **"One Widget → One Binder"** principle, ensuring clean separation and maintainability. Each Flutter widget has its own dedicated binder, which can connect to single features (simple scenarios) or coordinate multiple features (complex scenarios), with reactive data flow powered by RxDart streams.
 
 <br><br>
 
@@ -34,7 +34,7 @@ The architecture supports both single feature scenarios (Feature Binder) and com
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.27
+  flutter_fbi: ^1.3.28
 ```
 
 ## Components

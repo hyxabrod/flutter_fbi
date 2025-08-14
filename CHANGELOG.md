@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.28
+
+* Updated architecture diagram to demonstrate "One Widget → One Binder" principle
+* Enhanced visual representation with proper widget-to-binder relationships
+* Improved diagram layout and text positioning for better clarity
+
 ## 1.3.27
 
 * Added comprehensive architecture diagram showing Flutter FBI component interactions
