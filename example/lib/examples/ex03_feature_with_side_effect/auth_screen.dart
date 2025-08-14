@@ -23,12 +23,22 @@ class _AuthWidget extends BoundWidget<AuthBinder> {
         title: const Text('Side Effects Example'),
       ),
       body: binder.bindState((context, state) {
-        return state.isLoggedIn ? _buildHomeScreen(context, binder, state) : _buildLoginScreen(context, binder, state);
+        return state.isLoggedIn
+            ? _HomeScreen(binder: binder, state: state)
+            : _LoginScreen(binder: binder, state: state);
       }),
     );
   }
+}
 
-  Widget _buildLoginScreen(BuildContext context, AuthBinder binder, AuthUiState state) {
+class _LoginScreen extends StatelessWidget {
+  final AuthBinder binder;
+  final AuthUiState state;
+
+  const _LoginScreen({required this.binder, required this.state});
+
+  @override
+  Widget build(BuildContext context) {
     final usernameController = TextEditingController();
     final passwordController = TextEditingController();
 
@@ -102,8 +112,16 @@ class _AuthWidget extends BoundWidget<AuthBinder> {
       ),
     );
   }
+}
 
-  Widget _buildHomeScreen(BuildContext context, AuthBinder binder, AuthUiState state) {
+class _HomeScreen extends StatelessWidget {
+  final AuthBinder binder;
+  final AuthUiState state;
+
+  const _HomeScreen({required this.binder, required this.state});
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),

@@ -11,8 +11,8 @@ class DashboardWithWaitState extends BinderState {
   final bool isNewsLoading;
   final bool isWeatherLoading;
   final List<String> news;
-  final String? temperature;
-  final String? weatherCondition;
+  final String temperature;
+  final String weatherCondition;
   final String? error;
   // Add timing information for demonstrating wait behavior
   final String? newsLoadTime;
@@ -23,8 +23,8 @@ class DashboardWithWaitState extends BinderState {
     required this.isNewsLoading,
     required this.isWeatherLoading,
     required this.news,
-    this.temperature,
-    this.weatherCondition,
+    required this.temperature,
+    required this.weatherCondition,
     this.error,
     this.newsLoadTime,
     this.weatherLoadTime,
@@ -45,8 +45,6 @@ class DashboardWithWaitState extends BinderState {
 }
 
 class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState> {
-  late NewsFeature newsFeature;
-  late WeatherFeature weatherFeature;
   // Store start times to calculate load duration
   final Map<String, DateTime> _loadStartTimes = {};
 
@@ -60,17 +58,17 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
             isNewsLoading: true,
             isWeatherLoading: true,
             news: [],
+            temperature: '',
+            weatherCondition: '',
           ),
         ) {
-    newsFeature = features.first as NewsFeature;
-    weatherFeature = features.last as WeatherFeature;
     _setupSideEffectHandling();
 
     // Record start times and load data
     _loadStartTimes['news'] = DateTime.now();
     _loadStartTimes['weather'] = DateTime.now();
-    newsFeature.add(LoadNewsEvent());
-    weatherFeature.add(LoadWeatherEvent());
+    getFeature<NewsFeature>().add(LoadNewsEvent());
+    getFeature<WeatherFeature>().add(LoadWeatherEvent());
   }
 
   void _setupSideEffectHandling() {
@@ -106,8 +104,8 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
     // Reset start times and trigger reloads
     _loadStartTimes['news'] = DateTime.now();
     _loadStartTimes['weather'] = DateTime.now();
-    newsFeature.add(LoadNewsEvent());
-    weatherFeature.add(LoadWeatherEvent());
+    getFeature<NewsFeature>().add(LoadNewsEvent());
+    getFeature<WeatherFeature>().add(LoadWeatherEvent());
   }
 
   @override
@@ -134,8 +132,8 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
       isNewsLoading: news.isLoading,
       isWeatherLoading: weather.isLoading,
       news: news.news,
-      temperature: weather.currentTemperature,
-      weatherCondition: weather.weatherCondition,
+      temperature: weather.currentTemperature.isEmpty ? 'No data' : weather.currentTemperature,
+      weatherCondition: weather.weatherCondition.isEmpty ? 'No data' : weather.weatherCondition,
       error: news.error ?? weather.error,
       newsLoadTime: news.isLoading ? null : _calculateLoadTime('news'),
       weatherLoadTime: weather.isLoading ? null : _calculateLoadTime('weather'),

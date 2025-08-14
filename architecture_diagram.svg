@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients for different layers -->
+    <linearGradient id="featureGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <linearGradient id="binderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#1565C0;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <linearGradient id="interfaceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9800;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#E65100;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <!-- Arrow markers -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+    
+    <!-- Upward flow marker (State/Data) -->
+    <marker id="upwardArrow" markerWidth="12" markerHeight="8" 
+            refX="12" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#4CAF50" stroke="#2E7D32" stroke-width="1" />
+    </marker>
+    
+    <!-- Downward flow marker (Actions/Events) -->
+    <marker id="downwardArrow" markerWidth="12" markerHeight="8" 
+            refX="12" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#FF5722" stroke="#D32F2F" stroke-width="1" />
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="720" fill="#f8f9fa" stroke="#e9ecef" stroke-width="1"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">
+    Flutter FBI Architecture
+  </text>
+  
+  <!-- Business Logic Layer -->
+  <g id="business-logic-layer">
+    <!-- Background -->
+    <rect x="50" y="60" width="700" height="100" fill="#9C27B0" rx="10" opacity="0.2"/>
+    
+    <!-- Layer Title -->
+    <text x="70" y="85" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#7B1FA2">
+      Business Logic Layer
+    </text>
+    <text x="70" y="105" font-family="Arial, sans-serif" font-size="12" fill="#9C27B0">
+      Domain Logic &amp; Data Management
+    </text>
+    
+    <!-- Use Cases -->
+    <rect x="80" y="120" width="150" height="30" fill="#9C27B0" rx="5" stroke="#7B1FA2" stroke-width="2"/>
+    <text x="155" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Use Cases
+    </text>
+    
+    <!-- Repositories -->
+    <rect x="250" y="120" width="150" height="30" fill="#9C27B0" rx="5" stroke="#7B1FA2" stroke-width="2"/>
+    <text x="325" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Repositories
+    </text>
+    
+    <!-- Domain Models -->
+    <rect x="420" y="120" width="150" height="30" fill="#9C27B0" rx="5" stroke="#7B1FA2" stroke-width="2"/>
+    <text x="495" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Domain Models
+    </text>
+    
+    <!-- Services -->
+    <rect x="590" y="120" width="130" height="30" fill="#9C27B0" rx="5" stroke="#7B1FA2" stroke-width="2"/>
+    <text x="655" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Services
+    </text>
+  </g>
+  
+  <!-- Feature Layer -->
+  <g id="feature-layer">
+    <!-- Background -->
+    <rect x="50" y="180" width="700" height="140" fill="url(#featureGradient)" rx="10" opacity="0.2"/>
+    
+    <!-- Layer Title -->
+    <text x="70" y="205" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2E7D32">
+      Feature Layer
+    </text>
+    <text x="70" y="225" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50">
+      State Management &amp; Event Processing
+    </text>
+    
+    <!-- Feature -->
+    <rect x="250" y="240" width="150" height="70" fill="#4CAF50" rx="5" stroke="#2E7D32" stroke-width="2"/>
+    <text x="325" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Feature
+    </text>
+    <text x="325" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • State Management</text>
+    <text x="325" y="288" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Side Effects</text>
+    <text x="325" y="301" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • One-time Events</text>
+    
+    <!-- Event Processing -->
+    <rect x="420" y="240" width="150" height="70" fill="#66BB6A" rx="5" stroke="#2E7D32" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="495" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Event Processing
+    </text>
+    <text x="495" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Sequential Queue</text>
+    <text x="495" y="288" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Concurrent Dispatch</text>
+    <text x="495" y="301" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • sync: true/false</text>
+  </g>
+  
+  <!-- Binder Layer -->
+  <g id="binder-layer">
+    <!-- Background -->
+    <rect x="50" y="340" width="700" height="140" fill="url(#binderGradient)" rx="10" opacity="0.2"/>
+    
+    <!-- Layer Title -->
+    <text x="70" y="365" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1565C0">
+      Binder Layer
+    </text>
+    <text x="70" y="385" font-family="Arial, sans-serif" font-size="12" fill="#2196F3">
+      State Transformation &amp; Feature Connection
+    </text>
+    
+    <!-- SimpleBinder -->
+    <rect x="80" y="400" width="130" height="70" fill="#2196F3" rx="5" stroke="#1565C0" stroke-width="2"/>
+    <text x="145" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      SimpleBinder
+    </text>
+    <text x="145" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • No Feature</text>
+    <text x="145" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Direct UI State</text>
+    <text x="145" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Simple Logic</text>
+    
+    <!-- FeatureBinder -->
+    <rect x="230" y="400" width="150" height="70" fill="#2196F3" rx="5" stroke="#1565C0" stroke-width="2"/>
+    <text x="305" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      FeatureBinder
+    </text>
+    <text x="305" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Single Feature</text>
+    <text x="305" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • State Transform</text>
+    <text x="305" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Side Effect Handle</text>
+    
+    <!-- MultiFeatureBinder -->
+    <rect x="400" y="400" width="170" height="70" fill="#2196F3" rx="5" stroke="#1565C0" stroke-width="2"/>
+    <text x="485" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      MultiFeatureBinder
+    </text>
+    <text x="485" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Multiple Features</text>
+    <text x="485" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Coordinate States</text>
+    <text x="485" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • shouldWaitForAll</text>
+    
+    <!-- State Management -->
+    <rect x="590" y="400" width="130" height="70" fill="#42A5F5" rx="5" stroke="#1565C0" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="655" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      State Flow
+    </text>
+    <text x="655" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • RxDart Streams</text>
+    <text x="655" y="448" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Reactive Updates</text>
+    <text x="655" y="461" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Distinct Changes</text>
+  </g>
+  
+  <!-- Interface Layer -->
+  <g id="interface-layer">
+    <!-- Background -->
+    <rect x="50" y="500" width="700" height="140" fill="url(#interfaceGradient)" rx="10" opacity="0.2"/>
+    
+    <!-- Layer Title -->
+    <text x="70" y="525" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#E65100">
+      Interface Layer
+    </text>
+    <text x="70" y="545" font-family="Arial, sans-serif" font-size="12" fill="#FF9800">
+      UI Components &amp; User Interaction
+    </text>
+    
+    <!-- BoundWidget -->
+    <rect x="80" y="560" width="150" height="70" fill="#FF9800" rx="5" stroke="#E65100" stroke-width="2"/>
+    <text x="155" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      BoundWidget
+    </text>
+    <text x="155" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Base Widget</text>
+    <text x="155" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Binder Connection</text>
+    <text x="155" y="621" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Lifecycle Mgmt</text>
+    
+    <!-- SimpleBoundWidget -->
+    <rect x="250" y="560" width="170" height="70" fill="#FF9800" rx="5" stroke="#E65100" stroke-width="2"/>
+    <text x="335" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      SimpleBoundWidget
+    </text>
+    <text x="335" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • For SimpleBinder</text>
+    <text x="335" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Direct State Binding</text>
+    <text x="335" y="621" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Simple UI Logic</text>
+    
+    <!-- UI Components -->
+    <rect x="440" y="560" width="150" height="70" fill="#FFB74D" rx="5" stroke="#E65100" stroke-width="2"/>
+    <text x="515" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      UI Components
+    </text>
+    <text x="515" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Flutter Widgets</text>
+    <text x="515" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • User Events</text>
+    <text x="515" y="621" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • State Display</text>
+    
+    <!-- Reactive Updates -->
+    <rect x="610" y="560" width="110" height="70" fill="#FFCC02" rx="5" stroke="#E65100" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="665" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Updates
+    </text>
+    <text x="665" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • bindState()</text>
+    <text x="665" y="608" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • StreamBuilder</text>
+    <text x="665" y="621" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+      • Auto Rebuild</text>
+  </g>
+  
+  <!-- Data Flow Arrows -->
+  <!-- Business Logic to Feature (Data/Dependencies - Upward) -->
+  <line x1="400" y1="160" x2="400" y2="180" stroke="#4CAF50" stroke-width="3" marker-end="url(#upwardArrow)"/>
+  <text x="415" y="175" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50" font-weight="bold">Domain Logic</text>
+  
+  <!-- Feature to Binder (State Stream - Upward) -->
+  <line x1="400" y1="320" x2="400" y2="340" stroke="#4CAF50" stroke-width="3" marker-end="url(#upwardArrow)"/>
+  <text x="415" y="335" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50" font-weight="bold">Feature Stream(s)</text>
+  
+  <!-- Binder to Interface (UI State - Upward) -->
+  <line x1="400" y1="480" x2="400" y2="500" stroke="#4CAF50" stroke-width="3" marker-end="url(#upwardArrow)"/>
+  <text x="415" y="495" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50" font-weight="bold">UI State</text>
+  
+  <!-- Interface to Binder (User Actions - Downward) -->
+  <line x1="370" y1="500" x2="370" y2="480" stroke="#FF5722" stroke-width="3" marker-end="url(#downwardArrow)"/>
+  <text x="255" y="495" font-family="Arial, sans-serif" font-size="12" fill="#FF5722" font-weight="bold">User Actions</text>
+  
+  <!-- Binder to Feature (Events - Downward) -->
+  <line x1="370" y1="340" x2="370" y2="320" stroke="#FF5722" stroke-width="3" marker-end="url(#downwardArrow)"/>
+  <text x="255" y="335" font-family="Arial, sans-serif" font-size="12" fill="#FF5722" font-weight="bold">Feature Events</text>
+</svg>

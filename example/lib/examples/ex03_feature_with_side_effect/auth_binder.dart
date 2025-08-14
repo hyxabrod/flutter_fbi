@@ -11,6 +11,7 @@ class AuthBinder extends FeatureBinder<AuthEvent, AuthState, AuthUiState, AuthSi
           uiStatePreprocessor: () => const AuthUiState(
             isLoggedIn: false,
             isLoading: false,
+            username: '',
           ),
         ) {
     // Setup for side effect handling

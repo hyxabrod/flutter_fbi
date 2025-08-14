@@ -13,14 +13,14 @@ class UpdateUserNameEvent extends UserEvent {
 // State
 class UserState extends FeatureState {
   final bool isLoading;
-  final String? name;
-  final String? email;
+  final String name;
+  final String email;
   final String? error;
 
   const UserState({
     this.isLoading = false,
-    this.name,
-    this.email,
+    this.name = '',
+    this.email = '',
     this.error,
   });
 

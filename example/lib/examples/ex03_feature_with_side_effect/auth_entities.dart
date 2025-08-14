@@ -16,13 +16,13 @@ class LogoutEvent extends AuthEvent {}
 class AuthState extends FeatureState {
   final bool isLoggedIn;
   final bool isLoading;
-  final String? username;
+  final String username;
   final String? error;
 
   const AuthState({
     this.isLoggedIn = false,
     this.isLoading = false,
-    this.username,
+    this.username = '',
     this.error,
   });
 
@@ -48,13 +48,13 @@ class AuthState extends FeatureState {
 class AuthUiState extends BinderState {
   final bool isLoggedIn;
   final bool isLoading;
-  final String? username;
+  final String username;
   final String? error;
 
   const AuthUiState({
     required this.isLoggedIn,
     required this.isLoading,
-    this.username,
+    required this.username,
     this.error,
   });
 

@@ -165,11 +165,11 @@ class _DashboardWithWaitWidget extends BoundWidget<DashboardWithWaitBinder> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          state.temperature ?? 'No data',
+                                          state.temperature,
                                           style: const TextStyle(fontSize: 24),
                                         ),
                                         Text(
-                                          state.weatherCondition ?? 'No data',
+                                          state.weatherCondition,
                                           style: const TextStyle(fontSize: 16),
                                         ),
                                       ],

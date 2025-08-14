@@ -26,7 +26,7 @@ class _DashboardWidget extends BoundWidget<DashboardBinder> {
         title: const Text('Multi-Feature Example'),
       ),
       body: binder.bindState((context, state) {
-        if (state.isLoading && (state.userName == null || state.userEmail == null)) {
+        if (state.isLoading && (state.userName == 'Unknown' || state.userEmail == 'No email')) {
           return const Center(child: CircularProgressIndicator());
         }
 
@@ -63,8 +63,8 @@ class _DashboardWidget extends BoundWidget<DashboardBinder> {
                     children: [
                       ListTile(
                         leading: const Icon(Icons.person),
-                        title: Text(state.userName ?? 'Unknown'),
-                        subtitle: Text(state.userEmail ?? ''),
+                        title: Text(state.userName),
+                        subtitle: Text(state.userEmail),
                       ),
                       const SizedBox(height: 8),
                       TextField(

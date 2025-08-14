@@ -8,14 +8,14 @@ class LoadWeatherEvent extends WeatherEvent {}
 // State
 class WeatherState extends FeatureState {
   final bool isLoading;
-  final String? currentTemperature;
-  final String? weatherCondition;
+  final String currentTemperature;
+  final String weatherCondition;
   final String? error;
 
   const WeatherState({
     this.isLoading = false,
-    this.currentTemperature,
-    this.weatherCondition,
+    this.currentTemperature = '',
+    this.weatherCondition = '',
     this.error,
   }) : super();
 

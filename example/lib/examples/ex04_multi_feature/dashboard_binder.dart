@@ -8,16 +8,16 @@ import 'package:flutter_fbi_example/examples/ex04_multi_feature/features/user_fe
 // Combined UI State
 class DashboardState extends BinderState {
   final bool isLoading;
-  final String? userName;
-  final String? userEmail;
+  final String userName;
+  final String userEmail;
   final bool darkMode;
   final bool notificationsEnabled;
   final String? error;
 
   const DashboardState({
     required this.isLoading,
-    this.userName,
-    this.userEmail,
+    required this.userName,
+    required this.userEmail,
     required this.darkMode,
     required this.notificationsEnabled,
     this.error,
@@ -28,8 +28,6 @@ class DashboardState extends BinderState {
 }
 
 class DashboardBinder extends MultiFeatureBinder<DashboardState> {
-  late UserFeature userFeature;
-  late SettingsFeature settingsFeature;
   DashboardBinder({required BuildContext context, required List<Feature> features})
       : super(
           context: context,
@@ -37,17 +35,16 @@ class DashboardBinder extends MultiFeatureBinder<DashboardState> {
           shouldWaitForAllFeatures: false, // Updates UI immediately when any feature emits state
           uiStatePreprocessor: () => const DashboardState(
             isLoading: true,
+            userName: '',
+            userEmail: '',
             darkMode: false,
             notificationsEnabled: true,
           ),
         ) {
-    userFeature = features.last as UserFeature;
-    settingsFeature = features.first as SettingsFeature;
-
     _setupSideEffectHandling();
 
-    userFeature.add(LoadUserEvent());
-    settingsFeature.add(LoadSettingsEvent());
+    getFeature<UserFeature>().add(LoadUserEvent());
+    getFeature<SettingsFeature>().add(LoadSettingsEvent());
   }
 
   void _setupSideEffectHandling() {
@@ -66,15 +63,15 @@ class DashboardBinder extends MultiFeatureBinder<DashboardState> {
   }
 
   void updateUserName(String name) {
-    userFeature.add(UpdateUserNameEvent(name));
+    getFeature<UserFeature>().add(UpdateUserNameEvent(name));
   }
 
   void toggleDarkMode() {
-    settingsFeature.add(ToggleDarkModeEvent());
+    getFeature<SettingsFeature>().add(ToggleDarkModeEvent());
   }
 
   void toggleNotifications() {
-    settingsFeature.add(ToggleNotificationsEvent());
+    getFeature<SettingsFeature>().add(ToggleNotificationsEvent());
   }
 
   @override
@@ -96,8 +93,8 @@ class DashboardBinder extends MultiFeatureBinder<DashboardState> {
 
     return DashboardState(
       isLoading: user.isLoading || settings.isLoading,
-      userName: user.name,
-      userEmail: user.email,
+      userName: user.name.isEmpty ? 'Unknown' : user.name,
+      userEmail: user.email.isEmpty ? 'No email' : user.email,
       darkMode: settings.darkMode,
       notificationsEnabled: settings.notificationsEnabled,
       error: user.error ?? settings.error,
