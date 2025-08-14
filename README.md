@@ -34,7 +34,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.29
+  flutter_fbi: ^1.3.30
 ```
 
 ## Components
@@ -151,6 +151,8 @@ The interface layer consists of UI widgets that connect to binders.
 
 ```dart
 class CounterScreen extends StatelessWidget {
+  const CounterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return _CounterWidget(binder: CounterBinder(context: context));
@@ -163,6 +165,7 @@ class _CounterWidget extends BoundWidget<CounterBinder> {
   @override
   Widget builder(BuildContext context, CounterBinder binder) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Counter Example')),
       body: binder.bindState((context, state) {
         return Center(
           child: Column(
@@ -282,43 +285,54 @@ class CounterBinder extends FeatureBinder<CounterEvent, CounterState, CounterUiS
 
 // Interface (UI)
 class CounterScreen extends StatelessWidget {
+  const CounterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    return _CounterWidget(binder: CounterBinder(context: context));
+  }
+}
+
+class _CounterWidget extends BoundWidget<CounterBinder> {
+  const _CounterWidget({required CounterBinder binder}) : super(binder: binder);
+
+  @override
+  Widget builder(BuildContext context, CounterBinder binder) {
     return Scaffold(
       appBar: AppBar(title: const Text('Counter Example')),
-      body: BoundWidget<CounterBinder, CounterUiState>(
-        binder: CounterBinder(context: context),
-        builder: (context, state, binder) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Count: ${state.countText}', style: Theme.of(context).textTheme.headlineMedium),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: state.canDecrement ? binder.decrement : null,
-                      child: const Text('-'),
-                    ),
-                    const SizedBox(width: 20),
-                    ElevatedButton(
-                      onPressed: binder.increment,
-                      child: const Text('+'),
-                    ),
-                    const SizedBox(width: 20),
-                    ElevatedButton(
-                      onPressed: binder.reset,
-                      child: const Text('Reset'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+      body: binder.bindState((context, state) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Count: ${state.countText}', 
+                style: Theme.of(context).textTheme.headlineMedium
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: state.canDecrement ? binder.decrement : null,
+                    child: const Text('-'),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: binder.increment,
+                    child: const Text('+'),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: binder.reset,
+                    child: const Text('Reset'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
@@ -462,38 +476,50 @@ class DashboardBinder extends MultiFeatureBinder<DashboardState> {
 
 // Dashboard UI
 class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BoundWidget<DashboardBinder, DashboardState>(
-      binder: DashboardBinder(context: context),
-      builder: (context, state, binder) {
-        return Scaffold(
-          appBar: AppBar(title: const Text('Multi-Feature Dashboard')),
-          body: state.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('User: ${state.userName}', style: Theme.of(context).textTheme.headlineSmall),
-                      Text('Email: ${state.userEmail}'),
-                      const SizedBox(height: 20),
-                      SwitchListTile(
-                        title: const Text('Dark Mode'),
-                        value: state.darkMode,
-                        onChanged: (_) => binder.toggleDarkMode(),
-                      ),
-                      SwitchListTile(
-                        title: const Text('Notifications'),
-                        value: state.notificationsEnabled,
-                        onChanged: (_) => binder.toggleNotifications(),
-                      ),
-                    ],
-                  ),
+    final binder = DashboardBinder(
+      context: context, 
+      features: [SettingsFeature(), UserFeature()]
+    );
+    return _DashboardWidget(binder: binder);
+  }
+}
+
+class _DashboardWidget extends BoundWidget<DashboardBinder> {
+  const _DashboardWidget({required DashboardBinder binder}) : super(binder: binder);
+
+  @override
+  Widget builder(BuildContext context, DashboardBinder binder) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Multi-Feature Dashboard')),
+      body: binder.bindState((context, state) {
+        return state.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('User: ${state.userName}', style: Theme.of(context).textTheme.headlineSmall),
+                    Text('Email: ${state.userEmail}'),
+                    const SizedBox(height: 20),
+                    SwitchListTile(
+                      title: const Text('Dark Mode'),
+                      value: state.darkMode,
+                      onChanged: (_) => binder.toggleDarkMode(),
+                    ),
+                    SwitchListTile(
+                      title: const Text('Notifications'),
+                      value: state.notificationsEnabled,
+                      onChanged: (_) => binder.toggleNotifications(),
+                    ),
+                  ],
                 ),
-        );
-      },
+              );
+      }),
     );
   }
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.30
+
+* Fixed README examples to match actual API usage
+* Corrected BoundWidget usage pattern: removed invalid generic type parameters  
+* Updated all widget examples to use proper constructor syntax and bindState method
+* Synchronized documentation examples with working code in example project
+
 ## 1.3.29
 
 * Fixed incorrect parameter name in README examples: `binderBuilder` → `binder`
