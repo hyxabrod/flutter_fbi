@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.22
+
+* Added comprehensive documentation for uiStatePreprocessor in Binder Layer
+* Enhanced README with detailed explanation of state preprocessing functionality
+
 ## 1.3.21
 
 * Updated installation instructions in README.md to reflect current version

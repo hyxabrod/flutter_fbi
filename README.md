@@ -71,6 +71,26 @@ Binders connect features to the UI and transform feature states into UI states.
 - **FeatureBinder**: Connects a single feature to UI
 - **MultiFeatureBinder**: Connects multiple features to UI
 
+#### uiStatePreprocessor
+
+The `uiStatePreprocessor` is a required function that preprocesses the UI state before it gets applied to the widget. This function allows you to:
+
+- **Transform state**: Modify the state before it reaches the UI
+- **Add validation**: Ensure state consistency and validity
+- **Apply fallback values**: Provide default values for missing or invalid data
+- **Combine data**: Merge data from multiple sources into a single UI state
+
+```dart
+// Example of uiStatePreprocessor usage
+uiStatePreprocessor: () {
+  // Apply fallback values and validation
+  return CounterUiState(
+    count: state.count.clamp(0, 100), // Ensure count is within bounds
+    canDecrement: state.count > 0,    // Calculate derived properties
+  );
+}
+```
+
 ```dart
 // Define UI state
 class CounterUiState extends BinderState {
