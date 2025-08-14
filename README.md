@@ -34,7 +34,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.28
+  flutter_fbi: ^1.3.29
 ```
 
 ## Components
@@ -287,7 +287,7 @@ class CounterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Counter Example')),
       body: BoundWidget<CounterBinder, CounterUiState>(
-        binderBuilder: () => CounterBinder(context: context),
+        binder: CounterBinder(context: context),
         builder: (context, state, binder) {
           return Center(
             child: Column(
@@ -465,7 +465,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BoundWidget<DashboardBinder, DashboardState>(
-      binderBuilder: () => DashboardBinder(context: context),
+      binder: DashboardBinder(context: context),
       builder: (context, state, binder) {
         return Scaffold(
           appBar: AppBar(title: const Text('Multi-Feature Dashboard')),

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.29
+
+* Fixed incorrect parameter name in README examples: `binderBuilder` → `binder`
+* Corrected BoundWidget usage examples to match actual API
+
 ## 1.3.28
 
 * Updated architecture diagram to demonstrate "One Widget → One Binder" principle
