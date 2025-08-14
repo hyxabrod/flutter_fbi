@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.21
+
+* Updated installation instructions in README.md to reflect current version
+
 ## 1.3.20
 
 * Fixed widget creation anti-patterns: replaced widget-building methods with private widget classes

@@ -16,7 +16,7 @@ Flutter FBI provides a structured approach to Flutter application development by
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.20
+  flutter_fbi: ^1.3.21
 ```
 
 ## Components
