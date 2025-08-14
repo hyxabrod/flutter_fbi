@@ -6,12 +6,17 @@
 * Added screenshots section and funding information to pubspec.yaml
 * Improved package presentation on pub.dev
 
-## 1.3.30
+## [1.3.32] - 2024-12-21
 
-* Fixed README examples to match actual API usage
-* Corrected BoundWidget usage pattern: removed invalid generic type parameters  
-* Updated all widget examples to use proper constructor syntax and bindState method
-* Synchronized documentation examples with working code in example project
+* Updated package icon configuration for pub.dev display
+* Refined screenshots configuration with logo and architecture diagram
+* Added funding support information
+
+## [1.3.31] - 2024-12-21
+
+* Updated documentation with corrected API examples
+* Fixed BoundWidget usage examples to match actual implementation
+* Improved code clarity and removed deprecated references
 
 ## 1.3.29
 

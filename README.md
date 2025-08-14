@@ -21,7 +21,7 @@ Flutter FBI provides a structured approach to Flutter application development by
 3. **Interface** - UI components that display data and capture user input
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/hyxabrod/flutter_fbi/master/flutter_fbi_architecture.svg" alt="Flutter FBI Architecture" width="100%">
+  <img src="https://raw.githubusercontent.com/hyxabrod/flutter_fbi/master/flutter_fbi_architecture_schema.svg" alt="FBI state managemenet" width="100%">
 </div>
 
 <br><br><br>
