@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.23
+
+* Added platform support for all Flutter platforms (Android, iOS, Linux, macOS, Web, Windows)
+* Added dart3-compatible tag for Dart 3 compatibility indication
+
 ## 1.3.22
 
 * Added comprehensive documentation for uiStatePreprocessor in Binder Layer
