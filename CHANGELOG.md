@@ -1,10 +1,11 @@
 # Changelog
 
-## 1.3.31
+## [1.3.33] - 2024-12-21
 
-* Updated package configuration to improve pub.dev icon display
-* Added screenshots section and funding information to pubspec.yaml
-* Improved package presentation on pub.dev
+* Improved architecture diagram layout and visual balance
+* Centered all components horizontally and vertically for better presentation
+* Removed redundant legend and key components sections for cleaner design
+* Enhanced diagram clarity by removing specific example labels (Counter, Settings)
 
 ## [1.3.32] - 2024-12-21
 

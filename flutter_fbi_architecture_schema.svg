@@ -30,159 +30,108 @@
   
   <!-- UI Layer -->
   <g>
-    <circle cx="200" cy="180" r="60" fill="#4FC3F7" stroke="#0277BD" stroke-width="3"/>
-    <text x="200" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Widget A</text>
-    <text x="200" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Counter</text>
+    <circle cx="290" cy="230" r="60" fill="#4FC3F7" stroke="#0277BD" stroke-width="3"/>
+    <text x="290" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Widget A</text>
     
-    <circle cx="200" cy="370" r="60" fill="#4FC3F7" stroke="#0277BD" stroke-width="3"/>
-    <text x="200" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Widget B</text>
-    <text x="200" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Settings</text>
+    <circle cx="290" cy="420" r="60" fill="#4FC3F7" stroke="#0277BD" stroke-width="3"/>
+    <text x="290" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Widget B</text>
     
-    <text x="200" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">User Interface Layer</text>
+    <text x="290" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">User Interface Layer</text>
   </g>
   
   <!-- Binder Layer - Single Feature -->
   <g>
-    <rect x="400" y="120" width="120" height="120" rx="10" fill="#66BB6A" stroke="#2E7D32" stroke-width="3"/>
-    <text x="460" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Feature</text>
-    <text x="460" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Binder</text>
-    <text x="460" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">(1:1)</text>
-    <text x="460" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Single Feature Binding</text>
+    <rect x="490" y="170" width="120" height="120" rx="10" fill="#66BB6A" stroke="#2E7D32" stroke-width="3"/>
+    <text x="550" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Feature</text>
+    <text x="550" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Binder</text>
+    <text x="550" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">(1:1)</text>
+    <text x="550" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Single Feature Binding</text>
   </g>
   
   <!-- Binder Layer - Multi Feature -->
   <g>
-    <rect x="400" y="310" width="120" height="120" rx="10" fill="#AB47BC" stroke="#6A1B9A" stroke-width="3"/>
-    <text x="460" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Multi</text>
-    <text x="460" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Feature</text>
-    <text x="460" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Binder</text>
-    <text x="460" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">(1:N)</text>
-    <text x="460" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Multi Feature Binding</text>
+    <rect x="490" y="360" width="120" height="120" rx="10" fill="#AB47BC" stroke="#6A1B9A" stroke-width="3"/>
+    <text x="550" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Multi</text>
+    <text x="550" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Feature</text>
+    <text x="550" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Binder</text>
+    <text x="550" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">(1:N)</text>
+    <text x="550" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Multi Feature Binding</text>
   </g>
   
   <!-- Feature Layer -->
   <g>
     <!-- Feature 1 -->
-    <rect x="650" y="80" width="100" height="80" rx="8" fill="#FF7043" stroke="#D84315" stroke-width="2"/>
-    <text x="700" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Feature A</text>
-    <text x="700" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Business Logic</text>
+    <rect x="740" y="165" width="100" height="80" rx="8" fill="#FF7043" stroke="#D84315" stroke-width="2"/>
+    <text x="790" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Feature A</text>
+    <text x="790" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Business Logic</text>
     
     <!-- Feature 2 -->
-    <rect x="650" y="200" width="100" height="80" rx="8" fill="#FF7043" stroke="#D84315" stroke-width="2"/>
-    <text x="700" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Feature B</text>
-    <text x="700" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Business Logic</text>
+    <rect x="740" y="285" width="100" height="80" rx="8" fill="#FF7043" stroke="#D84315" stroke-width="2"/>
+    <text x="790" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Feature B</text>
+    <text x="790" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Business Logic</text>
     
     <!-- Feature 3 -->
-    <rect x="650" y="320" width="100" height="80" rx="8" fill="#FF7043" stroke="#D84315" stroke-width="2"/>
-    <text x="700" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Feature C</text>
-    <text x="700" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Business Logic</text>
+    <rect x="740" y="405" width="100" height="80" rx="8" fill="#FF7043" stroke="#D84315" stroke-width="2"/>
+    <text x="790" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Feature C</text>
+    <text x="790" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Business Logic</text>
     
-    <text x="700" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Feature Layer</text>
+    <text x="790" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Feature Layer</text>
   </g>
   
   <!-- Data Layer -->
   <g>
-    <rect x="900" y="180" width="120" height="100" rx="10" fill="#42A5F5" stroke="#1565C0" stroke-width="3"/>
-    <text x="960" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Data</text>
-    <text x="960" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Sources</text>
-    <text x="960" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">API / Repository Layer</text>
+    <rect x="990" y="270" width="120" height="100" rx="10" fill="#42A5F5" stroke="#1565C0" stroke-width="3"/>
+    <text x="1050" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Data</text>
+    <text x="1050" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">Sources</text>
+    <text x="1050" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">API / Repository Layer</text>
   </g>
   
   <!-- Arrows and Flow Lines -->
   
   <!-- Widget A to Feature Binder (Events) -->
-  <path d="M 260 180 Q 330 180 400 180" stroke="#4CAF50" stroke-width="3" fill="none" marker-end="url(#greenArrow)"/>
-  <text x="330" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4CAF50" font-weight="bold">UI Events</text>
+  <path d="M 350 230 Q 420 230 490 230" stroke="#4CAF50" stroke-width="3" fill="none" marker-end="url(#greenArrow)"/>
+  <text x="420" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4CAF50" font-weight="bold">UI Events</text>
   
   <!-- Widget B to Multi Feature Binder (Events) -->
-  <path d="M 260 370 Q 330 370 400 370" stroke="#4CAF50" stroke-width="3" fill="none" marker-end="url(#greenArrow)"/>
-  <text x="330" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4CAF50" font-weight="bold">UI Events</text>
+  <path d="M 350 420 Q 420 420 490 420" stroke="#4CAF50" stroke-width="3" fill="none" marker-end="url(#greenArrow)"/>
+  <text x="420" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4CAF50" font-weight="bold">UI Events</text>
   
   <!-- Feature Binder to Widget A (States) -->
-  <path d="M 400 160 Q 330 160 260 160" stroke="#FF5722" stroke-width="3" fill="none" marker-end="url(#redArrow)"/>
-  <text x="330" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#FF5722" font-weight="bold">UI States</text>
+  <path d="M 490 210 Q 420 210 350 210" stroke="#FF5722" stroke-width="3" fill="none" marker-end="url(#redArrow)"/>
+  <text x="420" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#FF5722" font-weight="bold">UI States</text>
   
   <!-- Multi Feature Binder to Widget B (States) -->
-  <path d="M 400 350 Q 330 350 260 350" stroke="#FF5722" stroke-width="3" fill="none" marker-end="url(#redArrow)"/>
-  <text x="330" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#FF5722" font-weight="bold">UI States</text>
+  <path d="M 490 400 Q 420 400 350 400" stroke="#FF5722" stroke-width="3" fill="none" marker-end="url(#redArrow)"/>
+  <text x="420" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#FF5722" font-weight="bold">UI States</text>
   
   <!-- Feature Binder to Feature A -->
-  <path d="M 520 160 Q 585 140 650 120" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
-  <text x="585" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">Events</text>
+  <path d="M 610 210 Q 675 190 740 205" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
+  <text x="675" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">Events</text>
   
   <!-- Feature A to Feature Binder -->
-  <path d="M 650 140 Q 585 160 520 180" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
-  <text x="585" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FF9800">States</text>
+  <path d="M 740 225 Q 675 225 610 230" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
+  <text x="675" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FF9800">States</text>
   
   <!-- Multi Feature Binder to Features -->
-  <path d="M 520 350 Q 585 320 650 240" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
-  <path d="M 520 370 Q 585 370 650 360" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
-  <text x="585" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">Events</text>
+  <path d="M 610 400 Q 675 370 740 325" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
+  <path d="M 610 420 Q 675 430 740 445" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
+  <text x="675" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">Events</text>
   
   <!-- Features to Multi Feature Binder -->
-  <path d="M 650 260 Q 585 340 520 390" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
-  <path d="M 650 380 Q 585 390 520 410" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
-  <text x="585" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FF9800">States</text>
+  <path d="M 740 345 Q 675 400 610 440" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
+  <path d="M 740 465 Q 675 460 610 460" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
+  <text x="675" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FF9800">States</text>
   
   <!-- Features to Data Sources -->
-  <path d="M 750 120 Q 825 150 900 200" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
-  <path d="M 750 240 Q 825 220 900 220" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
-  <path d="M 750 360 Q 825 310 900 260" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
-  <text x="825" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">Requests</text>
+  <path d="M 840 205 Q 915 240 990 290" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
+  <path d="M 840 325 Q 915 320 990 320" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
+  <path d="M 840 445 Q 915 400 990 350" stroke="#2196F3" stroke-width="2" fill="none" marker-end="url(#blueArrow)"/>
+  <text x="915" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2196F3">Requests</text>
   
   <!-- Data Sources to Features -->
-  <path d="M 900 200 Q 825 170 750 140" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
-  <path d="M 900 230 Q 825 240 750 260" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
-  <path d="M 900 260 Q 825 330 750 380" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
-  <text x="825" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FF9800">Responses</text>
-  
-  <!-- Legend -->
-  <g transform="translate(50, 500)">
-    <text x="0" y="0" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Flow Legend:</text>
-    
-    <!-- Green arrow legend -->
-    <line x1="0" y1="25" x2="40" y2="25" stroke="#4CAF50" stroke-width="3" marker-end="url(#greenArrow)"/>
-    <text x="50" y="30" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50">UI Events → Binder</text>
-    
-    <!-- Red arrow legend -->
-    <line x1="0" y1="50" x2="40" y2="50" stroke="#FF5722" stroke-width="3" marker-end="url(#redArrow)"/>
-    <text x="50" y="55" font-family="Arial, sans-serif" font-size="12" fill="#FF5722">Binder States → UI</text>
-    
-    <!-- Blue arrow legend -->
-    <line x1="0" y1="75" x2="40" y2="75" stroke="#2196F3" stroke-width="2" marker-end="url(#blueArrow)"/>
-    <text x="50" y="80" font-family="Arial, sans-serif" font-size="12" fill="#2196F3">Events / Requests</text>
-    
-    <!-- Orange arrow legend -->
-    <line x1="0" y1="100" x2="40" y2="100" stroke="#FF9800" stroke-width="2" marker-end="url(#orangeArrow)"/>
-    <text x="50" y="105" font-family="Arial, sans-serif" font-size="12" fill="#FF9800">States / Responses</text>
-  </g>
-  
-  <!-- Key Components Description -->
-  <g transform="translate(50, 620)">
-    <text x="0" y="0" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Key Components:</text>
-    
-    <text x="0" y="25" font-family="Arial, sans-serif" font-size="12" fill="#333">• <tspan font-weight="bold" fill="#4FC3F7">UI Widget</tspan> - Flutter widgets that display data and handle user interactions</text>
-    <text x="0" y="45" font-family="Arial, sans-serif" font-size="12" fill="#333">• <tspan font-weight="bold" fill="#66BB6A">Feature Binder</tspan> - Binds UI to single Feature, manages state transformation</text>
-    <text x="0" y="65" font-family="Arial, sans-serif" font-size="12" fill="#333">• <tspan font-weight="bold" fill="#AB47BC">Multi Feature Binder</tspan> - Coordinates multiple Features, combines their states</text>
-    <text x="0" y="85" font-family="Arial, sans-serif" font-size="12" fill="#333">• <tspan font-weight="bold" fill="#FF7043">Feature</tspan> - Business logic layer, processes events and manages domain state</text>
-    <text x="0" y="105" font-family="Arial, sans-serif" font-size="12" fill="#333">• <tspan font-weight="bold" fill="#42A5F5">Data Sources</tspan> - External APIs, databases, repositories for data persistence</text>
-  </g>
-  
-  <!-- Side Effects Annotation -->
-  <g transform="translate(650, 450)">
-    <rect x="0" y="0" width="200" height="80" rx="5" fill="#FFF3E0" stroke="#FF9800" stroke-width="1" stroke-dasharray="5,5"/>
-    <text x="100" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#E65100">Side Effects</text>
-    <text x="10" y="40" font-family="Arial, sans-serif" font-size="10" fill="#BF360C">Features can trigger side effects:</text>
-    <text x="10" y="55" font-family="Arial, sans-serif" font-size="10" fill="#BF360C">• Navigation</text>
-    <text x="10" y="70" font-family="Arial, sans-serif" font-size="10" fill="#BF360C">• Notifications</text>
-  </g>
-  
-  <!-- Reactive Streams Annotation -->
-  <g transform="translate(850, 450)">
-    <rect x="0" y="0" width="200" height="80" rx="5" fill="#E3F2FD" stroke="#2196F3" stroke-width="1" stroke-dasharray="5,5"/>
-    <text x="100" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0D47A1">Reactive Streams</text>
-    <text x="10" y="40" font-family="Arial, sans-serif" font-size="10" fill="#1565C0">All communication via RxDart:</text>
-    <text x="10" y="55" font-family="Arial, sans-serif" font-size="10" fill="#1565C0">• BehaviorSubject for states</text>
-    <text x="10" y="70" font-family="Arial, sans-serif" font-size="10" fill="#1565C0">• Stream transformations</text>
-  </g>
+  <path d="M 990 290 Q 915 260 840 225" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
+  <path d="M 990 320 Q 915 340 840 345" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
+  <path d="M 990 350 Q 915 420 840 465" stroke="#FF9800" stroke-width="2" fill="none" marker-end="url(#orangeArrow)"/>
+  <text x="915" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FF9800">Responses</text>
+
 </svg>
