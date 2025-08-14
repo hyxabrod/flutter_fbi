@@ -9,7 +9,7 @@ class ConcurrentFeature extends Feature<ConcurrentEvent, ConcurrentState, Concur
   void _handleEvent(ConcurrentEvent event) async {
     switch (event) {
       case SlowIncEvent():
-        await Future<void>.delayed(const Duration(milliseconds: 50));
+        await Future<void>.delayed(const Duration(milliseconds: 800));
         emitState(ConcurrentState(state.value + 1));
         emitSideEffect(ConcurrentFx('slow-inc-done'));
       case FastPingEvent():
