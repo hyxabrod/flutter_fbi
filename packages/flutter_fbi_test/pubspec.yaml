@@ -7,13 +7,10 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  flutter_fbi:
-    path: ../../
-
-dev_dependencies:
+  flutter_fbi: ^1.3.33
   flutter_test:
     sdk: flutter
 
+
 flutter:
-  plugin:
-    platforms: {}
+  uses-material-design: false
