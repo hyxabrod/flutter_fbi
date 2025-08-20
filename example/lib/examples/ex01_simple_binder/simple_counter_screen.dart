@@ -14,8 +14,7 @@ class SimpleCounterScreen extends StatelessWidget {
 }
 
 class _SimpleCounterWidget extends SimpleBoundWidget<SimpleCounterBinder> {
-  const _SimpleCounterWidget({required SimpleCounterBinder binder})
-      : super(binder: binder);
+  const _SimpleCounterWidget({required SimpleCounterBinder binder}) : super(binder: binder);
 
   @override
   Widget builder(BuildContext context, SimpleCounterBinder binder) {
@@ -35,8 +34,7 @@ class _SimpleCounterWidget extends SimpleBoundWidget<SimpleCounterBinder> {
               const SizedBox(height: 24),
               Text(
                 '${state.count}',
-                style:
-                    const TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 24),
               Row(

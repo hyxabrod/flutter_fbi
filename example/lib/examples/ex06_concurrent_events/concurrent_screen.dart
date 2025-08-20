@@ -31,8 +31,7 @@ class _ConcurrentScreenState extends State<ConcurrentScreen> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Value: ${state.value}',
-                  style: const TextStyle(fontSize: 24)),
+              Text('Value: ${state.value}', style: const TextStyle(fontSize: 24)),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

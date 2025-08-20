@@ -95,15 +95,13 @@ abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
   }
 }
 
-typedef IncomingEventsHandler<E extends UiEvent> = FutureOr<void> Function(
-    E event);
+typedef IncomingEventsHandler<E extends UiEvent> = FutureOr<void> Function(E event);
 
 /// Feature with optional side-effects stream.
 ///
 /// Extends [BaseFeature] and exposes a [sideEffect] stream that can be used
 /// to emit one-off effects (navigation, toasts, logging, etc.).
-abstract class Feature<E extends UiEvent, S extends FeatureState,
-    F extends SideEffect> extends BaseFeature<E, S> {
+abstract class Feature<E extends UiEvent, S extends FeatureState, F extends SideEffect> extends BaseFeature<E, S> {
   /// Stream subject for one-off side effects.
   late BehaviorSubject<F> sideEffect;
 
@@ -129,7 +127,6 @@ abstract class Feature<E extends UiEvent, S extends FeatureState,
 /// Convenience feature type for features that do not keep state.
 ///
 /// Uses [EmptyFeatureState] as the feature state type.
-abstract class NoStateFeature<E extends UiEvent, F extends SideEffect>
-    extends Feature<E, EmptyFeatureState, F> {
+abstract class NoStateFeature<E extends UiEvent, F extends SideEffect> extends Feature<E, EmptyFeatureState, F> {
   NoStateFeature() : super(initialState: EmptyFeatureState());
 }

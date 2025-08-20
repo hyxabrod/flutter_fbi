@@ -8,11 +8,10 @@ import 'package:flutter_fbi/src/feature/feature.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/subjects.dart';
 
-typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(
-    BuildContext context, S state);
+typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
 
-abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState,
-    S extends BinderState> extends Binder<F, S> {
+abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState>
+    extends Binder<F, S> {
   final BaseFeature<E, F> feature;
   late BehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
@@ -27,8 +26,7 @@ abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState,
     super.errorWidget,
   }) {
     _uiStatePipe = BehaviorSubject.seeded(uiStatePreprocessor());
-    _featureStreamSubscription ??=
-        feature.stateStream.transform(stateTransformer()).listen((event) {
+    _featureStreamSubscription ??= feature.stateStream.transform(stateTransformer()).listen((event) {
       _uiStatePipe.add(event);
     });
   }
@@ -68,11 +66,8 @@ abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState,
   }
 }
 
-abstract class FeatureBinder<
-    E extends UiEvent,
-    F extends FeatureState,
-    S extends BinderState,
-    SF extends SideEffect> extends _BaseFeatureBinder<E, F, S> {
+abstract class FeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState, SF extends SideEffect>
+    extends _BaseFeatureBinder<E, F, S> {
   final Feature<E, F, SF> _binderFeature;
   StreamSubscription<SF>? _sideEffectSubscription;
 

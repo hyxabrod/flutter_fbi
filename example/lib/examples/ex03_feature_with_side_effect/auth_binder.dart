@@ -3,8 +3,7 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_entities.dart';
 import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_feature.dart';
 
-class AuthBinder
-    extends FeatureBinder<AuthEvent, AuthState, AuthUiState, AuthSideEffect> {
+class AuthBinder extends FeatureBinder<AuthEvent, AuthState, AuthUiState, AuthSideEffect> {
   AuthBinder({required BuildContext context})
       : super(
           context: context,

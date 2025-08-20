@@ -3,8 +3,7 @@ import 'package:flutter_fbi/src/binder/binder_interface.dart';
 import 'package:flutter_fbi/src/bound_widget/bound_context_extention.dart';
 import 'package:flutter_fbi/src/bound_widget/bound_interface.dart';
 
-abstract class SimpleBoundWidget<B extends BasicBinder> extends StatefulWidget
-    implements IBoundWidget<B> {
+abstract class SimpleBoundWidget<B extends BasicBinder> extends StatefulWidget implements IBoundWidget<B> {
   final B binder;
   const SimpleBoundWidget({Key? key, required this.binder});
 
@@ -18,8 +17,7 @@ abstract class SimpleBoundWidget<B extends BasicBinder> extends StatefulWidget
   B getBinder() => binder;
 }
 
-class _SimpleBoundWidgetState<B extends BasicBinder>
-    extends State<SimpleBoundWidget> {
+class _SimpleBoundWidgetState<B extends BasicBinder> extends State<SimpleBoundWidget> {
   _SimpleBoundWidgetState();
 
   @override

@@ -1,8 +1,7 @@
 import 'package:flutter_fbi/flutter_fbi.dart';
 import 'concurrent_entities.dart';
 
-class ConcurrentFeature
-    extends Feature<ConcurrentEvent, ConcurrentState, ConcurrentFx> {
+class ConcurrentFeature extends Feature<ConcurrentEvent, ConcurrentState, ConcurrentFx> {
   ConcurrentFeature() : super(initialState: const ConcurrentState(0)) {
     onEvent(_handleEvent);
   }

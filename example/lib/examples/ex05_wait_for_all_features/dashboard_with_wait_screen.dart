@@ -26,8 +26,7 @@ class DashboardWithWaitScreen extends StatelessWidget {
 }
 
 class _DashboardWithWaitWidget extends BoundWidget<DashboardWithWaitBinder> {
-  const _DashboardWithWaitWidget({required DashboardWithWaitBinder binder})
-      : super(binder: binder);
+  const _DashboardWithWaitWidget({required DashboardWithWaitBinder binder}) : super(binder: binder);
 
   @override
   Widget builder(BuildContext context, DashboardWithWaitBinder binder) {
@@ -152,8 +151,7 @@ class _DashboardWithWaitWidget extends BoundWidget<DashboardWithWaitBinder> {
                             // Weather Section
                             const Text(
                               'Weather',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 16),
                             Card(
@@ -161,12 +159,10 @@ class _DashboardWithWaitWidget extends BoundWidget<DashboardWithWaitBinder> {
                                 padding: const EdgeInsets.all(16),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.wb_sunny,
-                                        size: 48, color: Colors.orange),
+                                    const Icon(Icons.wb_sunny, size: 48, color: Colors.orange),
                                     const SizedBox(width: 16),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           state.temperature,
@@ -187,8 +183,7 @@ class _DashboardWithWaitWidget extends BoundWidget<DashboardWithWaitBinder> {
                             // News Section
                             const Text(
                               'News',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 16),
                             Card(
@@ -205,8 +200,7 @@ class _DashboardWithWaitWidget extends BoundWidget<DashboardWithWaitBinder> {
                                         ]
                                       : state.news
                                           .map((item) => Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 8),
+                                                padding: const EdgeInsets.only(bottom: 8),
                                                 child: Text(item),
                                               ))
                                           .toList(),

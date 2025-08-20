@@ -26,8 +26,7 @@ abstract class BasicBinder<S extends BinderState> {
   void dispose();
 }
 
-abstract class Binder<F extends FeatureState, S extends BinderState>
-    extends BasicBinder<S> {
+abstract class Binder<F extends FeatureState, S extends BinderState> extends BasicBinder<S> {
   Binder({
     required super.context,
     required super.uiStatePreprocessor,

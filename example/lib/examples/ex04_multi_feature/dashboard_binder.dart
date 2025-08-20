@@ -24,18 +24,15 @@ class DashboardState extends BinderState {
   });
 
   @override
-  List<Object?> get props =>
-      [isLoading, userName, userEmail, darkMode, notificationsEnabled, error];
+  List<Object?> get props => [isLoading, userName, userEmail, darkMode, notificationsEnabled, error];
 }
 
 class DashboardBinder extends MultiFeatureBinder<DashboardState> {
-  DashboardBinder(
-      {required BuildContext context, required List<Feature> features})
+  DashboardBinder({required BuildContext context, required List<Feature> features})
       : super(
           context: context,
           features: features,
-          shouldWaitForAllFeatures:
-              false, // Updates UI immediately when any feature emits state
+          shouldWaitForAllFeatures: false, // Updates UI immediately when any feature emits state
           uiStatePreprocessor: () => const DashboardState(
             isLoading: true,
             userName: '',

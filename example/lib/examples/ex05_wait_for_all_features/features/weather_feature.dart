@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi_example/examples/ex05_wait_for_all_features/entities/weather_entities.dart';
 
-class WeatherFeature
-    extends Feature<WeatherEvent, WeatherState, WeatherSideEffect> {
+class WeatherFeature extends Feature<WeatherEvent, WeatherState, WeatherSideEffect> {
   // Add error simulation rate for demonstration
   final double errorRate;
   final Random _random = Random();
@@ -17,8 +16,7 @@ class WeatherFeature
     {'temp': '20°C', 'condition': 'Light Rain'},
   ];
 
-  WeatherFeature({this.errorRate = 0.2})
-      : super(initialState: const WeatherState()) {
+  WeatherFeature({this.errorRate = 0.2}) : super(initialState: const WeatherState()) {
     onEvent(_handleEvent);
   }
 

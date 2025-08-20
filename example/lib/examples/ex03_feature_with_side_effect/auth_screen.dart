@@ -80,13 +80,8 @@ class _LoginScreen extends StatelessWidget {
             ],
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: state.isLoading
-                  ? null
-                  : () => binder.login(
-                      usernameController.text, passwordController.text),
-              child: state.isLoading
-                  ? const CircularProgressIndicator()
-                  : const Text('Login'),
+              onPressed: state.isLoading ? null : () => binder.login(usernameController.text, passwordController.text),
+              child: state.isLoading ? const CircularProgressIndicator() : const Text('Login'),
             ),
             const SizedBox(height: 48),
             const Padding(
