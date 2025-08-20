@@ -4,28 +4,40 @@ import 'dart:collection';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:rxdart/rxdart.dart';
 
-/// Event/state feature
+/// Base implementation of an event → state feature.
+///
+/// Processes incoming UI events and exposes a stream of feature states.
+/// By default events are queued and handled sequentially; callers may
+/// dispatch events concurrently by using `sync: false` when calling [add].
 abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
-  // Removed PublishSubject in favor of explicit queue-based dispatching to
-  // guarantee ordering and avoid reentrancy issues.
   final Queue<E> _eventQueue = Queue<E>();
   bool _isProcessing = false;
   late BehaviorSubject<S> _statePipe;
 
+  /// Stream of feature states.
+  ///
+  /// The stream emits the current state and subsequent updates. Successive
+  /// states are filtered using `distinct` semantics based on `props.hashCode`.
   Stream<S> get stateStream => _statePipe.stream.distinct(
         (previous, next) => previous.props.hashCode == next.props.hashCode,
       );
 
+  /// Synchronously accessible current feature state.
   S get state => _statePipe.value;
 
   IncomingEventsHandler<E>? _incomingEventsHandler;
 
+  /// Creates a feature initialized with [initialState].
+  ///
+  /// The initial state is seeded into the internal state subject so that
+  /// subscribers immediately receive a valid state value.
   BaseFeature({required S initialState}) {
     _statePipe = BehaviorSubject<S>.seeded(initialState);
-    // We no longer listen to a Subject; events are dispatched via add() which
-    // feeds either the sync queue or concurrent path explicitly.
   }
 
+  /// Register a handler that will be invoked for incoming events.
+  ///
+  /// The provided [handler] is called for each event added via [add].
   void onEvent(IncomingEventsHandler<E> handler) {
     _incomingEventsHandler = handler;
   }
@@ -69,38 +81,55 @@ abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
     });
   }
 
+  /// Emit a new feature state to [stateStream].
   void emitState(covariant S state) {
     _statePipe.add(state);
   }
 
+  /// Dispose the feature and release resources.
+  ///
+  /// Clears internal queues and closes the internal state stream.
   void dispose() {
-    // No Subject to close; clear queue and close state stream.
     _eventQueue.clear();
     _statePipe.close();
   }
 }
 
-typedef IncomingEventsHandler<E extends UiEvent> = FutureOr<void> Function(E event);
+typedef IncomingEventsHandler<E extends UiEvent> = FutureOr<void> Function(
+    E event);
 
-/// Event/state/side-effect feature
-abstract class Feature<E extends UiEvent, S extends FeatureState, F extends SideEffect> extends BaseFeature<E, S> {
+/// Feature with optional side-effects stream.
+///
+/// Extends [BaseFeature] and exposes a [sideEffect] stream that can be used
+/// to emit one-off effects (navigation, toasts, logging, etc.).
+abstract class Feature<E extends UiEvent, S extends FeatureState,
+    F extends SideEffect> extends BaseFeature<E, S> {
+  /// Stream subject for one-off side effects.
   late BehaviorSubject<F> sideEffect;
 
+  /// Creates a feature with the provided [initialState].
   Feature({required S initialState}) : super(initialState: initialState) {
     sideEffect = BehaviorSubject();
   }
 
+  /// Emit a side effect to [sideEffect] stream.
   void emitSideEffect(covariant F state) {
     sideEffect.add(state);
   }
 
   @override
+
+  /// Dispose both side effects stream and the base feature resources.
   void dispose() {
     sideEffect.close();
     super.dispose();
   }
 }
 
-abstract class NoStateFeature<E extends UiEvent, F extends SideEffect> extends Feature<E, EmptyFeatureState, F> {
+/// Convenience feature type for features that do not keep state.
+///
+/// Uses [EmptyFeatureState] as the feature state type.
+abstract class NoStateFeature<E extends UiEvent, F extends SideEffect>
+    extends Feature<E, EmptyFeatureState, F> {
   NoStateFeature() : super(initialState: EmptyFeatureState());
 }

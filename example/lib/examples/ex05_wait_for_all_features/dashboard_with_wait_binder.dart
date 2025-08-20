@@ -44,15 +44,18 @@ class DashboardWithWaitState extends BinderState {
       ];
 }
 
-class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState> {
+class DashboardWithWaitBinder
+    extends MultiFeatureBinder<DashboardWithWaitState> {
   // Store start times to calculate load duration
   final Map<String, DateTime> _loadStartTimes = {};
 
-  DashboardWithWaitBinder({required BuildContext context, required List<Feature> features})
+  DashboardWithWaitBinder(
+      {required BuildContext context, required List<Feature> features})
       : super(
           context: context,
           features: features,
-          shouldWaitForAllFeatures: true, // When true: UI only updates after all features have emitted their states
+          shouldWaitForAllFeatures:
+              true, // When true: UI only updates after all features have emitted their states
           uiStatePreprocessor: () => const DashboardWithWaitState(
             isLoading: true,
             isNewsLoading: true,
@@ -132,8 +135,12 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
       isNewsLoading: news.isLoading,
       isWeatherLoading: weather.isLoading,
       news: news.news,
-      temperature: weather.currentTemperature.isEmpty ? 'No data' : weather.currentTemperature,
-      weatherCondition: weather.weatherCondition.isEmpty ? 'No data' : weather.weatherCondition,
+      temperature: weather.currentTemperature.isEmpty
+          ? 'No data'
+          : weather.currentTemperature,
+      weatherCondition: weather.weatherCondition.isEmpty
+          ? 'No data'
+          : weather.weatherCondition,
       error: news.error ?? weather.error,
       newsLoadTime: news.isLoading ? null : _calculateLoadTime('news'),
       weatherLoadTime: weather.isLoading ? null : _calculateLoadTime('weather'),

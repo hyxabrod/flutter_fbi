@@ -3,7 +3,8 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 import 'concurrent_entities.dart';
 import 'concurrent_feature.dart';
 
-class ConcurrentBinder extends FeatureBinder<ConcurrentEvent, ConcurrentState, ConcurrentUiState, ConcurrentFx> {
+class ConcurrentBinder extends FeatureBinder<ConcurrentEvent, ConcurrentState,
+    ConcurrentUiState, ConcurrentFx> {
   ConcurrentBinder({required BuildContext context})
       : super(
           context: context,

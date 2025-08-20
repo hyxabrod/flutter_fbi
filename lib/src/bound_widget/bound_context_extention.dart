@@ -31,7 +31,8 @@ class BinderProvider<T extends BasicBinder> extends InheritedWidget {
   }) : super(key: key, child: child);
 
   static T? of<T extends BasicBinder>(BuildContext context) {
-    final provider = context.dependOnInheritedWidgetOfExactType<BinderProvider<T>>();
+    final provider =
+        context.dependOnInheritedWidgetOfExactType<BinderProvider<T>>();
     return provider?.binder;
   }
 
@@ -52,7 +53,8 @@ extension BinderContextExtension on BuildContext {
   T findBinder<T extends BasicBinder>() {
     final foundBinder = BinderProvider.of<T>(this);
     if (foundBinder == null) {
-      throw Exception('No binder of type $T found in the current widget subtree');
+      throw Exception(
+          'No binder of type $T found in the current widget subtree');
     }
     return foundBinder;
   }

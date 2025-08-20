@@ -9,12 +9,6 @@ documentation: https://github.com/hyxabrod/flutter_fbi#readme
 funding:
   - https://github.com/sponsors/hyxabrod
 
-screenshots:
-  - description: 'Flutter FBI Architecture'
-    path: flutter_fbi_architecture_schema.svg
-  - description: 'Flutter FBI Logo'
-    path: flutter_fbi_icon.svg
-
 topics:
   - state-management
   - architecture

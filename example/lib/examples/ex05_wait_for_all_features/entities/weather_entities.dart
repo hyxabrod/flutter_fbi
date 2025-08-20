@@ -34,7 +34,8 @@ class WeatherState extends FeatureState {
   }
 
   @override
-  List<Object?> get props => [isLoading, currentTemperature, weatherCondition, error];
+  List<Object?> get props =>
+      [isLoading, currentTemperature, weatherCondition, error];
 }
 
 // Side Effect

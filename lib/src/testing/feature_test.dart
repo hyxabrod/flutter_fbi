@@ -27,7 +27,8 @@ import 'package:flutter_fbi/flutter_fbi.dart';
 /// - [verify]: Optional additional verifications with access to the feature.
 ///
 /// Note: [seed] emits the provided state on top of the feature's initial state.
-void featureTest<E extends UiEvent, S extends FeatureState, F extends SideEffect>(
+void featureTest<E extends UiEvent, S extends FeatureState,
+    F extends SideEffect>(
   String description, {
   FutureOr<void> Function()? setUp,
   required Feature<E, S, F> Function() build,

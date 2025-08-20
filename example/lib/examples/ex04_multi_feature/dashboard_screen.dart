@@ -11,13 +11,15 @@ class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final binder = DashboardBinder(context: context, features: [SettingsFeature(), UserFeature()]);
+    final binder = DashboardBinder(
+        context: context, features: [SettingsFeature(), UserFeature()]);
     return _DashboardWidget(binder: binder);
   }
 }
 
 class _DashboardWidget extends BoundWidget<DashboardBinder> {
-  const _DashboardWidget({required DashboardBinder binder}) : super(binder: binder);
+  const _DashboardWidget({required DashboardBinder binder})
+      : super(binder: binder);
 
   @override
   Widget builder(BuildContext context, DashboardBinder binder) {
@@ -26,7 +28,8 @@ class _DashboardWidget extends BoundWidget<DashboardBinder> {
         title: const Text('Multi-Feature Example'),
       ),
       body: binder.bindState((context, state) {
-        if (state.isLoading && (state.userName == 'Unknown' || state.userEmail == 'No email')) {
+        if (state.isLoading &&
+            (state.userName == 'Unknown' || state.userEmail == 'No email')) {
           return const Center(child: CircularProgressIndicator());
         }
 
@@ -100,7 +103,9 @@ class _DashboardWidget extends BoundWidget<DashboardBinder> {
                       const Divider(),
                       SwitchListTile(
                         title: const Text('Notifications'),
-                        subtitle: Text(state.notificationsEnabled ? 'Enabled' : 'Disabled'),
+                        subtitle: Text(state.notificationsEnabled
+                            ? 'Enabled'
+                            : 'Disabled'),
                         value: state.notificationsEnabled,
                         onChanged: (_) => binder.toggleNotifications(),
                       ),

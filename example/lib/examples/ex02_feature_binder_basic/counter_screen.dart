@@ -34,7 +34,8 @@ class _CounterWidget extends BoundWidget<CounterBinder> {
               const SizedBox(height: 24),
               Text(
                 state.countText,
-                style: const TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 24),
               Row(

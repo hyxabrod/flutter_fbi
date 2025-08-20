@@ -54,7 +54,8 @@ class ExampleNavigator extends StatelessWidget {
             subtitle: 'Multi-Feature with shouldWaitForAllFeatures = true',
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const DashboardWithWaitScreen()),
+              MaterialPageRoute(
+                  builder: (_) => const DashboardWithWaitScreen()),
             ),
           ),
           _ExampleTile(
