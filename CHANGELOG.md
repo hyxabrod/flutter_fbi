@@ -4,6 +4,11 @@
 * Bumped package version to 1.3.35
 * Packaging fixes: ensured test helpers are not exported from the public API and updated metadata for pub.dev validation
 
+## [1.4.0] - 2025-08-20
+
+* Minor release: API is backwards compatible; updated package metadata and documentation
+* Bumped version to 1.4.0
+
 ## [1.3.33] - 2024-12-21
 
 * Improved architecture diagram layout and visual balance

@@ -34,7 +34,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.3.35
+  flutter_fbi: ^1.4.0
 ```
 
 ## Components
