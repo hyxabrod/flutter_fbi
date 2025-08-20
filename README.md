@@ -527,50 +527,45 @@ class _DashboardWidget extends BoundWidget<DashboardBinder> {
 
 ## Testing
 
-Flutter FBI includes comprehensive testing utilities similar to bloc_test for easy Feature testing:
+Testing Features is straightforward with Flutter FBI. We provide a tiny test helper package, `flutter_fbi_test`, which exposes the `featureTest` helper used in the examples below. Install it in your `dev_dependencies` and import it in tests:
+
+```yaml
+dev_dependencies:
+  flutter_fbi_test: ^0.1.1
+  flutter_test:
+    sdk: flutter
+```
+
+Use `featureTest` to verify a feature's emitted states and side effects in a concise, declarative way:
 
 ```dart
-import 'package:flutter_fbi/flutter_fbi.dart';
+import 'package:flutter_fbi_test/flutter_fbi_test.dart';
 
-void main() {
-  featureTest<CounterEvent, CounterState, SideEffect>(
-    'counter increments correctly',
-    build: () => CounterFeature(),
-    act: (feature) async {
-      feature.add(IncrementEvent());
-      feature.add(IncrementEvent());
-    },
-    expect: () => [
-      CounterState(count: 1),
-      CounterState(count: 2),
-    ],
-  );
-
-  featureTest<AuthEvent, AuthState, AuthSideEffect>(
-    'login emits correct states and side effects',
-    build: () => AuthFeature(),
-    act: (feature) => feature.add(LoginEvent(username: 'user', password: 'pass')),
-    expect: () => [
-      AuthState(isLoading: true),
-      AuthState(isLoading: false, isLoggedIn: true, username: 'user'),
-    ],
-    expectSideEffects: () => [
-      ShowToastEffect('Welcome, user!'),
-      NavigateToHomeEffect(),
-    ],
-  );
-}
+featureTest<CounterEvent, CounterState, SideEffect>(
+  'increments twice',
+  build: () => CounterFeature(),
+  act: (f) {
+    f.add(IncrementEvent());
+    f.add(IncrementEvent());
+  },
+  expect: () => [
+    CounterState(count: 1),
+    CounterState(count: 2),
+  ],
+);
 ```
 
 ### Testing Features
 
 - **State Testing**: Verify Feature state changes with `expect`
-- **Side Effect Testing**: Test side effects with `expectSideEffects`  
+- **Side Effect Testing**: Test side effects with `expectSideEffects`
 - **Async Support**: Full async/await support for complex scenarios
 - **Setup/Teardown**: Optional setup and verification callbacks
 - **Seed States**: Set initial states before testing with `seed`
 - **Timing Control**: Control timing with `wait` parameter
 - **Skip Options**: Skip initial states with `skip` parameter
+
+See the `flutter_fbi_test` package for the helper and examples: https://pub.dev/packages/flutter_fbi_test
 
 ## Why Flutter FBI?
 
