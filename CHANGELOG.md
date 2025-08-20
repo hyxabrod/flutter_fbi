@@ -1,4 +1,8 @@
 # Changelog
+## [1.3.35] - 2025-08-20
+
+* Bumped package version to 1.3.35
+* Packaging fixes: ensured test helpers are not exported from the public API and updated metadata for pub.dev validation
 
 ## [1.3.33] - 2024-12-21
 
