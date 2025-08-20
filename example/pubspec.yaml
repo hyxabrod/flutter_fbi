@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_fbi: ^1.3.34
+  flutter_fbi: ^1.3.35
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
