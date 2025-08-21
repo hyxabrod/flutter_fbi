@@ -1,4 +1,8 @@
 # Changelog
+## [1.4.1] - 2025-08-20
+
+* Added automated tests for all example projects (see `example/test`).
+
 ## [1.4.0] - 2025-08-20
 
 * Minor release: API is backwards compatible; updated package metadata and documentation
