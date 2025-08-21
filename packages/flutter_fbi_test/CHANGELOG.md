@@ -6,7 +6,7 @@
 
 ## [0.1.2] - 2025-08-20
 
-- Bumped package to 0.1.2 and updated dependency to `flutter_fbi ^1.4.0`.
+- Bumped package to 0.1.2 and updated dependency to `flutter_fbi ^1.4.1`.
 
 ## [0.1.1] - 2025-08-20
 

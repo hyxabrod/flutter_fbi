@@ -34,7 +34,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.4.0
+  flutter_fbi: ^1.4.1
 ```
 
 ## Components
@@ -195,6 +195,11 @@ Check out the [example](example) directory for complete examples:
 4. **Multi-Feature Example** - Combining multiple features in one UI
 5. **Wait For All Features Example** - Using shouldWaitForAllFeatures = true in MultiFeatureBinder (UI waits for all features before updating)
 6. **Concurrent Events Example** - Demonstrates sequential vs concurrent event processing with sync parameter
+
+Tests
+-----
+
+Automated tests for the example projects are included under `example/test`. These demonstrate usage of the `featureTest` helper, cover state and side-effect assertions, and include concurrent-event scenarios. Run them with `flutter test` from the `example` directory.
 
 ### Feature Binder Example
 

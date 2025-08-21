@@ -65,11 +65,10 @@ packages:
   flutter_fbi:
     dependency: "direct main"
     description:
-      name: flutter_fbi
-      sha256: "7c8933835f96524e9bcfa9df71028f7d604746091dc2b74ebfaaebf44ae8a080"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
+      path: "../.."
+      relative: true
+    source: path
+    version: "1.4.1"
   flutter_test:
     dependency: "direct main"
     description: flutter
