@@ -16,7 +16,7 @@ class ConcurrentState extends FeatureState {
 }
 
 // Side Effect
-class ConcurrentFx extends SideEffect {
+class ConcurrentSideEffect extends SideEffect {
   final String msg;
-  ConcurrentFx(this.msg);
+  ConcurrentSideEffect(this.msg);
 }
