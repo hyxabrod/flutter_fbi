@@ -1,4 +1,14 @@
 # Changelog
+
+## [1.4.2] - 2025-08-22
+
+* Internal: Extracted `BinderProvider` into its own file and converted it to a
+	`StatefulWidget` with an internal `InheritedWidget` to correctly react to
+	binder instance updates.
+* Internal: Added `DisposableBinderProvider` documentation and usage example.
+* Chore: Bumped package version to `1.4.2` and updated dependent test/example
+	packages.
+
 ## [1.4.1] - 2025-08-20
 
 * Added automated tests for all example projects (see `example/test`).

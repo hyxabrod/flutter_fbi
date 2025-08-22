@@ -34,7 +34,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.4.1
+  flutter_fbi: ^1.4.2
 ```
 
 ## Components
@@ -88,6 +88,43 @@ Binders connect features to the UI and transform feature states into UI states.
 - **SimpleBinder**: For UI state without a feature
 - **FeatureBinder**: Connects a single feature to UI
 - **MultiFeatureBinder**: Connects multiple features to UI
+
+#### BinderProvider
+
+`BinderProvider` is an Inherited-style provider that exposes a `BasicBinder`
+instance to its widget subtree. This library provides two forms:
+
+- `BinderProvider<T>` — a simple way to expose an existing binder instance to
+  descendants. Use `BinderProvider.of<T>(context)` or the `context.findBinder<T>()`
+  extension to access it.
+- `DisposableBinderProvider<T>` — convenience `StatefulWidget` that creates a
+  binder via a `create(BuildContext)` callback and automatically calls
+  `dispose()` on the binder when the widget is removed from the tree.
+
+The `BinderProvider` implementation used by this package is stateful under the
+hood: it stores the current binder instance and updates an internal
+`InheritedWidget` when the instance changes. This ensures widgets that depend on
+the binder are notified if you swap the binder instance via rebuilding the
+provider with a new value.
+
+Usage examples:
+
+```dart
+// Exposing an existing binder
+BinderProvider<MyBinder>(
+  binder: myBinder,
+  child: MyWidget(),
+)
+
+// Letting the provider own the binder lifecycle
+DisposableBinderProvider<MyBinder>(
+  create: (context) => MyBinder(context: context),
+  child: MyWidget(),
+)
+
+// Accessing the binder from descendants
+final binder = context.findBinder<MyBinder>();
+```
 
 #### uiStatePreprocessor
 
