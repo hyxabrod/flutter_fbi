@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi/src/binder/binder_interface.dart';
-import 'package:flutter_fbi/src/bound_widget/bound_context_extention.dart';
 import 'package:flutter_fbi/src/bound_widget/bound_interface.dart';
 
 abstract class BoundWidget<B extends BasicBinder> extends StatefulWidget implements IBoundWidget<B> {
