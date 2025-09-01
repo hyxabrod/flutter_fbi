@@ -6,8 +6,9 @@ Testing helpers for the `flutter_fbi` package. Provides a small, focused
 
 Features
 
-- Lightweight test helper for `Feature` classes.
-- Small surface area — depends only on `flutter_fbi` and `flutter_test`.
+- Lightweight test helper for `Feature` classes
+- Separate assertions for states and side-effects
+- Minimal surface area — depends on `flutter_fbi` and `flutter_test`
 
 Installation
 
@@ -15,9 +16,27 @@ Add to your `dev_dependencies` in `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  flutter_fbi_test: ^0.1.4
+  flutter_fbi_test: ^0.1.5
   flutter_test:
     sdk: flutter
+```
+
+API
+
+```dart
+@isTest
+void featureTest<E extends UiEvent, S extends FeatureState, F extends SideEffect>(
+  String description, {
+  FutureOr<void> Function()? setUp,
+  required Feature<E, S, F> Function() build,
+  S Function()? seed,
+  FutureOr<void> Function(Feature<E, S, F> feature)? act,
+  Iterable<Object?> Function()? expect,
+  Iterable<Object?> Function()? expectSideEffects,
+  int skip = 1, // skip initial state by default
+  Duration? wait,
+  FutureOr<void> Function(Feature<E, S, F> feature)? verify,
+})
 ```
 
 Basic usage
@@ -33,14 +52,25 @@ featureTest<CounterEvent, CounterState, CounterSideEffect>(
 );
 ```
 
+With side-effects and wait
+
+```dart
+featureTest<AuthEvent, AuthState, AuthSideEffect>(
+  'login success shows toast',
+  build: () => AuthFeature(),
+  act: (f) => f.add(LoginRequested('u', 'p')),
+  expect: () => [isA<AuthLoading>(), isA<AuthSuccess>()],
+  expectSideEffects: () => [isA<ShowToastEffect>()],
+  wait: const Duration(milliseconds: 50),
+);
+```
+
 Guidance
 
-- Keep this package in `dev_dependencies` — it is intended for tests only.
-- Update the `flutter_fbi` constraint to match the published compatible
-  version range when upgrading the core package.
+- Keep this package in `dev_dependencies` — it is intended for tests only
+- Keep `skip` at default `1` to skip the initial seeded state
+- Use `wait` if your feature emits asynchronously after `act`
 
 License
 
-This package is licensed under the Apache License 2.0. See the `LICENSE` file
-for details.
-
+Apache License 2.0 — see `LICENSE` for details
