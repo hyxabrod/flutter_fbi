@@ -7,7 +7,8 @@ import 'package:flutter_fbi/src/binder/binder_state.dart';
 import 'package:flutter_fbi/src/feature/feature.dart';
 import 'package:flutter_fbi/src/binder/feature_binder.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:flutter_fbi/src/utils/behavior_subject.dart';
+import 'package:flutter_fbi/src/utils/stream_utils.dart';
 
 /// Base class for multi-feature binders.
 abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinder<S> {
@@ -30,14 +31,14 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
     assert(featureList.isNotEmpty, 'Feature list cannot be empty');
     _uiStatePipe = BehaviorSubject.seeded(uiStatePreprocessor());
 
-    final instantUpdate = Rx.merge(featureList
+    final instantUpdate = StreamUtils.merge(featureList
             .map(
               (feature) => feature.stateStream,
             )
             .toList())
         .map<S>((state) => uiStateTransformer([state]));
 
-    final combinedUpdate = Rx.combineLatest<FeatureState, S>(
+    final combinedUpdate = StreamUtils.combineLatest<FeatureState, S>(
       featureList.map((e) => e.stateStream),
       (featureStates) => uiStateTransformer(
         featureStates,
@@ -113,7 +114,7 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
   /// The [listener] function will receive the [SideEffect] as an argument.
   /// Returns this [MultiFeatureBinder] instance for chaining.
   MultiFeatureBinder<S> bindSideEffect(final void Function(SideEffect) listener) {
-    _sideEffectSubscription ??= Rx.merge(_binderFeatures.map((e) => e.sideEffect)).listen(
+    _sideEffectSubscription ??= StreamUtils.merge(_binderFeatures.map((e) => e.sideEffect)).listen(
       (effect) {
         listener(effect);
       },
