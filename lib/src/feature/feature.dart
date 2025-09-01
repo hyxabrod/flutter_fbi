@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 
 /// Base implementation of an event → state feature.
 ///

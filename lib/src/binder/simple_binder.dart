@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi/src/binder/binder_interface.dart';
-import 'package:rxdart/subjects.dart';
+import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 
 /// A basic implementation of a Binder that follows a simple binding pattern.
 ///

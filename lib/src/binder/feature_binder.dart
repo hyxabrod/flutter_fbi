@@ -6,7 +6,7 @@ import 'package:flutter_fbi/src/binder/binder_interface.dart';
 import 'package:flutter_fbi/src/binder/binder_state.dart';
 import 'package:flutter_fbi/src/feature/feature.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
-import 'package:rxdart/subjects.dart';
+import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 
 typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
 
