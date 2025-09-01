@@ -3,3 +3,7 @@ example/macos/
 
 # Exclude build artifacts
 build/
+
+# Exclude lockfiles in example and subpackages
+example/pubspec.lock
+packages/flutter_fbi_test/pubspec.lock

@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.1] - 2025-09-01
+
+- Removed RxDart dependency; library now relies solely on `dart:async`.
+- Added internal `BehaviorSubject` with last-value replay and `value` getter.
+- Introduced `StreamUtils.merge` and `StreamUtils.combineLatest` utilities.
+- Added `Stream.distinctUnique()` extension for global unique filtering.
+- Updated documentation (README) to reflect stream utilities and version.
+- Internal refactor: replaced imports and usages of RxDart across binders/features.
+- No public API breaking changes expected.
+
 ## [1.4.2] - 2025-08-22
 
 * Internal: Extracted `BinderProvider` into its own file and converted it to a
