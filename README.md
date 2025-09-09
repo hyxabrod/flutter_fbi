@@ -363,7 +363,8 @@ Automated tests for the example projects are included under `example/test`. Thes
 
 ### Feature Binder Example
 
-Here's a complete example of the Feature-Binder-Interface pattern with a counter:
+<details>
+<summary>Click to expand complete Feature-Binder-Interface example</summary>
 
 ```dart
 // Events
@@ -502,6 +503,8 @@ class _CounterWidget extends BoundWidget<CounterBinder> {
   }
 }
 ```
+
+</details>
 
 ### Multi-Feature Example
 
