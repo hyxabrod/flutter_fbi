@@ -1,6 +1,10 @@
 
 # Changelog
 
+## [0.1.7] - 2025-01-09
+- Align with flutter_fbi 1.5.2. No API changes.
+- Bump dependency to `flutter_fbi ^1.5.2`.
+
 ## [0.1.6] - 2025-09-01
 - Docs: update README with API details and examples.
 
