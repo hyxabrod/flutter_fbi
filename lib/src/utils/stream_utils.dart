@@ -16,6 +16,7 @@ class StreamUtils {
         doneCount++;
         if (doneCount == list.length) multi.close();
       }
+
       for (final s in list) {
         subs.add(s.listen(
           multi.add,
@@ -92,7 +93,13 @@ extension StreamDistinctUniqueExtension<T> on Stream<T> {
   ///
   /// Unlike [Stream.distinct], which drops only consecutive duplicates,
   /// this method ensures global uniqueness across the entire stream.
-  Stream<T> distinctUnique({bool Function(T a, T b)? equals}) {
+  ///
+  /// [maxCacheSize] limits the number of cached values to prevent memory leaks.
+  /// When the limit is reached, oldest values are removed (LRU strategy).
+  Stream<T> distinctUnique({
+    bool Function(T a, T b)? equals,
+    int maxCacheSize = 1000,
+  }) {
     final eq = equals ?? (T a, T b) => a == b;
     final seen = <T>[];
     return where((event) {
@@ -100,6 +107,10 @@ extension StreamDistinctUniqueExtension<T> on Stream<T> {
         if (eq(v, event)) return false;
       }
       seen.add(event);
+      // Prevent memory leak by limiting cache size
+      if (seen.length > maxCacheSize) {
+        seen.removeAt(0);
+      }
       return true;
     });
   }

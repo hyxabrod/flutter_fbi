@@ -12,6 +12,22 @@
 
 A clean architecture pattern for Flutter applications that separates concerns into three distinct layers.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Installation](#installation)
+- [Components](#components)
+  - [Feature Layer](#feature-layer)
+  - [Binder Layer](#binder-layer)
+  - [Interface Layer](#interface-layer)
+- [Examples](#examples)
+  - [Feature Binder Example](#feature-binder-example)
+  - [Multi-Feature Example](#multi-feature-example)
+- [Testing](#testing)
+  - [Testing Features](#testing-features)
+- [Why Flutter FBI?](#why-flutter-fbi)
+- [License](#license)
+
 ## Overview
 
 Flutter FBI provides a structured approach to Flutter application development by separating your code into three layers:
@@ -47,6 +63,9 @@ Features manage the business logic and state of your application using queue-bas
 - **Feature**: Extends BaseFeature to also handle side effects (one-time events)
 - **Event Processing**: Queue-based sequential processing with optional concurrent dispatch
 
+<details>
+<summary>Click to expand Feature Layer example</summary>
+
 ```dart
 // Define events, state, and side effects
 abstract class CounterEvent extends UiEvent {}
@@ -81,6 +100,8 @@ class CounterFeature extends BaseFeature<CounterEvent, CounterState> {
 }
 ```
 
+</details>
+
 ### Binder Layer
 
 Binders connect features to the UI and transform feature states into UI states.
@@ -109,6 +130,9 @@ provider with a new value.
 
 Usage examples:
 
+<details>
+<summary>Click to expand BinderProvider examples</summary>
+
 ```dart
 // Exposing an existing binder
 BinderProvider<MyBinder>(
@@ -126,6 +150,94 @@ DisposableBinderProvider<MyBinder>(
 final binder = context.findBinder<MyBinder>();
 ```
 
+</details>
+
+#### When to use DisposableBinderProvider
+
+Use `DisposableBinderProvider` when you want the provider to manage the binder's entire lifecycle. This is ideal for:
+
+- **Route-level binders** that should be created when entering a screen and disposed when leaving
+- **Modal dialogs** that need their own isolated state
+- **Complex forms** with temporary state that shouldn't persist
+
+<details>
+<summary>Click to expand DisposableBinderProvider example</summary>
+
+```dart
+// Perfect for route-level state management
+class UserProfileScreen extends StatelessWidget {
+  final String userId;
+  const UserProfileScreen({required this.userId});
+
+  @override
+  Widget build(BuildContext context) {
+    // Binder created when screen opens, disposed when screen closes
+    return DisposableBinderProvider<UserProfileBinder>(
+      create: (context) => UserProfileBinder(
+        context: context,
+        userId: userId, // Pass route parameters
+        repository: context.read<UserRepository>(),
+      ),
+      child: const _UserProfileContent(),
+    );
+  }
+}
+
+class _UserProfileContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final binder = context.findBinder<UserProfileBinder>();
+    
+    return Scaffold(
+      body: binder.bindState((context, state) {
+        if (state.isLoading) return CircularProgressIndicator();
+        return Column(
+          children: [
+            Text('User: ${state.userName}'),
+            ElevatedButton(
+              onPressed: binder.refreshProfile,
+              child: Text('Refresh'),
+            ),
+          ],
+        );
+      }),
+    );
+  }
+}
+
+// Compare with regular BinderProvider (manual lifecycle)
+class UserListScreen extends StatefulWidget {
+  @override
+  _UserListScreenState createState() => _UserListScreenState();
+}
+
+class _UserListScreenState extends State<UserListScreen> {
+  late UserListBinder _binder;
+
+  @override
+  void initState() {
+    super.initState();
+    _binder = UserListBinder(context: context); // Manual creation
+  }
+
+  @override
+  void dispose() {
+    _binder.dispose(); // Manual disposal - easy to forget!
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BinderProvider<UserListBinder>(
+      binder: _binder,
+      child: UserListContent(),
+    );
+  }
+}
+```
+
+</details>
+
 #### uiStatePreprocessor
 
 The `uiStatePreprocessor` is a required function that preprocesses the UI state before it gets applied to the widget. This function allows you to:
@@ -134,6 +246,9 @@ The `uiStatePreprocessor` is a required function that preprocesses the UI state 
 - **Add validation**: Ensure state consistency and validity
 - **Apply fallback values**: Provide default values for missing or invalid data
 - **Combine data**: Merge data from multiple sources into a single UI state
+
+<details>
+<summary>Click to expand Binder Layer example</summary>
 
 ```dart
 // Example of uiStatePreprocessor usage
@@ -179,12 +294,17 @@ class CounterBinder extends FeatureBinder<CounterEvent, CounterState, CounterUiS
 }
 ```
 
+</details>
+
 ### Interface Layer
 
 The interface layer consists of UI widgets that connect to binders.
 
 - **BoundWidget**: Base class for widgets bound to a binder
 - **SimpleBoundWidget**: For widgets using SimpleBinder
+
+<details>
+<summary>Click to expand Interface Layer example</summary>
 
 ```dart
 class CounterScreen extends StatelessWidget {
@@ -222,6 +342,8 @@ class _CounterWidget extends BoundWidget<CounterBinder> {
 }
 ```
 
+</details>
+
 ## Examples
 
 Check out the [example](example) directory for complete examples:
@@ -232,6 +354,7 @@ Check out the [example](example) directory for complete examples:
 4. **Multi-Feature Example** - Combining multiple features in one UI
 5. **Wait For All Features Example** - Using shouldWaitForAllFeatures = true in MultiFeatureBinder (UI waits for all features before updating)
 6. **Concurrent Events Example** - Demonstrates sequential vs concurrent event processing with sync parameter
+7. **DisposableBinderProvider Example** - Automatic lifecycle management for temporary form state
 
 Tests
 -----

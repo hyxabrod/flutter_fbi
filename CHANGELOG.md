@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.5.2] - 2025-01-09
+
+### Added
+- **New Example 7**: DisposableBinderProvider demonstration with form state management
+- Enhanced README with collapsible code examples for better navigation
+- Table of Contents in README for improved documentation structure
+
+### Fixed
+- **Memory leak prevention** in `distinctUnique()` extension with configurable `maxCacheSize` parameter
+- **Resource disposal optimization** in MultiFeatureBinder to prevent double disposal
+- **Stream performance improvement** by conditional stream creation in MultiFeatureBinder
+- Code duplication elimination with unified `bindState()` implementation in base classes
+
+### Improved
+- Better error handling separation - UI state now contains specific error fields (nameError, emailError, generalError)
+- Enhanced architecture consistency across all examples following Flutter FBI patterns
+- Documentation improvements with comprehensive use case explanations for DisposableBinderProvider
+
+### Internal
+- Refactored widget builder methods to private classes following Flutter best practices
+- Improved type safety and eliminated unnecessary casting in binder implementations
+
 ## [1.5.1] - 2025-09-01
 
 - Removed RxDart dependency; library now relies solely on `dart:async`.

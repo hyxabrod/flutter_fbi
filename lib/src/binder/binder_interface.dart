@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/flutter_fbi.dart';
 
-/// Binder
+typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
+
+/// Base binder with common bindState implementation
 abstract class BasicBinder<S extends BinderState> {
   final BuildContext context;
   final S Function() uiStatePreprocessor;
@@ -21,7 +23,25 @@ abstract class BasicBinder<S extends BinderState> {
     this.emptyDataWidget,
   });
 
-  Widget bindState(covariant BoundWidgetBuilder<S> builder);
+  /// Common bindState implementation that all binders can use
+  Widget bindState(BoundWidgetBuilder<S> builder) {
+    return StreamBuilder<S>(
+      stream: getStateStream(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return builder(context, snapshot.data!);
+        } else if (snapshot.hasError) {
+          return errorWidget ?? const SizedBox.shrink();
+        } else {
+          return emptyDataWidget ?? const SizedBox.shrink();
+        }
+      },
+    );
+  }
+
+  /// Subclasses must provide their state stream
+  Stream<S> getStateStream();
+  
   void emitUiState(S state);
   void dispose();
 }

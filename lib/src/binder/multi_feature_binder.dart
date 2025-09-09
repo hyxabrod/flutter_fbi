@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_fbi/src/binder/binder_interface.dart';
 import 'package:flutter_fbi/src/binder/binder_state.dart';
 import 'package:flutter_fbi/src/feature/feature.dart';
-import 'package:flutter_fbi/src/binder/feature_binder.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 import 'package:flutter_fbi/src/utils/stream_utils.dart';
@@ -15,6 +14,7 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
   final List<BaseFeature> featureList;
   late BehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
+  bool _isDisposed = false;
   S get state => _uiStatePipe.value;
 
   _BaseMultiFeatureBinder({
@@ -31,40 +31,28 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
     assert(featureList.isNotEmpty, 'Feature list cannot be empty');
     _uiStatePipe = BehaviorSubject.seeded(uiStatePreprocessor());
 
-    final instantUpdate = StreamUtils.merge(featureList
-            .map(
-              (feature) => feature.stateStream,
-            )
-            .toList())
-        .map<S>((state) => uiStateTransformer([state]));
-
-    final combinedUpdate = StreamUtils.combineLatest<FeatureState, S>(
-      featureList.map((e) => e.stateStream),
-      (featureStates) => uiStateTransformer(
-        featureStates,
-      ),
-    );
-
-    _featureStreamSubscription = (shouldWaitForAllFeatures ? combinedUpdate : instantUpdate).listen(
-      (binderState) => _uiStatePipe.add(binderState),
-    );
+    // Conditional stream creation to avoid unnecessary operations
+    if (shouldWaitForAllFeatures) {
+      final combinedUpdate = StreamUtils.combineLatest<FeatureState, S>(
+        featureList.map((e) => e.stateStream),
+        (featureStates) => uiStateTransformer(featureStates),
+      );
+      _featureStreamSubscription = combinedUpdate.listen(
+        (binderState) => _uiStatePipe.add(binderState),
+      );
+    } else {
+      final instantUpdate = StreamUtils.merge(featureList
+              .map((feature) => feature.stateStream)
+              .toList())
+          .map<S>((state) => uiStateTransformer([state]));
+      _featureStreamSubscription = instantUpdate.listen(
+        (binderState) => _uiStatePipe.add(binderState),
+      );
+    }
   }
 
   @override
-  Widget bindState(BoundWidgetBuilder<S> builder) {
-    return StreamBuilder<S>(
-      stream: _uiStatePipe.stream.distinct(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return builder(context, snapshot.data!);
-        } else if (snapshot.hasError) {
-          return errorWidget ?? const SizedBox.shrink();
-        } else {
-          return emptyDataWidget ?? const SizedBox.shrink();
-        }
-      },
-    );
-  }
+  Stream<S> getStateStream() => _uiStatePipe.stream.distinct();
 
   @override
   void emitUiState(S state) {
@@ -73,6 +61,9 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
 
   @override
   void dispose() {
+    if (_isDisposed) return;
+    _isDisposed = true;
+    
     _featureStreamSubscription?.cancel();
     _uiStatePipe.close();
     for (var e in featureList) {
@@ -133,10 +124,10 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
 
   @override
   void dispose() {
+    if (_isDisposed) return;
+    
     _sideEffectSubscription?.cancel();
-    for (var e in _binderFeatures) {
-      e.dispose();
-    }
+    // Features will be disposed by super.dispose() to avoid double disposal
     super.dispose();
   }
 }

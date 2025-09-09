@@ -8,8 +8,6 @@ import 'package:flutter_fbi/src/feature/feature.dart';
 import 'package:flutter_fbi/src/feature/feature_entities.dart';
 import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 
-typedef BoundWidgetBuilder<S extends BinderState> = Widget Function(BuildContext context, S state);
-
 abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState>
     extends Binder<F, S> {
   final BaseFeature<E, F> feature;
@@ -32,20 +30,7 @@ abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S e
   }
 
   @override
-  Widget bindState(BoundWidgetBuilder<S> builder) {
-    return StreamBuilder<S>(
-      stream: _uiStatePipe.stream.distinct(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return builder(context, snapshot.data!);
-        } else if (snapshot.hasError) {
-          return errorWidget ?? const SizedBox.shrink();
-        } else {
-          return emptyDataWidget ?? const SizedBox.shrink();
-        }
-      },
-    );
-  }
+  Stream<S> getStateStream() => _uiStatePipe.stream.distinct();
 
   @override
   void emitUiState(S state) {

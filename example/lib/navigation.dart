@@ -5,6 +5,7 @@ import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_
 import 'package:flutter_fbi_example/examples/ex04_multi_feature/dashboard_screen.dart';
 import 'package:flutter_fbi_example/examples/ex05_wait_for_all_features/dashboard_with_wait_screen.dart';
 import 'package:flutter_fbi_example/examples/ex06_concurrent_events/concurrent_screen.dart';
+import 'package:flutter_fbi_example/examples/ex07_disposable_binder_provider/widgets/form_screen.dart';
 
 class ExampleNavigator extends StatelessWidget {
   const ExampleNavigator({super.key});
@@ -63,6 +64,14 @@ class ExampleNavigator extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const ConcurrentScreen()),
+            ),
+          ),
+          _ExampleTile(
+            title: 'Example 7: DisposableBinderProvider',
+            subtitle: 'Automatic lifecycle management for temporary form state',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const FormScreen()),
             ),
           ),
         ],
