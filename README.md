@@ -50,7 +50,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.5.1
+  flutter_fbi: ^1.5.2
 ```
 
 ## Components
@@ -64,7 +64,7 @@ Features manage the business logic and state of your application using queue-bas
 - **Event Processing**: Queue-based sequential processing with optional concurrent dispatch
 
 <details>
-<summary>Click to expand Feature Layer example</summary>
+<summary><span style="color: purple;">Click to expand</span> Feature Layer example</summary>
 
 ```dart
 // Define events, state, and side effects
@@ -131,7 +131,7 @@ provider with a new value.
 Usage examples:
 
 <details>
-<summary>Click to expand BinderProvider examples</summary>
+<summary><span style="color: purple;">Click to expand</span> BinderProvider examples</summary>
 
 ```dart
 // Exposing an existing binder
@@ -161,7 +161,7 @@ Use `DisposableBinderProvider` when you want the provider to manage the binder's
 - **Complex forms** with temporary state that shouldn't persist
 
 <details>
-<summary>Click to expand DisposableBinderProvider example</summary>
+<summary><span style="color: purple;">Click to expand</span> DisposableBinderProvider example</summary>
 
 ```dart
 // Perfect for route-level state management
@@ -248,7 +248,7 @@ The `uiStatePreprocessor` is a required function that preprocesses the UI state 
 - **Combine data**: Merge data from multiple sources into a single UI state
 
 <details>
-<summary>Click to expand Binder Layer example</summary>
+<summary><span style="color: purple;">Click to expand</span> Binder Layer example</summary>
 
 ```dart
 // Example of uiStatePreprocessor usage
@@ -304,7 +304,7 @@ The interface layer consists of UI widgets that connect to binders.
 - **SimpleBoundWidget**: For widgets using SimpleBinder
 
 <details>
-<summary>Click to expand Interface Layer example</summary>
+<summary><span style="color: purple;">Click to expand</span> Interface Layer example</summary>
 
 ```dart
 class CounterScreen extends StatelessWidget {
@@ -364,7 +364,7 @@ Automated tests for the example projects are included under `example/test`. Thes
 ### Feature Binder Example
 
 <details>
-<summary>Click to expand complete Feature-Binder-Interface example</summary>
+<summary><span style="color: purple;">Click to expand</span> complete Feature-Binder-Interface example</summary>
 
 ```dart
 // Events
@@ -507,6 +507,9 @@ class _CounterWidget extends BoundWidget<CounterBinder> {
 </details>
 
 ### Multi-Feature Example
+
+<details>
+<summary><span style="color: purple;">Click to expand</span> Multi-Feature Example code</summary>
 
 Here's an example demonstrating how to combine multiple features in a single UI using MultiFeatureBinder:
 
@@ -693,13 +696,15 @@ class _DashboardWidget extends BoundWidget<DashboardBinder> {
 }
 ```
 
+</details>
+
 ## Testing
 
 Testing Features is straightforward with Flutter FBI. We provide a tiny test helper package, `flutter_fbi_test`, which exposes the `featureTest` helper used in the examples below. Install it in your `dev_dependencies` and import it in tests:
 
 ```yaml
 dev_dependencies:
-  flutter_fbi_test: ^0.1.2
+  flutter_fbi_test: ^0.1.7
   flutter_test:
     sdk: flutter
 ```
