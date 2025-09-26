@@ -11,7 +11,7 @@ import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S extends BinderState>
     extends Binder<F, S> {
   final BaseFeature<E, F> feature;
-  late BehaviorSubject<S> _uiStatePipe;
+  late FbiBehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
 
   S get state => _uiStatePipe.value;
@@ -23,7 +23,7 @@ abstract class _BaseFeatureBinder<E extends UiEvent, F extends FeatureState, S e
     super.emptyDataWidget,
     super.errorWidget,
   }) {
-    _uiStatePipe = BehaviorSubject.seeded(uiStatePreprocessor());
+    _uiStatePipe = FbiBehaviorSubject.seeded(uiStatePreprocessor());
     _featureStreamSubscription ??= feature.stateStream.transform(stateTransformer()).listen((event) {
       _uiStatePipe.add(event);
     });

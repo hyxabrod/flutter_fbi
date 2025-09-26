@@ -744,7 +744,7 @@ See the `flutter_fbi_test` package for the helper and examples: https://pub.dev/
 
 - **Clean Separation of Concerns**: Each layer has a distinct responsibility
 - **Testable Architecture**: Easy to test business logic in isolation with provided testing utilities
-- **Reactive by Design**: Built on RxDart for reactive programming
+- **Reactive by Design**: Built with native Dart streams for reactive programming
 - **Lifecycle Management**: Automatically handles disposal of resources
 - **Side Effect Handling**: Clean way to handle one-time events like navigation
 - **Event Processing**: Queue-based sequential processing with optional concurrent dispatch for performance

@@ -12,7 +12,7 @@ import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
   final Queue<E> _eventQueue = Queue<E>();
   bool _isProcessing = false;
-  late BehaviorSubject<S> _statePipe;
+  late FbiBehaviorSubject<S> _statePipe;
 
   /// Stream of feature states.
   ///
@@ -32,7 +32,7 @@ abstract class BaseFeature<E extends UiEvent, S extends FeatureState> {
   /// The initial state is seeded into the internal state subject so that
   /// subscribers immediately receive a valid state value.
   BaseFeature({required S initialState}) {
-    _statePipe = BehaviorSubject<S>.seeded(initialState);
+    _statePipe = FbiBehaviorSubject<S>.seeded(initialState);
   }
 
   /// Register a handler that will be invoked for incoming events.
@@ -103,11 +103,11 @@ typedef IncomingEventsHandler<E extends UiEvent> = FutureOr<void> Function(E eve
 /// to emit one-off effects (navigation, toasts, logging, etc.).
 abstract class Feature<E extends UiEvent, S extends FeatureState, F extends SideEffect> extends BaseFeature<E, S> {
   /// Stream subject for one-off side effects.
-  late BehaviorSubject<F> sideEffect;
+  late FbiBehaviorSubject<F> sideEffect;
 
   /// Creates a feature with the provided [initialState].
   Feature({required S initialState}) : super(initialState: initialState) {
-    sideEffect = BehaviorSubject();
+    sideEffect = FbiBehaviorSubject();
   }
 
   /// Emit a side effect to [sideEffect] stream.

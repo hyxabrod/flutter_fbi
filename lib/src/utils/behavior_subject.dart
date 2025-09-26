@@ -1,11 +1,11 @@
 import 'dart:async';
 
-/// Minimal BehaviorSubject replacement without RxDart.
+/// Minimal FbiBehaviorSubject replacement without RxDart.
 ///
 /// - Stores the latest value and exposes it via [value].
 /// - New subscribers receive the latest value immediately if present.
 /// - Backed by an internal broadcast stream.
-class BehaviorSubject<T> extends Stream<T> {
+class FbiBehaviorSubject<T> extends Stream<T> {
   final StreamController<T> _controller;
   T? _last;
   bool _hasValue;
@@ -13,12 +13,12 @@ class BehaviorSubject<T> extends Stream<T> {
   _BehaviorSubjectSink<T>? _cachedSink;
 
   /// Creates an empty subject (no initial value).
-  BehaviorSubject({bool sync = false})
+  FbiBehaviorSubject({bool sync = false})
       : _controller = StreamController<T>.broadcast(sync: sync),
         _hasValue = false;
 
   /// Creates a subject seeded with an initial value.
-  BehaviorSubject.seeded(T initialValue, {bool sync = false})
+  FbiBehaviorSubject.seeded(T initialValue, {bool sync = false})
       : _controller = StreamController<T>.broadcast(sync: sync),
         _last = initialValue,
         _hasValue = true;
@@ -98,7 +98,7 @@ class BehaviorSubject<T> extends Stream<T> {
 }
 
 class _BehaviorSubjectSink<T> implements StreamSink<T> {
-  final BehaviorSubject<T> _subject;
+  final FbiBehaviorSubject<T> _subject;
   _BehaviorSubjectSink(this._subject);
 
   @override

@@ -12,7 +12,7 @@ import 'package:flutter_fbi/src/utils/stream_utils.dart';
 /// Base class for multi-feature binders.
 abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinder<S> {
   final List<BaseFeature> featureList;
-  late BehaviorSubject<S> _uiStatePipe;
+  late FbiBehaviorSubject<S> _uiStatePipe;
   StreamSubscription<S>? _featureStreamSubscription;
   bool _isDisposed = false;
   S get state => _uiStatePipe.value;
@@ -29,7 +29,7 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
     bool shouldWaitForAllFeatures = true,
   }) {
     assert(featureList.isNotEmpty, 'Feature list cannot be empty');
-    _uiStatePipe = BehaviorSubject.seeded(uiStatePreprocessor());
+    _uiStatePipe = FbiBehaviorSubject.seeded(uiStatePreprocessor());
 
     // Conditional stream creation to avoid unnecessary operations
     if (shouldWaitForAllFeatures) {
@@ -41,9 +41,7 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
         (binderState) => _uiStatePipe.add(binderState),
       );
     } else {
-      final instantUpdate = StreamUtils.merge(featureList
-              .map((feature) => feature.stateStream)
-              .toList())
+      final instantUpdate = StreamUtils.merge(featureList.map((feature) => feature.stateStream).toList())
           .map<S>((state) => uiStateTransformer([state]));
       _featureStreamSubscription = instantUpdate.listen(
         (binderState) => _uiStatePipe.add(binderState),
@@ -63,7 +61,7 @@ abstract class _BaseMultiFeatureBinder<S extends BinderState> extends MultiBinde
   void dispose() {
     if (_isDisposed) return;
     _isDisposed = true;
-    
+
     _featureStreamSubscription?.cancel();
     _uiStatePipe.close();
     for (var e in featureList) {
@@ -125,7 +123,7 @@ abstract class MultiFeatureBinder<S extends BinderState> extends _BaseMultiFeatu
   @override
   void dispose() {
     if (_isDisposed) return;
-    
+
     _sideEffectSubscription?.cancel();
     // Features will be disposed by super.dispose() to avoid double disposal
     super.dispose();

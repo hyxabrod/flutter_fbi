@@ -16,7 +16,7 @@ import 'package:flutter_fbi/src/utils/behavior_subject.dart';
 /// Type Parameters:
 /// * [S] - The type of state this binder manages, must extend [BinderState]
 class SimpleBinder<S extends BinderState> extends BasicBinder<S> {
-  late BehaviorSubject<S> _uiStatePipe;
+  late FbiBehaviorSubject<S> _uiStatePipe;
   S get state => _uiStatePipe.value;
 
   SimpleBinder({
@@ -24,7 +24,7 @@ class SimpleBinder<S extends BinderState> extends BasicBinder<S> {
     required super.uiStatePreprocessor,
     Widget? errorWidget,
     Widget? emptyDataWidget,
-  })  : _uiStatePipe = BehaviorSubject.seeded(
+  })  : _uiStatePipe = FbiBehaviorSubject.seeded(
           uiStatePreprocessor(),
         ),
         super(
