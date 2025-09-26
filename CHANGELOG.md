@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.5.3] - 2025-09-26
+
+### Changed
+- Minor changes
+
 ## [1.5.2] - 2025-01-09
 
 ### Added

@@ -1,6 +1,6 @@
 name: flutter_fbi
 description: A state management library for Flutter using Feature-Binder-Interface architecture pattern. Provides clean separation of business logic, state transformation, and UI.
-version: 1.5.2
+version: 1.5.3
 homepage: https://github.com/hyxabrod/flutter_fbi
 repository: https://github.com/hyxabrod/flutter_fbi
 issue_tracker: https://github.com/hyxabrod/flutter_fbi/issues
