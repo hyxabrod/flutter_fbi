@@ -14,7 +14,7 @@ class AuthScreen extends StatelessWidget {
 }
 
 class _AuthWidget extends BoundWidget<AuthBinder> {
-  const _AuthWidget({required AuthBinder binder}) : super(binder: binder);
+  const _AuthWidget({required super.binder});
 
   @override
   Widget builder(BuildContext context, AuthBinder binder) {

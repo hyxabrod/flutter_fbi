@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Flutter FBI: Feature • Binder • Interface</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        color: #1f2933;
+        margin: 0;
+        padding: 0 16px 64px;
+        background: #f8fafc;
+      }
+      article {
+        max-width: 840px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 48px;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+        border-radius: 18px;
+      }
+      header h1 {
+        margin-bottom: 12px;
+      }
+      pre {
+        background: #0f172a;
+        color: #e0f2fe;
+        padding: 18px;
+        overflow-x: auto;
+        border-radius: 12px;
+      }
+      code {
+        font-family: "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 0.96rem;
+      }
+      figure {
+        margin: 32px 0;
+        text-align: center;
+      }
+      figure img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
+      }
+      figcaption {
+        margin-top: 14px;
+        color: #52606d;
+        font-size: 0.92rem;
+      }
+      h2 {
+        margin-top: 36px;
+      }
+      ul, ol {
+        padding-left: 20px;
+      }
+      @media (max-width: 720px) {
+        article {
+          margin: 24px auto;
+          padding: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Flutter FBI: Feature • Binder • Interface With a Friendly Voice</h1>
+        <p>Grab a coffee and let’s walk through this tiny architecture the way you’d explain it to a teammate.</p>
+      </header>
+
+      <section id="checklist">
+        <h2>Quick Game Plan</h2>
+        <ol>
+          <li>Spot the three big ideas: Feature, Binder, Interface.</li>
+          <li>Call out why they matter in day-to-day Flutter work.</li>
+          <li>Share side-effect stories that feel real.</li>
+          <li>Offer code peeks you can expand only when you want them.</li>
+          <li>Wrap up with tips, a diagram, and a warm send-off.</li>
+        </ol>
+      </section>
+
+      <section id="introduction">
+        <h2>What Flutter FBI Feels Like</h2>
+        <p>Flutter FBI is that lightweight pattern you reach for when you want order without overhead. Events flow into a <strong>Feature</strong>, the feature updates a stream of state, a <strong>Binder</strong> massages that state for the UI, and the <strong>Interface</strong> just paints it. No surprises, no sprawling framework—just Dart streams, a custom behaviour subject, and a few helpers that keep widgets honest.</p>
+        <p>The guiding rule is simple: one widget, one binder. Need more logic? Add more features behind that binder. Everything stays modular, testable, and easy to reason about when the app inevitably grows.</p>
+      </section>
+
+      <section id="benefits">
+        <h2>Why It Clicks for Teams</h2>
+        <ul>
+          <li><strong>Events stay in line:</strong> <code>BaseFeature</code> queues them so even impatient taps land in order. When you do want a burst, flip <code>sync: false</code> for that single call.</li>
+          <li><strong>Binders own the UI contract:</strong> They run through <code>uiStatePreprocessor</code>, so defaults, derived fields, and validation all live in one predictable spot.</li>
+          <li><strong>Side effects are first-class:</strong> Every feature exposes a side-effect stream, and binders funnel it into a single listener. Toasts, dialogs, navigation, logging—they all get a home.</li>
+          <li><strong>Zero Rx baggage:</strong> Hand-rolled <code>FbiBehaviorSubject</code> and <code>StreamUtils</code> give you BehaviourSubject semantics, merge, and combineLatest without pulling in RxDart.</li>
+        </ul>
+      </section>
+
+      <section id="flow">
+        <h2>How the Conversation Flows</h2>
+        <p>Features register handlers with <code>onEvent</code>, emit new <code>FeatureState</code>, and fire <code>SideEffect</code> objects whenever something one-off should happen. Binders subscribe to both streams, transform feature state into a slimmer <code>BinderState</code>, and surface everything through <code>bindState</code>. On the UI side you drop in a <code>BinderProvider</code> or the disposable variant, and you instantly have context-bound access plus lifecycle cleanup.</p>
+        <p>Once you see that loop—event in, state out, UI reacts—it becomes second nature to split responsibilities and keep business logic away from widgets.</p>
+      </section>
+
+      <section id="side-effects">
+        <h2>Side Effects, Told Like Stories</h2>
+        <p>The bundled samples make side-effect handling feel natural. Two favourites:</p>
+        <ul>
+          <li><strong>Auth flow:</strong> The authentication binder plugs one listener into <code>bindSideEffect</code> and fans out toasts and demo navigation dialogs. Because the binder owns the build context, UI reactions stay exactly where they belong.</li>
+          <li><strong>Disposable form:</strong> The form binder hooks a handler right in the constructor, which means success messages go green, errors go red, and a back-navigation effect simply pops the route. When the provider disposes the binder, everything is cleaned up automatically.</li>
+        </ul>
+        <p>Here’s the gist in code:</p>
+        <pre><code class="language-dart">// Keep side-effects together so they’re easy to scan and test
+void _handleAuthSideEffect(AuthSideEffect effect) {
+  switch (effect) {
+    case ShowToastEffect():
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(effect.message)),
+      );
+    case NavigateToHomeEffect():
+      _showInfoDialog('Home', 'In production, this would push a new route.');
+    case NavigateToLoginEffect():
+      _showInfoDialog('Login', 'Switch to the login route here.');
+  }
+}
+
+AuthBinder({required super.context})
+    : super(
+        feature: AuthFeature(),
+        uiStatePreprocessor: () =&gt; const AuthUiState(
+          isLoggedIn: false,
+          isLoading: false,
+          username: '',
+        ),
+      ) {
+  bindSideEffect(_handleAuthSideEffect);
+}</code></pre>
+        <p>Nothing magic—just a binder that immediately hooks its listener so side effects never go missing.</p>
+      </section>
+
+      <section id="code-peeks">
+        <h2>Peeking Under the Hood (Expand When Ready)</h2>
+        <p>Prefer to skim with your finger on the trigger? Pop open these snippets when you want to see the wiring without drowning in code.</p>
+
+        <details>
+          <summary>Peek: the feature layer queuing events</summary>
+          <pre><code class="language-dart">abstract class CounterEvent extends UiEvent {}
+class IncrementEvent extends CounterEvent {}
+
+class CounterState extends FeatureState {
+  final int count;
+  const CounterState({this.count = 0});
+
+  @override
+  List&lt;Object?&gt; get props =&gt; [count];
+}
+
+class CounterFeature extends BaseFeature&lt;CounterEvent, CounterState&gt; {
+  CounterFeature() : super(initialState: const CounterState()) {
+    onEvent(_handleEvent);
+  }
+
+  void _handleEvent(CounterEvent event) {
+    switch (event) {
+      case IncrementEvent():
+        emitState(CounterState(count: state.count + 1));
+    }
+  }
+
+  void increment() =&gt; add(IncrementEvent());              // sequential
+  void fastIncrement() =&gt; add(IncrementEvent(), sync: false); // concurrent
+}</code></pre>
+        </details>
+
+        <details>
+          <summary>Peek: the full Feature → Binder → Interface loop</summary>
+          <pre><code class="language-dart">class CounterBinder extends FeatureBinder&lt;CounterEvent, CounterState, CounterUiState, SideEffect&gt; {
+  CounterBinder({required BuildContext context})
+      : super(
+          context: context,
+          feature: CounterFeature(),
+          uiStatePreprocessor: () =&gt; const CounterUiState(count: 0, countText: '0', canDecrement: false),
+        );
+
+  void increment() =&gt; feature.add(IncrementEvent());
+
+  @override
+  CounterUiState uiStateTransformer(CounterState featureState) {
+    return CounterUiState(
+      count: featureState.count,
+      countText: '${featureState.count}',
+      canDecrement: featureState.count &gt; 0,
+    );
+  }
+}
+
+class CounterScreen extends StatelessWidget {
+  const CounterScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return _CounterWidget(binder: CounterBinder(context: context));
+  }
+}</code></pre>
+        </details>
+      </section>
+
+      <section id="visual">
+        <h2>Visual Cheat Sheet</h2>
+        <figure>
+          <img src="./flutter_fbi_architecture_schema.svg" alt="Flutter FBI architecture diagram showing Feature, Binder, Interface, data sources, and side effects." />
+          <figcaption>The diagram shows the steady rhythm: events head to features, binders shape the response, side effects branch off, and data sources round out the loop.</figcaption>
+        </figure>
+      </section>
+
+      <section id="scenarios">
+        <h2>When It Feels Like Home</h2>
+        <ul>
+          <li><strong>Business-heavy screens:</strong> Login, checkout, or onboarding flows thrive when events queue up and side effects stay explicit.</li>
+          <li><strong>Dashboards with mixed domains:</strong> <code>MultiFeatureBinder</code> pulls together user stats, settings, news—you decide whether to wait for everyone or stream updates as they arrive.</li>
+          <li><strong>Short-lived UI islands:</strong> Forms, modals, or confirmation flows pair nicely with <code>SimpleBinder</code> and <code>DisposableBinderProvider</code>, keeping state in scope only while it’s needed.</li>
+        </ul>
+      </section>
+
+      <section id="implementation-tips">
+        <h2>Tips Before You Dive In</h2>
+        <ul>
+          <li><strong>Start with the UI contract:</strong> Define your <code>BinderState</code> first so you know exactly what the widget consumes.</li>
+          <li><strong>Tune waiting behaviour:</strong> Decide early if a multi-feature binder should wait for every feature (<code>true</code>) or stream partial results (<code>false</code>).</li>
+          <li><strong>Keep side effects central:</strong> Bind the listener in the constructor and write a tidy switch so it’s easy to cover in tests.</li>
+          <li><strong>Lean on the built-ins:</strong> <code>StreamUtils.merge</code> and <code>combineLatest</code> cover most reactive needs without extra dependencies.</li>
+        </ul>
+      </section>
+
+      <section id="takeaways">
+        <h2>Goodbye for Now</h2>
+        <p>Flutter FBI is the quiet helper that keeps business logic, state shaping, and UI updates marching in step. It avoids heavyweight patterns, celebrates readable code, and gives you a clear place to hang side effects. Start with one widget and one binder, let features tell their stories, and the rest of your app will feel a whole lot calmer.</p>
+      </section>
+    </article>
+  </body>
+</html>

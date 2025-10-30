@@ -4,9 +4,8 @@ import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_
 import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_feature.dart';
 
 class AuthBinder extends FeatureBinder<AuthEvent, AuthState, AuthUiState, AuthSideEffect> {
-  AuthBinder({required BuildContext context})
+  AuthBinder({required super.context})
       : super(
-          context: context,
           feature: AuthFeature(),
           uiStatePreprocessor: () => const AuthUiState(
             isLoggedIn: false,

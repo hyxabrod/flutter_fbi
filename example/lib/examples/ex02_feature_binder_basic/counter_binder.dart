@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_fbi/flutter_fbi.dart';
 import 'package:flutter_fbi_example/examples/ex02_feature_binder_basic/counter_entities.dart';
 import 'package:flutter_fbi_example/examples/ex02_feature_binder_basic/counter_feature.dart';
 
 class CounterBinder extends FeatureBinder<CounterEvent, CounterState, CounterUiState, SideEffect> {
-  CounterBinder({required BuildContext context})
+  CounterBinder({required super.context})
       : super(
-          context: context,
           feature: CounterFeature(),
           uiStatePreprocessor: () => const CounterUiState(
             count: 0,
