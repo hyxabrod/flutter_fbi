@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.5.4] - 2025-11-03
+
+### Added
+- **bindField method**: New optimized binding method for listening to specific state fields
+  - Rebuilds only when the selected field changes, improving performance
+  - Uses `distinct()` operator to prevent unnecessary rebuilds
+  - Supports type-safe field selection with generic type inference
+- **Example 8**: bindField demonstration with user profile management
+  - Shows performance benefits of field-specific binding vs full state binding
+  - Demonstrates multiple independent field subscriptions
+
+### Improved
+- Documentation updates with bindField usage examples and descriptions
+- Enhanced Binder Layer section in README with binding method comparison
+
 ## [1.5.3] - 2025-09-26
 
 ### Changed

@@ -1,7 +1,7 @@
 name: flutter_fbi_example
 description: Example app for Flutter FBI pattern
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -10,14 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_fbi: ^1.5.3
+  flutter_fbi: ^1.5.4
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_fbi_test: ^0.1.6
+  flutter_fbi_test: ^0.1.7
   flutter_lints: ^6.0.0
-  
+
+
 flutter:
   uses-material-design: true

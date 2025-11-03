@@ -6,6 +6,7 @@ import 'package:flutter_fbi_example/examples/ex04_multi_feature/dashboard_screen
 import 'package:flutter_fbi_example/examples/ex05_wait_for_all_features/dashboard_with_wait_screen.dart';
 import 'package:flutter_fbi_example/examples/ex06_concurrent_events/concurrent_screen.dart';
 import 'package:flutter_fbi_example/examples/ex07_disposable_binder_provider/widgets/form_screen.dart';
+import 'package:flutter_fbi_example/examples/ex08_bind_field/user_profile_screen.dart';
 
 class ExampleNavigator extends StatelessWidget {
   const ExampleNavigator({super.key});
@@ -72,6 +73,14 @@ class ExampleNavigator extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const FormScreen()),
+            ),
+          ),
+          _ExampleTile(
+            title: 'Example 8: bindField Method',
+            subtitle: 'Granular state listening for specific fields',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const UserProfileScreen()),
             ),
           ),
         ],

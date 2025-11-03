@@ -50,7 +50,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.5.3
+  flutter_fbi: ^1.5.4
 ```
 
 ## Components
@@ -109,6 +109,11 @@ Binders connect features to the UI and transform feature states into UI states.
 - **SimpleBinder**: For UI state without a feature
 - **FeatureBinder**: Connects a single feature to UI
 - **MultiFeatureBinder**: Connects multiple features to UI
+
+All binders provide two methods for binding UI to state:
+
+- **bindState**: Rebuilds the widget when any part of the state changes
+- **bindField**: Rebuilds only when a specific field changes (optimized performance)
 
 #### BinderProvider
 
@@ -355,6 +360,7 @@ Check out the [example](example) directory for complete examples:
 5. **Wait For All Features Example** - Using shouldWaitForAllFeatures = true in MultiFeatureBinder (UI waits for all features before updating)
 6. **Concurrent Events Example** - Demonstrates sequential vs concurrent event processing with sync parameter
 7. **DisposableBinderProvider Example** - Automatic lifecycle management for temporary form state
+8. **bindField Example** - Optimized UI updates by listening to specific state fields instead of entire state
 
 Tests
 -----

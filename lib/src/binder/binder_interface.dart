@@ -39,6 +39,33 @@ abstract class BasicBinder<S extends BinderState> {
     );
   }
 
+  /// Binds a specific field from the state and rebuilds only when that field changes.
+  ///
+  /// Example:
+  /// ```dart
+  /// binder.bindField(
+  ///   selector: (state) => state.count,
+  ///   builder: (context, count) => Text('$count'),
+  /// )
+  /// ```
+  Widget bindField<T>({
+    required T Function(S state) selector,
+    required Widget Function(BuildContext context, T value) builder,
+  }) {
+    return StreamBuilder<T>(
+      stream: getStateStream().map(selector).distinct(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return builder(context, snapshot.data as T);
+        } else if (snapshot.hasError) {
+          return errorWidget ?? const SizedBox.shrink();
+        } else {
+          return emptyDataWidget ?? const SizedBox.shrink();
+        }
+      },
+    );
+  }
+
   /// Subclasses must provide their state stream
   Stream<S> getStateStream();
   

@@ -12,7 +12,7 @@ Flutter FBI is an architectural pattern that separates your application into thr
 
 ## Examples
 
-This project includes six examples that progressively demonstrate the capabilities of the Flutter FBI pattern:
+This project includes eight examples that progressively demonstrate the capabilities of the Flutter FBI pattern:
 
 ### Example 1: Simple Binder
 A basic counter example that uses `SimpleBinder` for UI state management without the complexity of a separate Feature.
@@ -36,6 +36,12 @@ A dashboard example that demonstrates the use of `shouldWaitForAllFeatures = tru
 
 ### Example 6: Concurrent Events (sync: false)
 Demonstrates how to dispatch events concurrently using the `sync: false` parameter in `feature.add()`. This example shows how fast events can bypass the sequential queue and be processed immediately, while slow events are processed in order.
+
+### Example 7: DisposableBinderProvider
+Demonstrates automatic lifecycle management for temporary form state using `DisposableBinderProvider`. The binder is created when the screen opens and automatically disposed when it closes, preventing memory leaks.
+
+### Example 8: bindField Method
+Demonstrates the `bindField` method for granular state listening. Instead of rebuilding widgets when the entire state changes, `bindField` allows you to listen to specific fields, improving performance for complex states.
 
 ## Getting Started
 

@@ -3,6 +3,7 @@ library flutter_fbi;
 export 'src/feature/feature.dart';
 export 'src/feature/feature_entities.dart';
 export 'src/binder/binder_state.dart';
+export 'src/binder/binder_interface.dart';
 export 'src/binder/feature_binder.dart';
 export 'src/binder/multi_feature_binder.dart';
 export 'src/binder/simple_binder.dart';
