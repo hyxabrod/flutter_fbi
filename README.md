@@ -10,7 +10,7 @@
   [![Flutter compatible](https://img.shields.io/badge/Flutter-compatible-blue.svg)](https://flutter.dev)
 </div>
 
-A clean architecture pattern for Flutter applications that separates concerns into three distinct layers.
+A state management library that represents features as separate entities, which can be manipulated at the presentation level and updated through the user interface using finite states. Thanks to the fact that third-party visual effects are implemented in an intermediate presentation layer (Binder), the final UI becomes more lightweight.
 
 ## Table of Contents
 
@@ -50,7 +50,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.5.4
+  flutter_fbi: ^1.5.5
 ```
 
 ## Components
