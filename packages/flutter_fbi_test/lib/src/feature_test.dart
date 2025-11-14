@@ -24,7 +24,6 @@ import 'package:meta/meta.dart';
 /// - [expect]: Expected sequence of Feature states or Matchers (in order).
 /// - [expectSideEffects]: Expected sequence of SideEffects or Matchers (in order).
 /// - [skip]: Number of states to skip from [stateStream] before asserting. Defaults to 1 (skip initial).
-/// - [wait]: Optional delay after [act] to allow async emissions before asserting.
 /// - [verify]: Optional additional verifications with access to the feature.
 ///
 /// Note: [seed] emits the provided state on top of the feature's initial state.
@@ -38,7 +37,6 @@ void featureTest<E extends UiEvent, S extends FeatureState, F extends SideEffect
   Iterable<Object?> Function()? expect,
   Iterable<Object?> Function()? expectSideEffects,
   int skip = 1,
-  Duration? wait,
   FutureOr<void> Function(Feature<E, S, F> feature)? verify,
 }) {
   test(description, () async {
@@ -78,10 +76,6 @@ void featureTest<E extends UiEvent, S extends FeatureState, F extends SideEffect
     // Perform actions
     if (act != null) {
       await act(feature);
-    }
-
-    if (wait != null) {
-      await Future<void>.delayed(wait);
     }
 
     // Await expectations

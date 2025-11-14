@@ -1,7 +1,10 @@
 
 # Changelog
 
-## [0.1.7] - 2025-01-09
+## [0.1.8] - 2025-11-14
+- Remove the 'wait' parameter 
+
+## [0.1.7] - 2025-09-01
 - Align with flutter_fbi 1.5.2. No API changes.
 - Bump dependency to `flutter_fbi ^1.5.2`.
 
