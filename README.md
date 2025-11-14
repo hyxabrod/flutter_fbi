@@ -713,7 +713,7 @@ Testing Features is straightforward with Flutter FBI. We provide a tiny test hel
 
 ```yaml
 dev_dependencies:
-  flutter_fbi_test: ^0.1.7
+  flutter_fbi_test: ^0.1.8
   flutter_test:
     sdk: flutter
 ```
@@ -751,7 +751,6 @@ featureTest<CounterEvent, CounterState, SideEffect>(
 - **Async Support**: Full async/await support for complex scenarios
 - **Setup/Teardown**: Optional setup and verification callbacks
 - **Seed States**: Set initial states before testing with `seed`
-- **Timing Control**: Control timing with `wait` parameter
 - **Skip Options**: Skip initial states with `skip` parameter
 
 See the `flutter_fbi_test` package for the helper and examples: https://pub.dev/packages/flutter_fbi_test
