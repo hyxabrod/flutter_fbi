@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_fbi_test/flutter_fbi_test.dart';
+import 'package:flutter_fbi/flutter_fbi.dart' show featureTest;
 import 'package:flutter_fbi_example/examples/ex05_wait_for_all_features/features/weather_feature.dart';
 import 'package:flutter_fbi_example/examples/ex05_wait_for_all_features/entities/weather_entities.dart';
 

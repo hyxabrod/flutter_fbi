@@ -28,10 +28,8 @@ class DashboardState extends BinderState {
 }
 
 class DashboardBinder extends MultiFeatureBinder<DashboardState> {
-  DashboardBinder({required BuildContext context, required List<Feature> features})
+  DashboardBinder({required super.context, required super.features})
       : super(
-          context: context,
-          features: features,
           shouldWaitForAllFeatures: false, // Updates UI immediately when any feature emits state
           uiStatePreprocessor: () => const DashboardState(
             isLoading: true,

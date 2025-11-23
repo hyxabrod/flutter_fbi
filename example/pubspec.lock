@@ -74,18 +74,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_fbi
-      sha256: "45829cef769f17b7001c3c54f9441c6f68e448cf6d22184d0e0d74aacbbbbfd8"
+      sha256: "9c0ff2d548219fc558f1a1663a8c524c4c9cef53b0ec6d6ef6c308413068897a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.5"
-  flutter_fbi_test:
-    dependency: "direct dev"
-    description:
-      name: flutter_fbi_test
-      sha256: "982c8fe0c35edba4b312a6e0ef82972a31b563e1d073b23475bc80416f3665da"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.7"
+    version: "1.5.6"
   flutter_lints:
     dependency: "direct dev"
     description:

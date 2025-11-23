@@ -14,7 +14,7 @@ class CounterScreen extends StatelessWidget {
 }
 
 class _CounterWidget extends BoundWidget<CounterBinder> {
-  const _CounterWidget({required CounterBinder binder}) : super(binder: binder);
+  const _CounterWidget({required super.binder});
 
   @override
   Widget builder(BuildContext context, CounterBinder binder) {

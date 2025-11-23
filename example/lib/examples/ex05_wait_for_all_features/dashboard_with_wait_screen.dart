@@ -26,7 +26,7 @@ class DashboardWithWaitScreen extends StatelessWidget {
 }
 
 class _DashboardWithWaitWidget extends BoundWidget<DashboardWithWaitBinder> {
-  const _DashboardWithWaitWidget({required DashboardWithWaitBinder binder}) : super(binder: binder);
+  const _DashboardWithWaitWidget({required super.binder});
 
   @override
   Widget builder(BuildContext context, DashboardWithWaitBinder binder) {
