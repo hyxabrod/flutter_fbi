@@ -17,7 +17,7 @@ class DashboardScreen extends StatelessWidget {
 }
 
 class _DashboardWidget extends BoundWidget<DashboardBinder> {
-  const _DashboardWidget({required super.binder});
+  const _DashboardWidget({required DashboardBinder binder}) : super(binder: binder);
 
   @override
   Widget builder(BuildContext context, DashboardBinder binder) {

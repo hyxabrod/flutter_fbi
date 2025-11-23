@@ -706,13 +706,14 @@ class _DashboardWidget extends BoundWidget<DashboardBinder> {
 
 ## Testing
 
-Testing Features is straightforward with Flutter FBI—use the bundled `featureTest` helper by importing `package:flutter_fbi/flutter_fbi.dart`.
+Testing Features is straightforward with Flutter FBI. We provide a tiny test helper package, `flutter_fbi_test`, which exposes the `featureTest` helper used in the examples below. Install it in your `dev_dependencies` and import it in tests:
 
 <details>
 <summary><span style="color: purple;">Click to expand</span> Test dependency setup</summary>
 
 ```yaml
 dev_dependencies:
+  flutter_fbi_test: ^0.1.8
   flutter_test:
     sdk: flutter
 ```
@@ -725,7 +726,7 @@ Use `featureTest` to verify a feature's emitted states and side effects in a con
 <summary><span style="color: purple;">Click to expand</span> featureTest usage example</summary>
 
 ```dart
-import 'package:flutter_fbi/flutter_fbi.dart';
+import 'package:flutter_fbi_test/flutter_fbi_test.dart';
 
 featureTest<CounterEvent, CounterState, SideEffect>(
   'increments twice',
@@ -752,7 +753,7 @@ featureTest<CounterEvent, CounterState, SideEffect>(
 - **Seed States**: Set initial states before testing with `seed`
 - **Skip Options**: Skip initial states with `skip` parameter
 
-Feature testing uses the same helper already described above.
+See the `flutter_fbi_test` package for the helper and examples: https://pub.dev/packages/flutter_fbi_test
 
 ## Why Flutter FBI?
 

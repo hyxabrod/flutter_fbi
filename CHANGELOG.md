@@ -1,10 +1,5 @@
 # Changelog
 
-## Unreleased
-
-## [1.5.7] - 2025-11-23
-- Bundled the `featureTest` helper into the main package so tests import `package:flutter_fbi/flutter_fbi.dart` instead of a separate `flutter_fbi_test` dependency.
-
 ## [1.5.6] - 2025-11-14
 - Updated dependencies
 

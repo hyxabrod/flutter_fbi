@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_fbi/flutter_fbi.dart' show featureTest;
+import 'package:flutter_fbi_test/flutter_fbi_test.dart';
 import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_feature.dart';
 import 'package:flutter_fbi_example/examples/ex03_feature_with_side_effect/auth_entities.dart';
 

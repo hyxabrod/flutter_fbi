@@ -48,8 +48,10 @@ class DashboardWithWaitBinder extends MultiFeatureBinder<DashboardWithWaitState>
   // Store start times to calculate load duration
   final Map<String, DateTime> _loadStartTimes = {};
 
-  DashboardWithWaitBinder({required super.context, required super.features})
+  DashboardWithWaitBinder({required BuildContext context, required List<Feature> features})
       : super(
+          context: context,
+          features: features,
           shouldWaitForAllFeatures: true, // When true: UI only updates after all features have emitted their states
           uiStatePreprocessor: () => const DashboardWithWaitState(
             isLoading: true,
