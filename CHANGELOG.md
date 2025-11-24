@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.7] - 2025-11-24
+- Minor changes
+
 ## [1.5.6] - 2025-11-14
 - Updated dependencies
 
