@@ -50,7 +50,7 @@ The architecture follows the **"One Widget → One Binder"** principle, ensuring
 
 ```yaml
 dependencies:
-  flutter_fbi: ^1.5.5
+  flutter_fbi: ^1.5.7
 ```
 
 ## Components
