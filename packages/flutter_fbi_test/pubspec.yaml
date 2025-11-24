@@ -1,6 +1,6 @@
 name: flutter_fbi_test
 description: Testing helpers for the Flutter FBI library (featureTest helper).
-version: 0.1.8
+version: 0.1.9
 homepage: https://github.com/hyxabrod/flutter_fbi
 repository: https://github.com/hyxabrod/flutter_fbi
 environment:

@@ -16,7 +16,7 @@ Add to your `dev_dependencies` in `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  flutter_fbi_test: ^0.1.8
+  flutter_fbi_test: ^0.1.9
   flutter_test:
     sdk: flutter
 ```

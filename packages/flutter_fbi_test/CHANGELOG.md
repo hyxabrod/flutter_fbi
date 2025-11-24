@@ -1,6 +1,9 @@
 
 # Changelog
 
+## [0.1.8] - 2025-11-24
+- Minor chages
+
 ## [0.1.8] - 2025-11-14
 - Remove the 'wait' parameter 
 
